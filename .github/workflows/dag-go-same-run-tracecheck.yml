@@ -1,0 +1,31 @@
+name: eBPF same-run typed/raw tracepoint validation (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Build same pinned dag-go consumer
+        run: go build -o bin/iobench ./cmd/iobench
+      - name: eBPF typed-vs-raw same-run counters
+        run: python3 scripts/same_run_tracecheck.py
+      - name: Preserve results (including failure)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ebpf-same-run-${{ github.run_id }}
+          path: results/e004/
+          if-no-files-found: warn
+          retention-days: 30
