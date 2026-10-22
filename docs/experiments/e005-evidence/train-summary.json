@@ -1,0 +1,240 @@
+{
+  "train-small": {
+    "readall": {
+      "native": {
+        "n": 10,
+        "median_ms": 2.6254999999999997,
+        "mean_ms": 2.5918476999999998,
+        "cv": 0.05437864421209669,
+        "min_ms": 2.33402,
+        "max_ms": 2.855276,
+        "median_alloc_bytes": 3514352.0,
+        "median_maxrss_kib": 18804.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 2.796847,
+        "mean_ms": 2.7692533999999998,
+        "cv": 0.02839261551477814,
+        "min_ms": 2.638763,
+        "max_ms": 2.834924,
+        "median_alloc_bytes": 3514488,
+        "median_maxrss_kib": 41720,
+        "syscalls": {
+          "read": 215,
+          "write": 13,
+          "copy_file_range": 0,
+          "openat": 32,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 3.88236,
+        "mean_ms": 3.88236,
+        "cv": null,
+        "min_ms": 3.88236,
+        "max_ms": 3.88236,
+        "median_alloc_bytes": 8390768,
+        "median_maxrss_kib": 18804
+      }
+    },
+    "buffered": {
+      "native": {
+        "n": 10,
+        "median_ms": 1.1551874999999998,
+        "mean_ms": 1.1389081,
+        "cv": 0.06863831052333859,
+        "min_ms": 1.002906,
+        "max_ms": 1.226698,
+        "median_alloc_bytes": 89304.0,
+        "median_maxrss_kib": 18804.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 1.143216,
+        "mean_ms": 1.1845376,
+        "cv": 0.15019147236810004,
+        "min_ms": 0.981312,
+        "max_ms": 1.395665,
+        "median_alloc_bytes": 86128,
+        "median_maxrss_kib": 41632,
+        "syscalls": {
+          "read": 47,
+          "write": 25,
+          "copy_file_range": 0,
+          "openat": 32,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 2.133624,
+        "mean_ms": 2.133624,
+        "cv": null,
+        "min_ms": 2.133624,
+        "max_ms": 2.133624,
+        "median_alloc_bytes": 5016384,
+        "median_maxrss_kib": 18804
+      }
+    },
+    "optimized": {
+      "native": {
+        "n": 10,
+        "median_ms": 1.109156,
+        "mean_ms": 1.1223546,
+        "cv": 0.12479625894103219,
+        "min_ms": 0.951062,
+        "max_ms": 1.407661,
+        "median_alloc_bytes": 88296.0,
+        "median_maxrss_kib": 18804.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 1.179306,
+        "mean_ms": 1.1406832,
+        "cv": 0.10305467682483503,
+        "min_ms": 0.988232,
+        "max_ms": 1.286852,
+        "median_alloc_bytes": 89672,
+        "median_maxrss_kib": 41628,
+        "syscalls": {
+          "read": 11,
+          "write": 1,
+          "copy_file_range": 24,
+          "openat": 32,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 2.126039,
+        "mean_ms": 2.126039,
+        "cv": null,
+        "min_ms": 2.126039,
+        "max_ms": 2.126039,
+        "median_alloc_bytes": 4988872,
+        "median_maxrss_kib": 18804
+      }
+    }
+  },
+  "train-large": {
+    "readall": {
+      "native": {
+        "n": 10,
+        "median_ms": 29.255139,
+        "mean_ms": 29.3277502,
+        "cv": 0.11565791028147901,
+        "min_ms": 22.324631,
+        "max_ms": 35.746539,
+        "median_alloc_bytes": 84818088.0,
+        "median_maxrss_kib": 23318.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 27.066118,
+        "mean_ms": 29.181777999999998,
+        "cv": 0.10566172604134716,
+        "min_ms": 26.818523,
+        "max_ms": 32.624112,
+        "median_alloc_bytes": 84811680,
+        "median_maxrss_kib": 41628,
+        "syscalls": {
+          "read": 260,
+          "write": 10,
+          "copy_file_range": 0,
+          "openat": 24,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 23.279806,
+        "mean_ms": 23.279806,
+        "cv": null,
+        "min_ms": 23.279806,
+        "max_ms": 23.279806,
+        "median_alloc_bytes": 89781520,
+        "median_maxrss_kib": 29936
+      }
+    },
+    "buffered": {
+      "native": {
+        "n": 10,
+        "median_ms": 3.399586,
+        "mean_ms": 3.4644956,
+        "cv": 0.0826938666309759,
+        "min_ms": 3.138927,
+        "max_ms": 4.040988,
+        "median_alloc_bytes": 69616.0,
+        "median_maxrss_kib": 19112.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 3.884779,
+        "mean_ms": 3.8171226,
+        "cv": 0.10102431474193804,
+        "min_ms": 3.355932,
+        "max_ms": 4.313128,
+        "median_alloc_bytes": 59488,
+        "median_maxrss_kib": 41652,
+        "syscalls": {
+          "read": 531,
+          "write": 513,
+          "copy_file_range": 0,
+          "openat": 24,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 4.917193,
+        "mean_ms": 4.917193,
+        "cv": null,
+        "min_ms": 4.917193,
+        "max_ms": 4.917193,
+        "median_alloc_bytes": 4968808,
+        "median_maxrss_kib": 19112
+      }
+    },
+    "optimized": {
+      "native": {
+        "n": 10,
+        "median_ms": 2.877649,
+        "mean_ms": 2.9717512,
+        "cv": 0.09801820563455861,
+        "min_ms": 2.49042,
+        "max_ms": 3.42237,
+        "median_alloc_bytes": 76440.0,
+        "median_maxrss_kib": 19112.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 2.8032,
+        "mean_ms": 2.8523747999999998,
+        "cv": 0.05686282938409388,
+        "min_ms": 2.678849,
+        "max_ms": 3.114797,
+        "median_alloc_bytes": 64584,
+        "median_maxrss_kib": 41724,
+        "syscalls": {
+          "read": 11,
+          "write": 1,
+          "copy_file_range": 16,
+          "openat": 24,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 4.376671,
+        "mean_ms": 4.376671,
+        "cv": null,
+        "min_ms": 4.376671,
+        "max_ms": 4.376671,
+        "median_alloc_bytes": 4992288,
+        "median_maxrss_kib": 19112
+      }
+    }
+  }
+}

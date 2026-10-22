@@ -1,12 +1,14 @@
 # eBPF Agent Performance Evidence PoC
 
-**Status: eBPF feasibility E001 PASS on GitHub-hosted Ubuntu 24.04; performance value NOT YET TESTED.**
+**Status: E001 eBPF feasibility PASS; E005 corrected kernel measurement PASS; extra implementation-ranking value NOT DEMONSTRATED. Final PoC hypothesis remains OPEN.**
 
 ## Experiment evidence
 
 - [Required experiment record policy](docs/EXPERIMENT_RECORD_POLICY.md) · [new report template](docs/experiments/TEMPLATE.md)
 - [E001 — GitHub Actions eBPF capability report, failures and immutable evidence](docs/experiments/2026-10-22-github-actions-ebpf.md)
 - [E001 passing Actions run (500 observed getpid calls)](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39749779719)
+- [E002–E004 historical results and measurement-method correction](docs/experiments/E004-RESULT.md)
+- [E005 corrected experiment, full raw evidence and limitations](docs/experiments/E005-RESULT.md)
 - Manually invoke the `eBPF capability probe (manual)` workflow; it does not trigger for untrusted pull requests.
 
 ## Hypothesis

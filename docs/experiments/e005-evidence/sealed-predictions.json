@@ -1,0 +1,28 @@
+{
+  "go_only": {
+    "choice": "optimized",
+    "scores": {
+      "readall": 6.266724263228122,
+      "buffered": 1.1114387808641049,
+      "optimized": 1.0
+    },
+    "evidence": "go-only",
+    "rule": "minimum equally weighted normalized training latency",
+    "kernel_event_density": {}
+  },
+  "go_and_ebpf": {
+    "choice": "optimized",
+    "scores": {
+      "readall": 6.266724263228122,
+      "buffered": 1.1114387808641049,
+      "optimized": 1.0
+    },
+    "evidence": "go+ebpf",
+    "rule": "among candidates within 5% training latency, prefer smaller observed kernel read/write/copy_file_range event density",
+    "kernel_event_density": {
+      "readall": 0.048034874765319945,
+      "buffered": 0.1847118806198932,
+      "optimized": 0.021093638339341098
+    }
+  }
+}
