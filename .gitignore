@@ -1,0 +1,8 @@
+results/*
+!results/.gitkeep
+bin/
+vendor/
+*.prof
+*.trace
+*.test
+*.out
