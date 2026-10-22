@@ -1,0 +1,66 @@
+name: R001 selective eBPF value and resource cost (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: r001-value-cost
+  cancel-in-progress: false
+
+jobs:
+  measure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      GOMAXPROCS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout exact source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Source and capability provenance
+        run: |
+          mkdir -p results/r001
+          git rev-parse HEAD > results/r001/source-sha.txt
+          uname -a > results/r001/kernel.txt
+          test "$(uname -m)" = x86_64
+          bpftrace --version > results/r001/bpftrace-version.txt
+          sha256sum "$(command -v bpftrace)" > results/r001/bpftrace-binary-sha256.txt
+          sudo bpftrace -l 'tracepoint:raw_syscalls:*' > results/r001/tracepoints.txt
+          go version > results/r001/go-version.txt
+          go env > results/r001/go-env.txt
+      - name: Correctness race and static checks
+        run: |
+          go test -count=1 ./... > results/r001/tests.log 2>&1
+          go test -race -count=1 ./cmd/costbench >> results/r001/tests.log 2>&1
+          go vet ./... > results/r001/vet.log 2>&1
+          python3 -m unittest discover -s experiments/value-cost -p 'test_*.py' > results/r001/python-tests.log 2>&1
+          test -z "$(gofmt -l cmd/costbench)"
+          go build -o bin/costbench ./cmd/costbench
+      - name: Fixed acquisition with zero and exact-count controls
+        run: python3 experiments/value-cost/run.py --phase acquire --root results/r001 --binary bin/costbench
+      - name: Seal timing choices and materialize Go evidence
+        run: python3 experiments/value-cost/analyze.py seal results/r001
+      - name: Native holdout validation
+        run: python3 experiments/value-cost/run.py --phase holdout --root results/r001 --binary bin/costbench
+      - name: Cost and paired uncertainty summaries
+        run: python3 experiments/value-cost/analyze.py evaluate results/r001
+      - name: Seal complete evidence after all writers exit
+        if: always()
+        run: python3 experiments/value-cost/analyze.py manifest results/r001
+      - name: Preserve full evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: r001-value-cost-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/r001/
+          retention-days: 30
+          if-no-files-found: error
