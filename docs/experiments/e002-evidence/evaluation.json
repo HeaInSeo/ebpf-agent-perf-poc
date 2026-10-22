@@ -1,0 +1,21 @@
+{
+  "choices": {
+    "go_only": "optimized",
+    "go_and_ebpf": "optimized"
+  },
+  "holdout_relative_scores": {
+    "readall": 7.666993066807631,
+    "buffered": 1.274739272499563,
+    "optimized": 1.0
+  },
+  "regret_pct": {
+    "go_only": 0.0,
+    "go_and_ebpf": 0.0
+  },
+  "delta_regret_pct_points": 0.0,
+  "max_holdout_native_cv": 0.11373763125802856,
+  "median_ebpf_overhead_ratio_train": 0.9877425806168345,
+  "decision_noise_threshold_pct_points": 22.747526251605713,
+  "verdict": "NO_ADDITIONAL_RANKING_VALUE_DEMONSTRATED",
+  "limitation": "Rule-based selectors were held out from validation outcomes, but no independent AI agent evaluation; not proof of AI decision improvement."
+}

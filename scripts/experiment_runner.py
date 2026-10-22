@@ -20,11 +20,13 @@ CASES = {
  "holdout-wide": (24, 1048576, 8, "fanout"),
  "holdout-deep": (8, 8388608, 2, "chain"),
 }
-BPF = """tracepoint:syscalls:sys_enter_read /pid == cpid/ { @read = count(); }
-tracepoint:syscalls:sys_enter_write /pid == cpid/ { @write = count(); }
-tracepoint:syscalls:sys_enter_openat /pid == cpid/ { @openat = count(); }
-tracepoint:syscalls:sys_enter_copy_file_range /pid == cpid/ { @copy_file_range = count(); }
-tracepoint:syscalls:sys_enter_close /pid == cpid/ { @close = count(); }"""
+# x86_64 Linux syscall IDs; raw_syscalls was independently matched to strace in E003.
+# E004 proved typed sys_enter_write undercounted; do not use it for attribution.
+BPF = """tracepoint:raw_syscalls:sys_enter /pid == cpid && args->id == 0/ { @read = count(); }
+tracepoint:raw_syscalls:sys_enter /pid == cpid && args->id == 1/ { @write = count(); }
+tracepoint:raw_syscalls:sys_enter /pid == cpid && args->id == 257/ { @openat = count(); }
+tracepoint:raw_syscalls:sys_enter /pid == cpid && args->id == 326/ { @copy_file_range = count(); }
+tracepoint:raw_syscalls:sys_enter /pid == cpid && args->id == 3/ { @close = count(); }"""
 
 def shell_version(*command):
  try:

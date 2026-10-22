@@ -1,0 +1,16 @@
+strace: Process 2352 attached
+strace: Process 2353 attached
+strace: Process 2354 attached
+strace: Process 2355 attached
+strace: Process 2356 attached
+strace: Process 2357 attached
+strace: Process 2358 attached
+[pid  2353] ???( <detached ...>
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 64.85    0.013823        1382        10           write
+ 30.15    0.006426          20       308           read
+  4.22    0.000900          37        24           openat
+  0.78    0.000166           7        23           close
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.021315          58       365           total

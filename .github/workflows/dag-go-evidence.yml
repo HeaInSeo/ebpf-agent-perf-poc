@@ -38,11 +38,9 @@ jobs:
       - name: Kernel capability check
         run: |
           uname -a
+          test "$(uname -m)" = x86_64
           bpftrace --version
-          for tp in read write openat close copy_file_range; do
-            name="tracepoint:syscalls:sys_enter_${tp}"
-            sudo bpftrace -l "$name" | grep -Fx "$name"
-          done
+          sudo bpftrace -l 'tracepoint:raw_syscalls:sys_enter' | grep -Fx 'tracepoint:raw_syscalls:sys_enter'
       - name: Short live proof before extended comparisons
         run: |
           python3 scripts/experiment_runner.py --phase train --output results/smoke-actions \

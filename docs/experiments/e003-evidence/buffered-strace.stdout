@@ -1,0 +1,1 @@
+{"bytes_copied":67108864,"completed":8,"duration_ns":150849787,"gc_cycles":0,"go_version":"go1.25.5","nodes":8,"process_maxrss_kib":5804,"shape":"chain","success":true,"total_alloc_bytes":66024,"variant":"buffered","workers":2}

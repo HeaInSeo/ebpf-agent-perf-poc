@@ -1,0 +1,14 @@
+strace: Process 2324 attached
+strace: Process 2325 attached
+strace: Process 2326 attached
+strace: Process 2327 attached
+strace: Process 2328 attached
+strace: Process 2329 attached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 61.35    0.027462          13      2049           write
+ 36.62    0.016391           7      2067           read
+  1.66    0.000741          30        24           openat
+  0.38    0.000171           7        23           close
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.044765          10      4163           total

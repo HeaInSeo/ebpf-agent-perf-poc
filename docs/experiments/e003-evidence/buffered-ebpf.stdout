@@ -1,0 +1,43 @@
+{"bytes_copied":67108864,"completed":8,"duration_ns":22192060,"gc_cycles":0,"go_version":"go1.25.5","nodes":8,"process_maxrss_kib":41612,"shape":"chain","success":true,"total_alloc_bytes":51416,"variant":"buffered","workers":2}
+
+
+@syscall_id[21]: 1
+@syscall_id[98]: 1
+@syscall_id[158]: 1
+@syscall_id[218]: 1
+@syscall_id[231]: 1
+@syscall_id[59]: 1
+@syscall_id[290]: 1
+@syscall_id[291]: 1
+@syscall_id[28]: 2
+@syscall_id[24]: 2
+@syscall_id[318]: 2
+@syscall_id[262]: 2
+@syscall_id[204]: 3
+@syscall_id[12]: 3
+@syscall_id[5]: 3
+@syscall_id[39]: 4
+@syscall_id[15]: 4
+@syscall_id[302]: 4
+@syscall_id[17]: 4
+@syscall_id[234]: 4
+@syscall_id[281]: 5
+@syscall_id[435]: 6
+@syscall_id[334]: 7
+@syscall_id[186]: 7
+@syscall_id[273]: 7
+@syscall_id[11]: 7
+@syscall_id[10]: 14
+@syscall_id[131]: 14
+@syscall_id[233]: 17
+@syscall_id[3]: 24
+@syscall_id[257]: 24
+@syscall_id[157]: 27
+@syscall_id[14]: 39
+@syscall_id[9]: 47
+@syscall_id[72]: 70
+@syscall_id[35]: 83
+@syscall_id[13]: 114
+@syscall_id[202]: 120
+@syscall_id[1]: 2049
+@syscall_id[0]: 2067

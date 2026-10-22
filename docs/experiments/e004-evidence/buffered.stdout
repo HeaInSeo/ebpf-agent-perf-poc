@@ -1,0 +1,9 @@
+{"bytes_copied":67108864,"completed":8,"duration_ns":30784821,"gc_cycles":0,"go_version":"go1.25.5","nodes":8,"process_maxrss_kib":41628,"shape":"chain","success":true,"total_alloc_bytes":52936,"variant":"buffered","workers":2}
+
+
+@named_cfr: 0
+@named_read: 2067
+@named_write: 1
+@raw_cfr: 0
+@raw_read: 2067
+@raw_write: 2049

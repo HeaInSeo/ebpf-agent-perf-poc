@@ -1,0 +1,240 @@
+{
+  "train-small": {
+    "readall": {
+      "native": {
+        "n": 10,
+        "median_ms": 2.582148,
+        "mean_ms": 2.6769139,
+        "cv": 0.08834714349745781,
+        "min_ms": 2.422715,
+        "max_ms": 3.082719,
+        "median_alloc_bytes": 3511140.0,
+        "median_maxrss_kib": 18968.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 2.753302,
+        "mean_ms": 2.7228704,
+        "cv": 0.047706688918984747,
+        "min_ms": 2.571976,
+        "max_ms": 2.879538,
+        "median_alloc_bytes": 3509784,
+        "median_maxrss_kib": 33904,
+        "syscalls": {
+          "read": 215,
+          "write": 3,
+          "copy_file_range": 0,
+          "openat": 13,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 3.270199,
+        "mean_ms": 3.270199,
+        "cv": null,
+        "min_ms": 3.270199,
+        "max_ms": 3.270199,
+        "median_alloc_bytes": 8381248,
+        "median_maxrss_kib": 18968
+      }
+    },
+    "buffered": {
+      "native": {
+        "n": 10,
+        "median_ms": 1.249013,
+        "mean_ms": 1.2456513,
+        "cv": 0.14182756105552097,
+        "min_ms": 0.971928,
+        "max_ms": 1.493779,
+        "median_alloc_bytes": 93180.0,
+        "median_maxrss_kib": 18968.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 1.099798,
+        "mean_ms": 1.1740126,
+        "cv": 0.1583355859291654,
+        "min_ms": 1.005845,
+        "max_ms": 1.475633,
+        "median_alloc_bytes": 90528,
+        "median_maxrss_kib": 33904,
+        "syscalls": {
+          "read": 47,
+          "write": 7,
+          "copy_file_range": 0,
+          "openat": 11,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 2.136968,
+        "mean_ms": 2.136968,
+        "cv": null,
+        "min_ms": 2.136968,
+        "max_ms": 2.136968,
+        "median_alloc_bytes": 4990128,
+        "median_maxrss_kib": 18968
+      }
+    },
+    "optimized": {
+      "native": {
+        "n": 10,
+        "median_ms": 1.283863,
+        "mean_ms": 1.2484562,
+        "cv": 0.11043224669002899,
+        "min_ms": 0.940701,
+        "max_ms": 1.383517,
+        "median_alloc_bytes": 93480.0,
+        "median_maxrss_kib": 18968.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 1.194013,
+        "mean_ms": 1.2438636,
+        "cv": 0.17043706216247187,
+        "min_ms": 1.087876,
+        "max_ms": 1.610863,
+        "median_alloc_bytes": 93656,
+        "median_maxrss_kib": 33872,
+        "syscalls": {
+          "read": 11,
+          "write": 1,
+          "copy_file_range": 24,
+          "openat": 11,
+          "close": 32
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 2.05552,
+        "mean_ms": 2.05552,
+        "cv": null,
+        "min_ms": 2.05552,
+        "max_ms": 2.05552,
+        "median_alloc_bytes": 5002536,
+        "median_maxrss_kib": 18968
+      }
+    }
+  },
+  "train-large": {
+    "readall": {
+      "native": {
+        "n": 10,
+        "median_ms": 31.603885,
+        "mean_ms": 31.8797909,
+        "cv": 0.1322580222858769,
+        "min_ms": 26.509677,
+        "max_ms": 38.301328,
+        "median_alloc_bytes": 84822496.0,
+        "median_maxrss_kib": 24628.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 31.528754,
+        "mean_ms": 31.3261704,
+        "cv": 0.13535082516902344,
+        "min_ms": 24.85382,
+        "max_ms": 36.683231,
+        "median_alloc_bytes": 84813344,
+        "median_maxrss_kib": 33992,
+        "syscalls": {
+          "read": 260,
+          "write": 3,
+          "copy_file_range": 0,
+          "openat": 4,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 24.906076,
+        "mean_ms": 24.906076,
+        "cv": null,
+        "min_ms": 24.906076,
+        "max_ms": 24.906076,
+        "median_alloc_bytes": 89799144,
+        "median_maxrss_kib": 29092
+      }
+    },
+    "buffered": {
+      "native": {
+        "n": 10,
+        "median_ms": 3.793459,
+        "mean_ms": 3.8770486,
+        "cv": 0.09576599963592934,
+        "min_ms": 3.364968,
+        "max_ms": 4.48784,
+        "median_alloc_bytes": 66728.0,
+        "median_maxrss_kib": 19060.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 3.978707,
+        "mean_ms": 4.1132806,
+        "cv": 0.14502435287463575,
+        "min_ms": 3.465695,
+        "max_ms": 5.009016,
+        "median_alloc_bytes": 61184,
+        "median_maxrss_kib": 33904,
+        "syscalls": {
+          "read": 531,
+          "write": 128,
+          "copy_file_range": 0,
+          "openat": 11,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 6.541735,
+        "mean_ms": 6.541735,
+        "cv": null,
+        "min_ms": 6.541735,
+        "max_ms": 6.541735,
+        "median_alloc_bytes": 4981424,
+        "median_maxrss_kib": 19060
+      }
+    },
+    "optimized": {
+      "native": {
+        "n": 10,
+        "median_ms": 3.0035819999999998,
+        "mean_ms": 3.106574,
+        "cv": 0.11659815386029058,
+        "min_ms": 2.693087,
+        "max_ms": 3.664823,
+        "median_alloc_bytes": 77300.0,
+        "median_maxrss_kib": 19060.0
+      },
+      "ebpf": {
+        "n": 5,
+        "median_ms": 2.93709,
+        "mean_ms": 3.0039556,
+        "cv": 0.06795591379791507,
+        "min_ms": 2.846266,
+        "max_ms": 3.336857,
+        "median_alloc_bytes": 74224,
+        "median_maxrss_kib": 33904,
+        "syscalls": {
+          "read": 11,
+          "write": 0,
+          "copy_file_range": 16,
+          "openat": 5,
+          "close": 24
+        }
+      },
+      "goprof": {
+        "n": 1,
+        "median_ms": 4.30024,
+        "mean_ms": 4.30024,
+        "cv": null,
+        "min_ms": 4.30024,
+        "max_ms": 4.30024,
+        "median_alloc_bytes": 4985008,
+        "median_maxrss_kib": 19060
+      }
+    }
+  }
+}

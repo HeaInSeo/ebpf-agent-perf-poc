@@ -1,0 +1,15 @@
+strace: Process 2381 attached
+strace: Process 2382 attached
+strace: Process 2383 attached
+strace: Process 2384 attached
+strace: Process 2385 attached
+strace: Process 2386 attached
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 95.29    0.016644        1040        16           copy_file_range
+  2.82    0.000492          20        24           openat
+  0.98    0.000172          15        11           read
+  0.76    0.000132           5        23           close
+  0.15    0.000026          26         1           write
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.017466         232        75           total

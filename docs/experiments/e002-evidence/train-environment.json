@@ -1,0 +1,64 @@
+{
+  "phase": "train",
+  "epoch_utc": 1792660132,
+  "git": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit": 0,
+    "stdout": "352d27a36e45782f4fdb85bc501ccb5da77aaf4d",
+    "stderr": ""
+  },
+  "go": {
+    "command": [
+      "go",
+      "version"
+    ],
+    "exit": 0,
+    "stdout": "go version go1.25.5 linux/amd64",
+    "stderr": ""
+  },
+  "uname": {
+    "command": [
+      "uname",
+      "-a"
+    ],
+    "exit": 0,
+    "stdout": "Linux runnervmxehtw 7.0.0-1017-azure #17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux",
+    "stderr": ""
+  },
+  "bpftrace": {
+    "command": [
+      "bpftrace",
+      "--version"
+    ],
+    "exit": 0,
+    "stdout": "bpftrace v0.20.2",
+    "stderr": ""
+  },
+  "cpuinfo": "x86_64",
+  "python": "3.12.3",
+  "github_run_id": "39753049985",
+  "github_sha": "352d27a36e45782f4fdb85bc501ccb5da77aaf4d",
+  "gomaxprocs": "4",
+  "cases": {
+    "train-small": [
+      12,
+      65536,
+      4,
+      "fanout"
+    ],
+    "train-large": [
+      8,
+      2097152,
+      4,
+      "fanout"
+    ]
+  },
+  "seed": 20261022,
+  "repeats": 10,
+  "ebpf_repeats": 5,
+  "validation": "sha256 all output files after each trial"
+}
