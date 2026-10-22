@@ -1,0 +1,40 @@
+name: dag-go syscall tracing cross-check (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  crosscheck:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Build exact same DAG file-I/O variants
+        run: go build -o bin/iobench ./cmd/iobench
+      - name: Install strace if unavailable
+        run: |
+          if ! command -v strace >/dev/null; then
+            sudo apt-get update -qq
+            sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y strace
+          fi
+          strace -V
+          bpftrace --version
+          uname -a
+      - name: Crosscheck syscall counters (do not modify E002 verdict)
+        run: python3 scripts/crosscheck_syscalls.py
+      - name: Preserve raw diagnostic evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dag-go-syscall-crosscheck-${{ github.run_id }}
+          path: results/e003/
+          retention-days: 30
+          if-no-files-found: warn
