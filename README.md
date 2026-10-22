@@ -4,6 +4,7 @@
 
 ## Experiment evidence
 
+- [Required experiment record policy](docs/EXPERIMENT_RECORD_POLICY.md) · [new report template](docs/experiments/TEMPLATE.md)
 - [E001 — GitHub Actions eBPF capability report, failures and immutable evidence](docs/experiments/2026-10-22-github-actions-ebpf.md)
 - [E001 passing Actions run (500 observed getpid calls)](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39749779719)
 - Manually invoke the `eBPF capability probe (manual)` workflow; it does not trigger for untrusted pull requests.
