@@ -9,3 +9,4 @@ go build -o ./bin/benchrun ./cmd/benchrun
 file="results/go-only-$(date -u +%Y%m%dT%H%M%SZ).jsonl"
 for ((i=0;i<runs;i++)); do ./bin/benchrun -shape fanout -nodes 100 -workers 8 -spins 10000 >>"$file"; done
 echo "$file"
+python3 scripts/summarize.py "$file"

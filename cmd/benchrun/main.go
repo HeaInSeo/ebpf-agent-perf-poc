@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	dag "github.com/HeaInSeo/dag-go"
+	"io"
 	"os"
 	"runtime"
 	"runtime/debug"
@@ -113,6 +114,7 @@ func run(shape string, n, workers, spins int, cpuProfile string) (result, error)
 	return r, nil
 }
 func main() {
+	dag.Log.SetOutput(io.Discard)
 	shape := flag.String("shape", "fanout", "chain or fanout")
 	nodes := flag.Int("nodes", 100, "number of task nodes")
 	workers := flag.Int("workers", 8, "concurrent RunE limit")
