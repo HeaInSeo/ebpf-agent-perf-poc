@@ -1,0 +1,71 @@
+name: dag-go eBPF added-value experiment (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dag-go-evidence-manual
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GOMAXPROCS: "4"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - name: Checkout exact PoC source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install Go from go.mod
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Baseline code tests and source provenance
+        run: |
+          go version
+          go env GOMOD
+          go list -m -json github.com/HeaInSeo/dag-go
+          go test -count=1 ./...
+          go test -race -count=1 ./cmd/iobench
+          go vet ./...
+          go build -o bin/iobench ./cmd/iobench
+      - name: Kernel capability check
+        run: |
+          uname -a
+          bpftrace --version
+          for tp in read write openat close copy_file_range; do
+            name="tracepoint:syscalls:sys_enter_${tp}"
+            sudo bpftrace -l "$name" | grep -Fx "$name"
+          done
+      - name: Short live proof before extended comparisons
+        run: |
+          python3 scripts/experiment_runner.py --phase train --output results/smoke-actions \
+            --binary bin/iobench --smoke
+      - name: Pre-registered training runs
+        run: |
+          python3 scripts/experiment_runner.py --phase train --output results/e002 \
+            --binary bin/iobench --repeats 10 --ebpf-repeats 5
+      - name: Seal Go-only and Go+eBPF choices (no holdout read)
+        run: python3 scripts/analyze_experiment.py --phase seal-train --output results/e002
+      - name: Independent held-out workloads
+        run: |
+          python3 scripts/experiment_runner.py --phase holdout --output results/e002 \
+            --binary bin/iobench --repeats 10 --ebpf-repeats 5
+      - name: Score presealed choices on holdout
+        run: python3 scripts/analyze_experiment.py --phase evaluate-holdout --output results/e002
+      - name: Upload full experiment records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dag-go-evidence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            results/e002/
+            results/smoke-actions/
+          retention-days: 30
+          if-no-files-found: warn

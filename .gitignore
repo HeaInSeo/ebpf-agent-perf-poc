@@ -6,3 +6,5 @@ vendor/
 *.trace
 *.test
 *.out
+__pycache__/
+*.pyc
