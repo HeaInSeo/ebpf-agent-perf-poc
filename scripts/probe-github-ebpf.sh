@@ -42,7 +42,7 @@ echo "Attaching eBPF tracepoint and issuing target getpid() syscalls"
 # timeout makes hangs observable instead of consuming the job indefinitely.
 set +e
 timeout -s INT -k 5s 40s sudo bpftrace -q \
-  -c "/usr/bin/python3 -c 'import os; [os.getpid() for _ in range(500)]'" \
+  -c "/usr/bin/python3 scripts/probe-getpid-target.py" \
   -e 'tracepoint:syscalls:sys_enter_getpid /pid == cpid/ { @target_getpid = count(); }' \
   > "$OUT/trace.log" 2> "$OUT/trace-stderr.log"
 rc=$?
