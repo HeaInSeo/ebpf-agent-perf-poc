@@ -31,12 +31,45 @@ child process? No dag-go execution or performance claims are in scope.
 - Correction: commit a standalone Python target and launch via
   `-c "/usr/bin/python3 scripts/probe-getpid-target.py"`.
 
-## Follow-up runs
+## Attempt 2 — PASS (corrected standalone target)
 
-Recorded after a fresh workflow execution; each attempt requires exact commit,
-timestamp, run URL, kernel/tool versions, actual positive/zero event counts,
-verdict, and if needed diagnosis and correction. Never overwrite an earlier
-attempt's observation to make the history appear clean.
+- UTC: 2026-10-22 08:42:47Z (KST 17:42:47).
+- Commit: `b7bf6418f2fa83195e6e0b72d1d89b65707f3d1b`.
+- [Actions run 39749779719](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39749779719).
+- [Original downloadable artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39749779719/artifacts/12411859963), SHA256 of zip:
+  `98f0e3caa8dbf179efc620b80f279731dc2576b4dbe05782c897d7163cf764c3`.
+- Runner image `ubuntu24`, version `20261018.339.1`.
+- Kernel `7.0.0-1017-azure`, x86_64, 4 CPUs; BTF present.
+- `unprivileged_bpf_disabled=2`, `perf_event_paranoid=4`; probe under `sudo`.
+- Tool: `bpftrace v0.20.2`; tracepoint `syscalls:sys_enter_getpid`.
+- Bpftrace exit `0`; child printed `target_getpid_calls=500`.
+- **Observed counter: `@target_getpid: 500`.** Exit-status `0`.
+- **Verdict: PASS**, in the narrow sense of successful kernel tracepoint
+  attachment and observation of all 500 getpid calls from the child.
+- Actions job completed successfully; all eight artifact files uploaded.
+
+## Frozen evidence snapshots
+
+The original GitHub Actions artifacts expire after 14 days. The following
+small, inspected raw text snapshots are also committed for permanent review:
+
+- [Attempt 1 raw evidence](e001-evidence/attempt-1-fail/)
+- [Attempt 2 raw evidence](e001-evidence/attempt-2-pass/)
+
+Each includes environment, bpftrace version, tracepoint discovery,
+stdout, stderr, bpftrace exit, workflow verdict and overall exit.
+These snapshots come directly from the corresponding GitHub Actions
+artifact downloads, with no normalization of values or omission of failures.
+
+## Experiment verdict
+
+**E001: PASS** — Github-hosted `ubuntu-24.04` supports the tested
+tracepoint eBPF program using `sudo bpftrace` on the recorded runner image/kernel.
+
+**Boundary:** this is a feasibility proof of one attached syscall tracepoint,
+not evidence that eBPF improves benchmark-based optimization decisions.
+The Go/eBPF comparison, tracing overhead, repeated stable measurements,
+concurrent DAG workloads and automated selection are separate gates.
 
 ## Interpretation, safety and preservation
 

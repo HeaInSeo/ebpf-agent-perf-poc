@@ -1,0 +1,1 @@
+PASS: eBPF loaded, attached to syscall tracepoint, collected 500 target getpid events

@@ -1,0 +1,1 @@
+FAIL: no target-process getpid tracepoint events observed

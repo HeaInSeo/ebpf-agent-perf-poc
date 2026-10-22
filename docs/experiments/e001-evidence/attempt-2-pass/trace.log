@@ -1,0 +1,4 @@
+target_getpid_calls=500
+
+
+@target_getpid: 500

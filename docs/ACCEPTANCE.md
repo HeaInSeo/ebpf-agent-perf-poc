@@ -3,6 +3,7 @@
 | Gate | Must demonstrate | Current |
 |---|---|---|
 | G0 scope | exact upstream commit pinned, upstream untouched | PASS (documented) |
+| E001 GitHub-hosted feasibility | exact run demonstrates eBPF tracepoint load, attach and positive child-process events | PASS — 500/500 events, [report](experiments/2026-10-22-github-actions-ebpf.md) |
 | G1 workload | end-to-end deterministic DAG success and cancellation tests | NOT VERIFIED |
 | G2 Go benchmark | >= 10 repeats and baseline variance reported | NOT RUN |
 | G3 kernel | dedicated VM capability preflight, controlled eBPF collection | NOT RUN |

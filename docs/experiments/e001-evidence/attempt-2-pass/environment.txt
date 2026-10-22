@@ -1,0 +1,12 @@
+utc=2026-10-22T08:42:47Z
+runner_os=Linux
+runner_image=ubuntu24
+runner_image_version=20261018.339.1
+repository_sha=b7bf6418f2fa83195e6e0b72d1d89b65707f3d1b
+kernel=Linux 7.0.0-1017-azure #17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026 x86_64
+architecture=x86_64
+uid=1001
+cpus=4
+btf=present
+/proc/sys/kernel/unprivileged_bpf_disabled=2
+/proc/sys/kernel/perf_event_paranoid=4

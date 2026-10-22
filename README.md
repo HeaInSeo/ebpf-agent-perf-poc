@@ -1,6 +1,12 @@
 # eBPF Agent Performance Evidence PoC
 
-**Status: implementation bootstrap; no performance conclusion yet.**
+**Status: eBPF feasibility E001 PASS on GitHub-hosted Ubuntu 24.04; performance value NOT YET TESTED.**
+
+## Experiment evidence
+
+- [E001 — GitHub Actions eBPF capability report, failures and immutable evidence](docs/experiments/2026-10-22-github-actions-ebpf.md)
+- [E001 passing Actions run (500 observed getpid calls)](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39749779719)
+- Manually invoke the `eBPF capability probe (manual)` workflow; it does not trigger for untrusted pull requests.
 
 ## Hypothesis
 
