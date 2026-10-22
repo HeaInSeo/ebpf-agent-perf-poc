@@ -1,0 +1,31 @@
+name: eBPF capability probe (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ebpf-probe:
+    name: Load and attach an eBPF tracepoint program
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Checkout audited repository code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Run capability and live tracepoint probe
+        shell: bash
+        run: bash scripts/probe-github-ebpf.sh
+
+      - name: Preserve probe results (including failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ebpf-capability-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/actions-ebpf-probe/
+          if-no-files-found: warn
+          retention-days: 14
