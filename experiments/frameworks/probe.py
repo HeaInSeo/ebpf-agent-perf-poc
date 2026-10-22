@@ -55,11 +55,24 @@ def line(process, timeout=30):
 
 def command(framework, pid):
     if framework == "bpftrace":
-        return ["bpftrace", "-q", "-B", "line", str(ROOT / "counter.bt"), str(pid)]
+        ready = f"/usr/bin/python3 {ROOT / 'bpftrace_ready.py'}"
+        return ["bpftrace", "-q", "-B", "line", "-c", ready, str(ROOT / "counter.bt"), str(pid)]
     if framework == "bcc":
-        return ["/usr/bin/python3", "-u", str(ROOT / "bcc.py"), str(pid)]
+        return ["/usr/bin/python3", "-u", str(ROOT / "bcc_collector.py"), str(pid)]
     obj = BUILD / ("aya-counter" if framework == "aya" else "counter.bpf.o")
     return [str(BUILD / framework), str(pid), str(obj)]
+
+
+def parse_counter(framework, stdout):
+    if framework == "bpftrace":
+        matches = re.findall(r"(?m)^@events:\s*(\d+)\s*$", stdout)
+        if len(matches) > 1:
+            raise ValueError("ambiguous bpftrace counter snapshots")
+        return int(matches[0]) if matches else 0
+    values = [json.loads(x) for x in stdout.splitlines() if x.startswith('{"observed"')]
+    if len(values) != 1 or type(values[0]["observed"]) is not int or values[0]["observed"] < 0:
+        raise ValueError("missing/invalid/ambiguous counter output")
+    return values[0]["observed"]
 
 
 def stop(process):
@@ -113,15 +126,7 @@ def trial(framework, directory, batches, negative_calls):
             result["collector_exit"] = collector.returncode
             if collector.returncode != 0:
                 raise RuntimeError(f"collector exit {collector.returncode}")
-            if framework == "bpftrace":
-                matches = re.findall(r"(?m)^@events:\s*(\d+)\s*$", stdout)
-                # An absent aggregation key is zero; positive trials reject absent output.
-                observed = int(matches[-1]) if matches else 0
-            else:
-                values = [json.loads(x) for x in stdout.splitlines() if x.startswith('{"observed"')]
-                if len(values) != 1:
-                    raise RuntimeError("missing/ambiguous counter output")
-                observed = values[0]["observed"]
+            observed = parse_counter(framework, stdout)
             result["observed"] = observed
             if observed != sum(batches):
                 raise RuntimeError(f"counter mismatch: expected={sum(batches)} observed={observed}")

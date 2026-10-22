@@ -14,17 +14,17 @@ case "$framework" in
       gcc -Wall -Wextra -Werror -O2 "$root/libbpf.c" -o "$root/build/libbpf" $(pkg-config --cflags --libs libbpf)
     else
       cd "$root/cilium"
-      go mod tidy
+      go mod download
       go mod verify
       go vet ./...
-      go build -trimpath -o "$root/build/cilium" .
+      go build -mod=readonly -trimpath -o "$root/build/cilium" .
       go version -m "$root/build/cilium"
     fi ;;
   aya)
     cargo +nightly-2025-09-01 install bpf-linker --version 0.9.15 --locked
-    cargo +nightly-2025-09-01 build --manifest-path "$root/aya-user/Cargo.toml" --release
+    cargo +nightly-2025-09-01 build --locked --manifest-path "$root/aya-user/Cargo.toml" --release
     cargo +nightly-2025-09-01 build --manifest-path "$root/aya-ebpf/Cargo.toml" \
-      --target bpfel-unknown-none -Z build-std=core --release
+      --target bpfel-unknown-none -Z build-std=core --release --locked
     cp "$root/aya-user/target/release/framework-aya" "$root/build/aya"
     cp "$root/aya-ebpf/target/bpfel-unknown-none/release/framework-counter" "$root/build/aya-counter"
     rustc +nightly-2025-09-01 -vV

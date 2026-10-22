@@ -1,4 +1,4 @@
-use aya::{maps::Array, programs::TracePoint, Ebpf};
+use aya::{maps::{Array, PerCpuArray}, programs::TracePoint, Ebpf};
 use std::{env, error::Error};
 
 fn main() -> Result<(), Box<dyn Error>> {
@@ -27,8 +27,8 @@ fn main() -> Result<(), Box<dyn Error>> {
     std::io::stdout().flush()?;
     let mut received = 0;
     if unsafe { libc::sigwait(&set, &mut received) } != 0 { return Err("sigwait failed".into()); }
-    let counts = Array::<_, u64>::try_from(bpf.map("COUNTS").ok_or("COUNTS missing")?)?;
-    let value = counts.get(&0, 0)?;
+    let counts = PerCpuArray::<_, u64>::try_from(bpf.map("COUNTS").ok_or("COUNTS missing")?)?;
+    let value: u64 = counts.get(&0, 0)?.iter().sum();
     drop(bpf);
     println!("{{\"observed\":{value}}}");
     Ok(())

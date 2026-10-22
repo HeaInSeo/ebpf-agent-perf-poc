@@ -58,6 +58,7 @@ jobs:
           FRAMEWORK: ${{ matrix.framework }}
         run: |
           set -o pipefail
+          python3 -m unittest discover -s experiments/frameworks -p test_probe.py
           bash experiments/frameworks/build.sh "$FRAMEWORK" 2>&1 | tee "results/f001/$FRAMEWORK/build.log"
       - name: Exact count, PID isolation and cleanup (9 trials)
         env:
