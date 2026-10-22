@@ -1,0 +1,19 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 70.50ms, 99.79% of 70.66ms total
+Dropped 10 nodes (cum <= 0.35ms)
+      flat  flat%   sum%        cum   cum%
+   37.99ms 53.77% 53.77%    37.99ms 53.77%  syscall.write
+   32.51ms 46.01% 99.79%    32.51ms 46.01%  syscall.Seek
+         0     0% 99.79%    32.51ms 46.01%  internal/poll.(*FD).Seek
+         0     0% 99.79%    37.99ms 53.77%  internal/poll.(*FD).Write
+         0     0% 99.79%    38.14ms 53.99%  internal/poll.ignoringEINTRIO
+         0     0% 99.79%    37.59ms 53.21%  main.copyStream
+         0     0% 99.79%    70.10ms 99.22%  main.main
+         0     0% 99.79%    70.10ms 99.22%  main.run
+         0     0% 99.79%    32.51ms 46.01%  os.(*File).Seek
+         0     0% 99.79%    37.99ms 53.77%  os.(*File).Write
+         0     0% 99.79%    32.51ms 46.01%  os.(*File).seek
+         0     0% 99.79%    37.99ms 53.77%  os.(*File).write
+         0     0% 99.79%     0.40ms  0.57%  runtime/trace.(*traceMultiplexer).startLocked.func1
+         0     0% 99.79%    37.99ms 53.77%  syscall.Write

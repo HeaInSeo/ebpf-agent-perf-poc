@@ -1,0 +1,21 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 49.93ms, 99.74% of 50.06ms total
+Dropped 7 nodes (cum <= 0.25ms)
+      flat  flat%   sum%        cum   cum%
+   49.65ms 99.18% 99.18%    49.65ms 99.18%  syscall.Seek
+    0.28ms  0.56% 99.74%     0.28ms  0.56%  syscall.Fstat
+         0     0% 99.74%     0.28ms  0.56%  internal/poll.(*FD).Fstat
+         0     0% 99.74%     0.28ms  0.56%  internal/poll.(*FD).Fstat.func1
+         0     0% 99.74%    49.65ms 99.18%  internal/poll.(*FD).Seek
+         0     0% 99.74%     0.28ms  0.56%  internal/poll.ignoringEINTR
+         0     0% 99.74%    49.65ms 99.18%  main.main
+         0     0% 99.74%    49.65ms 99.18%  main.run
+         0     0% 99.74%    49.65ms 99.18%  os.(*File).Seek
+         0     0% 99.74%     0.28ms  0.56%  os.(*File).Stat
+         0     0% 99.74%    49.65ms 99.18%  os.(*File).seek
+         0     0% 99.74%     0.28ms  0.56%  os.ReadFile
+         0     0% 99.74%     0.28ms  0.56%  os.statOrZero
+         0     0% 99.74%     0.28ms  0.56%  runtime/pprof.(*profileBuilder).readMapping
+         0     0% 99.74%     0.28ms  0.56%  runtime/pprof.newProfileBuilder
+         0     0% 99.74%     0.28ms  0.56%  runtime/pprof.profileWriter

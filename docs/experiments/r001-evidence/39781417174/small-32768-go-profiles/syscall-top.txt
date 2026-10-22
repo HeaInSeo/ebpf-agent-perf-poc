@@ -1,0 +1,27 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 25.31ms, 100% of 25.31ms total
+      flat  flat%   sum%        cum   cum%
+   24.99ms 98.73% 98.73%    24.99ms 98.73%  syscall.Seek
+    0.16ms  0.64% 99.37%     0.16ms  0.64%  syscall.write
+    0.16ms  0.63%   100%     0.16ms  0.63%  syscall.read
+         0     0%   100%     0.16ms  0.63%  internal/poll.(*FD).Read
+         0     0%   100%    24.99ms 98.73%  internal/poll.(*FD).Seek
+         0     0%   100%     0.16ms  0.64%  internal/poll.(*FD).Write
+         0     0%   100%     0.32ms  1.27%  internal/poll.ignoringEINTRIO
+         0     0%   100%    24.99ms 98.73%  main.main
+         0     0%   100%    24.99ms 98.73%  main.run
+         0     0%   100%     0.16ms  0.63%  os.(*File).Read
+         0     0%   100%    24.99ms 98.73%  os.(*File).Seek
+         0     0%   100%     0.16ms  0.64%  os.(*File).Write
+         0     0%   100%     0.16ms  0.63%  os.(*File).read
+         0     0%   100%    24.99ms 98.73%  os.(*File).seek
+         0     0%   100%     0.16ms  0.64%  os.(*File).write
+         0     0%   100%     0.16ms  0.63%  os.ReadFile
+         0     0%   100%     0.16ms  0.63%  os.readFileContents
+         0     0%   100%     0.16ms  0.63%  runtime/pprof.(*profileBuilder).readMapping
+         0     0%   100%     0.16ms  0.63%  runtime/pprof.newProfileBuilder
+         0     0%   100%     0.16ms  0.63%  runtime/pprof.profileWriter
+         0     0%   100%     0.16ms  0.64%  runtime/trace.(*traceMultiplexer).startLocked.func1
+         0     0%   100%     0.16ms  0.63%  syscall.Read
+         0     0%   100%     0.16ms  0.64%  syscall.Write

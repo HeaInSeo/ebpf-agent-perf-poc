@@ -1,0 +1,26 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 467.65us, 99.73% of 468.93us total
+Dropped 1 node (cum <= 2.34us)
+      flat  flat%   sum%        cum   cum%
+  236.93us 50.53% 50.53%   236.93us 50.53%  runtime.chansend1
+  195.20us 41.63% 92.15%   195.20us 41.63%  runtime.systemstack_switch
+   26.56us  5.66% 97.82%    26.56us  5.66%  internal/poll.(*FD).Seek
+    4.16us  0.89% 98.70%     4.16us  0.89%  runtime.gcBgMarkStartWorkers
+    3.58us  0.76% 99.47%     3.58us  0.76%  runtime.(*traceAdvancerState).start
+    1.22us  0.26% 99.73%     6.08us  1.30%  runtime/trace.(*traceMultiplexer).startLocked
+         0     0% 99.73%    37.63us  8.03%  main.main
+         0     0% 99.73%    37.63us  8.03%  main.run
+         0     0% 99.73%    26.56us  5.66%  os.(*File).Seek
+         0     0% 99.73%    26.56us  5.66%  os.(*File).seek
+         0     0% 99.73%     4.86us  1.04%  runtime.StartTrace
+         0     0% 99.73%   431.30us 91.97%  runtime.gcBgMarkWorker
+         0     0% 99.73%   194.37us 41.45%  runtime.gcMarkDone
+         0     0% 99.73%   194.37us 41.45%  runtime.gcMarkTermination
+         0     0% 99.73%     4.99us  1.06%  runtime.gcStart
+         0     0% 99.73%     4.99us  1.06%  runtime.makeslice
+         0     0% 99.73%     4.99us  1.06%  runtime.mallocgc
+         0     0% 99.73%     4.99us  1.06%  runtime.mallocgcLarge
+         0     0% 99.73%     6.08us  1.30%  runtime/trace.(*traceMultiplexer).addedSubscriber
+         0     0% 99.73%     6.08us  1.30%  runtime/trace.(*traceMultiplexer).subscribeTraceStartWriter
+         0     0% 99.73%     6.08us  1.30%  runtime/trace.Start

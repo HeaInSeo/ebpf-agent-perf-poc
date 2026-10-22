@@ -1,0 +1,1188 @@
+﻿2026-10-22T12:53:36.1320044Z Current runner version: '2.338.0'
+2026-10-22T12:53:36.1350430Z ##[group]Runner Image Provisioner
+2026-10-22T12:53:36.1351382Z Hosted Compute Agent
+2026-10-22T12:53:36.1352425Z Version: 20261012.601
+2026-10-22T12:53:36.1353137Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-22T12:53:36.1353882Z Build Date: 2026-10-12T17:48:21Z
+2026-10-22T12:53:36.1354555Z Worker ID: {35db03d9-786d-40b3-aa60-f55aeab85545}
+2026-10-22T12:53:36.1355378Z Region: southcentralus
+2026-10-22T12:53:36.1355960Z Cloud: Azure
+2026-10-22T12:53:36.1356577Z ##[endgroup]
+2026-10-22T12:53:36.1358210Z ##[group]Operating System
+2026-10-22T12:53:36.1358833Z Ubuntu
+2026-10-22T12:53:36.1359473Z 24.04.5
+2026-10-22T12:53:36.1359982Z LTS
+2026-10-22T12:53:36.1360517Z ##[endgroup]
+2026-10-22T12:53:36.1361072Z ##[group]Runner Image
+2026-10-22T12:53:36.1361653Z Image: ubuntu-24.04
+2026-10-22T12:53:36.1362625Z Version: 20261012.334.1
+2026-10-22T12:53:36.1363895Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-22T12:53:36.1365581Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-22T12:53:36.1366538Z ##[endgroup]
+2026-10-22T12:53:36.1367720Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T12:53:36.1369831Z Contents: read
+2026-10-22T12:53:36.1371333Z Metadata: read
+2026-10-22T12:53:36.1372329Z ##[endgroup]
+2026-10-22T12:53:36.1375055Z Secret source: Actions
+2026-10-22T12:53:36.1375984Z Cache mode: write
+2026-10-22T12:53:36.1377052Z Prepare workflow directory
+2026-10-22T12:53:36.1788062Z Prepare all required actions
+2026-10-22T12:53:36.1838813Z Getting action download info
+2026-10-22T12:53:36.5048816Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-22T12:53:36.6210826Z Download action repository 'actions/setup-go@v6' (SHA:924ae3a1cded613372ab5595356fb5720e22ba16)
+2026-10-22T12:53:37.1476255Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-22T12:53:37.3583691Z Complete job name: measure
+2026-10-22T12:53:37.4439517Z ##[group]Run actions/checkout@v4
+2026-10-22T12:53:37.4440507Z with:
+2026-10-22T12:53:37.4441038Z   persist-credentials: false
+2026-10-22T12:53:37.4441939Z   repository: HeaInSeo/ebpf-agent-perf-poc
+2026-10-22T12:53:37.4446528Z   token: ***
+2026-10-22T12:53:37.4447002Z   ssh-strict: true
+2026-10-22T12:53:37.4447484Z   ssh-user: git
+2026-10-22T12:53:37.4447947Z   clean: true
+2026-10-22T12:53:37.4448446Z   sparse-checkout-cone-mode: true
+2026-10-22T12:53:37.4449029Z   fetch-depth: 1
+2026-10-22T12:53:37.4449504Z   fetch-tags: false
+2026-10-22T12:53:37.4450005Z   show-progress: true
+2026-10-22T12:53:37.4450590Z   lfs: false
+2026-10-22T12:53:37.4451065Z   submodules: false
+2026-10-22T12:53:37.4451550Z   set-safe-directory: true
+2026-10-22T12:53:37.4452300Z   allow-unsafe-pr-checkout: false
+2026-10-22T12:53:37.4453185Z env:
+2026-10-22T12:53:37.4453638Z   GOMAXPROCS: 2
+2026-10-22T12:53:37.4454118Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:53:37.4454654Z ##[endgroup]
+2026-10-22T12:53:37.5523251Z Syncing repository: HeaInSeo/ebpf-agent-perf-poc
+2026-10-22T12:53:37.5525630Z ##[group]Getting Git version info
+2026-10-22T12:53:37.5526617Z Working directory is '/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc'
+2026-10-22T12:53:37.5527936Z [command]/usr/bin/git version
+2026-10-22T12:53:37.5544816Z git version 2.55.0
+2026-10-22T12:53:37.5574419Z ##[endgroup]
+2026-10-22T12:53:37.5588892Z Temporarily overriding HOME='/home/runner/work/_temp/e1b86086-aeca-4dcb-833e-df87ec8717c3' before making global git config changes
+2026-10-22T12:53:37.5591607Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T12:53:37.5594966Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc
+2026-10-22T12:53:37.5657261Z Deleting the contents of '/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc'
+2026-10-22T12:53:37.5661328Z ##[group]Initializing the repository
+2026-10-22T12:53:37.5665589Z [command]/usr/bin/git init /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc
+2026-10-22T12:53:37.5807057Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-22T12:53:37.5808988Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-22T12:53:37.5810898Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-22T12:53:37.5812491Z hint: call:
+2026-10-22T12:53:37.5813521Z hint:
+2026-10-22T12:53:37.5814685Z hint: 	git config --global init.defaultBranch <name>
+2026-10-22T12:53:37.5815990Z hint:
+2026-10-22T12:53:37.5817409Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-22T12:53:37.5819539Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-22T12:53:37.5821113Z hint:
+2026-10-22T12:53:37.5823485Z hint: 	git branch -m <name>
+2026-10-22T12:53:37.5824670Z hint:
+2026-10-22T12:53:37.5826084Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-22T12:53:37.5828359Z Initialized empty Git repository in /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/.git/
+2026-10-22T12:53:37.5833344Z [command]/usr/bin/git remote add origin https://github.com/HeaInSeo/ebpf-agent-perf-poc
+2026-10-22T12:53:37.5885680Z ##[endgroup]
+2026-10-22T12:53:37.5887236Z ##[group]Disabling automatic garbage collection
+2026-10-22T12:53:37.5890435Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-22T12:53:37.5924696Z ##[endgroup]
+2026-10-22T12:53:37.5926800Z ##[group]Setting up auth
+2026-10-22T12:53:37.5936981Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T12:53:37.5970881Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T12:53:37.6436355Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T12:53:37.6475835Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T12:53:37.6736506Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T12:53:37.6775954Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T12:53:37.7003898Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-22T12:53:37.7047812Z ##[endgroup]
+2026-10-22T12:53:37.7057455Z ##[group]Fetching the repository
+2026-10-22T12:53:37.7059202Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +24a6e4a3ca48a53d0b16bf22882c0a9793c60623:refs/remotes/origin/main
+2026-10-22T12:53:38.2843369Z From https://github.com/HeaInSeo/ebpf-agent-perf-poc
+2026-10-22T12:53:38.2845866Z  * [new ref]         24a6e4a3ca48a53d0b16bf22882c0a9793c60623 -> origin/main
+2026-10-22T12:53:38.2850579Z ##[endgroup]
+2026-10-22T12:53:38.2853160Z ##[group]Determining the checkout info
+2026-10-22T12:53:38.2855799Z ##[endgroup]
+2026-10-22T12:53:38.2859875Z [command]/usr/bin/git sparse-checkout disable
+2026-10-22T12:53:38.2973455Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-22T12:53:38.3013933Z ##[group]Checking out the ref
+2026-10-22T12:53:38.3019034Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-22T12:53:38.3389628Z Switched to a new branch 'main'
+2026-10-22T12:53:38.3395533Z branch 'main' set up to track 'origin/main'.
+2026-10-22T12:53:38.3405621Z ##[endgroup]
+2026-10-22T12:53:38.3452205Z [command]/usr/bin/git log -1 --format=%H
+2026-10-22T12:53:38.3480244Z 24a6e4a3ca48a53d0b16bf22882c0a9793c60623
+2026-10-22T12:53:38.3490314Z ##[group]Removing auth
+2026-10-22T12:53:38.3494581Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T12:53:38.3532004Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T12:53:38.3775699Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T12:53:38.3804821Z http.https://github.com/.extraheader
+2026-10-22T12:53:38.3813667Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T12:53:38.3851125Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T12:53:38.4075545Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T12:53:38.4113667Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T12:53:38.4343601Z ##[endgroup]
+2026-10-22T12:53:38.4760040Z ##[group]Run actions/setup-go@v6
+2026-10-22T12:53:38.4761247Z with:
+2026-10-22T12:53:38.4762441Z   go-version-file: go.mod
+2026-10-22T12:53:38.4763523Z   check-latest: false
+2026-10-22T12:53:38.4773592Z   token: ***
+2026-10-22T12:53:38.4774500Z   cache: true
+2026-10-22T12:53:38.4775371Z env:
+2026-10-22T12:53:38.4776195Z   GOMAXPROCS: 2
+2026-10-22T12:53:38.4777473Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:53:38.4778656Z ##[endgroup]
+2026-10-22T12:53:38.6083947Z Setup go version spec 1.25.5
+2026-10-22T12:53:38.6098028Z Attempting to download 1.25.5...
+2026-10-22T12:53:39.4124301Z matching 1.25.5...
+2026-10-22T12:53:39.4179456Z Acquiring 1.25.5 from https://github.com/actions/go-versions/releases/download/1.25.5-19880500865/go-1.25.5-linux-x64.tar.gz
+2026-10-22T12:53:40.0129273Z Extracting Go...
+2026-10-22T12:53:40.0267938Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/510bdc0d-3b7b-42dc-a438-2620ff9efee4 -f /home/runner/work/_temp/65176c3f-1680-40e6-8b03-cdc6f1df7e82
+2026-10-22T12:53:41.4878425Z Successfully extracted go to /home/runner/work/_temp/510bdc0d-3b7b-42dc-a438-2620ff9efee4
+2026-10-22T12:53:41.4879164Z Adding to the cache ...
+2026-10-22T12:53:46.7804988Z Successfully cached go to /opt/hostedtoolcache/go/1.25.5/x64
+2026-10-22T12:53:46.7806145Z Added go to the path
+2026-10-22T12:53:46.7808822Z Successfully set up Go version 1.25.5
+2026-10-22T12:53:46.8018094Z [command]/opt/hostedtoolcache/go/1.25.5/x64/bin/go env GOMODCACHE
+2026-10-22T12:53:46.8053099Z [command]/opt/hostedtoolcache/go/1.25.5/x64/bin/go env GOCACHE
+2026-10-22T12:53:46.8086773Z /home/runner/go/pkg/mod
+2026-10-22T12:53:46.8103204Z /home/runner/.cache/go-build
+2026-10-22T12:53:46.9608021Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.25.5-14e76ca21ca31155e6f465923b4ba7d31c4867375efb6fd1b4b6b88a6854e507
+2026-10-22T12:53:47.9385364Z Received 38988488 of 38988488 (100.0%), 45.8 MBs/sec
+2026-10-22T12:53:47.9386073Z Cache Size: ~37 MB (38988488 B)
+2026-10-22T12:53:47.9510330Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3cc6dc13-0c86-4630-b34e-a30ba3090d6f/cache.tzst -P -C /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc --use-compress-program unzstd
+2026-10-22T12:53:48.2712381Z Cache restored successfully
+2026-10-22T12:53:48.2738753Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.25.5-14e76ca21ca31155e6f465923b4ba7d31c4867375efb6fd1b4b6b88a6854e507
+2026-10-22T12:53:48.2762267Z go version go1.25.5 linux/amd64
+2026-10-22T12:53:48.2762490Z 
+2026-10-22T12:53:48.2762791Z ##[group]go env
+2026-10-22T12:53:48.2907648Z AR='ar'
+2026-10-22T12:53:48.2908037Z CC='gcc'
+2026-10-22T12:53:48.2908415Z CGO_CFLAGS='-O2 -g'
+2026-10-22T12:53:48.2908859Z CGO_CPPFLAGS=''
+2026-10-22T12:53:48.2909267Z CGO_CXXFLAGS='-O2 -g'
+2026-10-22T12:53:48.2909699Z CGO_ENABLED='1'
+2026-10-22T12:53:48.2910334Z CGO_FFLAGS='-O2 -g'
+2026-10-22T12:53:48.2910751Z CGO_LDFLAGS='-O2 -g'
+2026-10-22T12:53:48.2911137Z CXX='g++'
+2026-10-22T12:53:48.2911568Z GCCGO='gccgo'
+2026-10-22T12:53:48.2912156Z GO111MODULE=''
+2026-10-22T12:53:48.2912391Z GOAMD64='v1'
+2026-10-22T12:53:48.2912619Z GOARCH='amd64'
+2026-10-22T12:53:48.2912838Z GOAUTH='netrc'
+2026-10-22T12:53:48.2913054Z GOBIN=''
+2026-10-22T12:53:48.2913282Z GOCACHE='/home/runner/.cache/go-build'
+2026-10-22T12:53:48.2913567Z GOCACHEPROG=''
+2026-10-22T12:53:48.2913783Z GODEBUG=''
+2026-10-22T12:53:48.2913997Z GOENV='/home/runner/.config/go/env'
+2026-10-22T12:53:48.2914262Z GOEXE=''
+2026-10-22T12:53:48.2914459Z GOEXPERIMENT=''
+2026-10-22T12:53:48.2914676Z GOFIPS140='off'
+2026-10-22T12:53:48.2914876Z GOFLAGS=''
+2026-10-22T12:53:48.2915550Z GOGCCFLAGS='-fPIC -m64 -pthread -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=/tmp/go-build2715648561=/tmp/go-build -gno-record-gcc-switches'
+2026-10-22T12:53:48.2916259Z GOHOSTARCH='amd64'
+2026-10-22T12:53:48.2916496Z GOHOSTOS='linux'
+2026-10-22T12:53:48.2916708Z GOINSECURE=''
+2026-10-22T12:53:48.2917052Z GOMOD='/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/go.mod'
+2026-10-22T12:53:48.2917695Z GOMODCACHE='/home/runner/go/pkg/mod'
+2026-10-22T12:53:48.2917995Z GONOPROXY=''
+2026-10-22T12:53:48.2918201Z GONOSUMDB=''
+2026-10-22T12:53:48.2918395Z GOOS='linux'
+2026-10-22T12:53:48.2918606Z GOPATH='/home/runner/go'
+2026-10-22T12:53:48.2918844Z GOPRIVATE=''
+2026-10-22T12:53:48.2919114Z GOPROXY='https://proxy.golang.org,direct'
+2026-10-22T12:53:48.2919464Z GOROOT='/opt/hostedtoolcache/go/1.25.5/x64'
+2026-10-22T12:53:48.2919773Z GOSUMDB='sum.golang.org'
+2026-10-22T12:53:48.2920021Z GOTELEMETRY='local'
+2026-10-22T12:53:48.2920297Z GOTELEMETRYDIR='/home/runner/.config/go/telemetry'
+2026-10-22T12:53:48.2920616Z GOTMPDIR=''
+2026-10-22T12:53:48.2920821Z GOTOOLCHAIN='local'
+2026-10-22T12:53:48.2921162Z GOTOOLDIR='/opt/hostedtoolcache/go/1.25.5/x64/pkg/tool/linux_amd64'
+2026-10-22T12:53:48.2921531Z GOVCS=''
+2026-10-22T12:53:48.2922002Z GOVERSION='go1.25.5'
+2026-10-22T12:53:48.2922250Z GOWORK=''
+2026-10-22T12:53:48.2922463Z PKG_CONFIG='pkg-config'
+2026-10-22T12:53:48.2922614Z 
+2026-10-22T12:53:48.2922881Z ##[endgroup]
+2026-10-22T12:53:48.3114135Z ##[group]Run mkdir -p results/r001
+2026-10-22T12:53:48.3114541Z [36;1mmkdir -p results/r001[0m
+2026-10-22T12:53:48.3114933Z [36;1mgit rev-parse HEAD > results/r001/source-sha.txt[0m
+2026-10-22T12:53:48.3115308Z [36;1muname -a > results/r001/kernel.txt[0m
+2026-10-22T12:53:48.3115606Z [36;1mtest "$(uname -m)" = x86_64[0m
+2026-10-22T12:53:48.3115960Z [36;1mbpftrace --version > results/r001/bpftrace-version.txt[0m
+2026-10-22T12:53:48.3116454Z [36;1msha256sum "$(command -v bpftrace)" > results/r001/bpftrace-binary-sha256.txt[0m
+2026-10-22T12:53:48.3117018Z [36;1msudo bpftrace -l 'tracepoint:raw_syscalls:*' > results/r001/tracepoints.txt[0m
+2026-10-22T12:53:48.3117464Z [36;1mgo version > results/r001/go-version.txt[0m
+2026-10-22T12:53:48.3117776Z [36;1mgo env > results/r001/go-env.txt[0m
+2026-10-22T12:53:48.3415598Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:53:48.3415959Z env:
+2026-10-22T12:53:48.3416212Z   GOMAXPROCS: 2
+2026-10-22T12:53:48.3416553Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:53:48.3416899Z   GOTOOLCHAIN: local
+2026-10-22T12:53:48.3417229Z ##[endgroup]
+2026-10-22T12:53:49.3075674Z ##[group]Run go test -count=1 ./... > results/r001/tests.log 2>&1
+2026-10-22T12:53:49.3076186Z [36;1mgo test -count=1 ./... > results/r001/tests.log 2>&1[0m
+2026-10-22T12:53:49.3076634Z [36;1mgo test -race -count=1 ./cmd/costbench >> results/r001/tests.log 2>&1[0m
+2026-10-22T12:53:49.3077057Z [36;1mgo vet ./... > results/r001/vet.log 2>&1[0m
+2026-10-22T12:53:49.3077627Z [36;1mpython3 -m unittest discover -s experiments/value-cost -p 'test_*.py' > results/r001/python-tests.log 2>&1[0m
+2026-10-22T12:53:49.3078205Z [36;1mtest -z "$(gofmt -l cmd/costbench)"[0m
+2026-10-22T12:53:49.3078537Z [36;1mgo build -o bin/costbench ./cmd/costbench[0m
+2026-10-22T12:53:49.3142274Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:53:49.3142694Z env:
+2026-10-22T12:53:49.3142881Z   GOMAXPROCS: 2
+2026-10-22T12:53:49.3143093Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:53:49.3143321Z   GOTOOLCHAIN: local
+2026-10-22T12:53:49.3143531Z ##[endgroup]
+2026-10-22T12:53:51.7187990Z ##[group]Run python3 experiments/value-cost/run.py --phase acquire --root results/r001 --binary bin/costbench
+2026-10-22T12:53:51.7189366Z [36;1mpython3 experiments/value-cost/run.py --phase acquire --root results/r001 --binary bin/costbench[0m
+2026-10-22T12:53:51.7270026Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:53:51.7270280Z env:
+2026-10-22T12:53:51.7270473Z   GOMAXPROCS: 2
+2026-10-22T12:53:51.7270684Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:53:51.7270923Z   GOTOOLCHAIN: local
+2026-10-22T12:53:51.7271140Z ##[endgroup]
+2026-10-22T12:53:57.9896699Z small-00-65536-native: 27.049ms full=0.031s
+2026-10-22T12:53:58.1960959Z small-00-65536-go: 31.786ms full=0.206s
+2026-10-22T12:53:58.2364250Z small-00-32768-native: 36.059ms full=0.040s
+2026-10-22T12:53:59.0926433Z small-00-65536-go-ebpf: 50.109ms full=0.855s
+2026-10-22T12:53:59.2986517Z small-00-32768-go: 41.812ms full=0.205s
+2026-10-22T12:54:00.1563561Z small-00-32768-go-ebpf: 66.274ms full=0.857s
+2026-10-22T12:54:00.1961123Z small-01-32768-native: 35.422ms full=0.039s
+2026-10-22T12:54:01.0420607Z small-01-65536-go-ebpf: 46.269ms full=0.845s
+2026-10-22T12:54:01.2486211Z small-01-65536-go: 30.682ms full=0.206s
+2026-10-22T12:54:02.0974993Z small-01-32768-go-ebpf: 64.880ms full=0.848s
+2026-10-22T12:54:02.1305647Z small-01-65536-native: 28.820ms full=0.032s
+2026-10-22T12:54:02.3372225Z small-01-32768-go: 42.506ms full=0.206s
+2026-10-22T12:54:03.1885728Z small-02-32768-go-ebpf: 73.953ms full=0.850s
+2026-10-22T12:54:03.2302370Z small-02-32768-native: 37.475ms full=0.041s
+2026-10-22T12:54:03.4366820Z small-02-32768-go: 42.301ms full=0.206s
+2026-10-22T12:54:03.6439037Z small-02-65536-go: 30.997ms full=0.206s
+2026-10-22T12:54:04.4913813Z small-02-65536-go-ebpf: 52.060ms full=0.846s
+2026-10-22T12:54:04.5235660Z small-02-65536-native: 27.858ms full=0.031s
+2026-10-22T12:54:04.5644279Z small-03-32768-native: 36.005ms full=0.040s
+2026-10-22T12:54:05.4120823Z small-03-65536-go-ebpf: 44.953ms full=0.847s
+2026-10-22T12:54:05.6188556Z small-03-32768-go: 42.336ms full=0.206s
+2026-10-22T12:54:05.8259003Z small-03-65536-go: 31.217ms full=0.206s
+2026-10-22T12:54:05.8583688Z small-03-65536-native: 27.845ms full=0.032s
+2026-10-22T12:54:06.6994369Z small-03-32768-go-ebpf: 72.802ms full=0.840s
+2026-10-22T12:54:06.7402010Z small-04-32768-native: 36.798ms full=0.040s
+2026-10-22T12:54:06.7731108Z small-04-65536-native: 28.819ms full=0.032s
+2026-10-22T12:54:07.6379531Z small-04-65536-go-ebpf: 51.767ms full=0.864s
+2026-10-22T12:54:08.4850622Z small-04-32768-go-ebpf: 66.814ms full=0.846s
+2026-10-22T12:54:08.6919174Z small-04-32768-go: 42.686ms full=0.206s
+2026-10-22T12:54:08.8987732Z small-04-65536-go: 32.642ms full=0.206s
+2026-10-22T12:54:09.1057215Z small-05-32768-go: 41.909ms full=0.206s
+2026-10-22T12:54:09.1462136Z small-05-32768-native: 36.270ms full=0.040s
+2026-10-22T12:54:09.3528795Z small-05-65536-go: 30.876ms full=0.206s
+2026-10-22T12:54:10.2047525Z small-05-32768-go-ebpf: 66.857ms full=0.851s
+2026-10-22T12:54:11.0513022Z small-05-65536-go-ebpf: 52.110ms full=0.846s
+2026-10-22T12:54:11.0833425Z small-05-65536-native: 27.649ms full=0.031s
+2026-10-22T12:54:11.2906007Z small-06-32768-go: 41.590ms full=0.206s
+2026-10-22T12:54:11.4970550Z small-06-65536-go: 32.920ms full=0.205s
+2026-10-22T12:54:11.5373079Z small-06-32768-native: 36.067ms full=0.039s
+2026-10-22T12:54:12.3859107Z small-06-65536-go-ebpf: 46.677ms full=0.847s
+2026-10-22T12:54:13.2421089Z small-06-32768-go-ebpf: 74.549ms full=0.855s
+2026-10-22T12:54:13.2740966Z small-06-65536-native: 28.193ms full=0.031s
+2026-10-22T12:54:13.3049256Z small-07-65536-native: 26.800ms full=0.030s
+2026-10-22T12:54:14.1574547Z small-07-32768-go-ebpf: 72.219ms full=0.852s
+2026-10-22T12:54:14.1989241Z small-07-32768-native: 37.072ms full=0.041s
+2026-10-22T12:54:14.4056745Z small-07-32768-go: 41.430ms full=0.206s
+2026-10-22T12:54:15.2584185Z small-07-65536-go-ebpf: 46.438ms full=0.852s
+2026-10-22T12:54:15.4659091Z small-07-65536-go: 31.441ms full=0.207s
+2026-10-22T12:54:15.5079814Z small-08-32768-native: 37.684ms full=0.041s
+2026-10-22T12:54:15.5399173Z small-08-65536-native: 27.582ms full=0.031s
+2026-10-22T12:54:15.7465972Z small-08-65536-go: 31.121ms full=0.206s
+2026-10-22T12:54:15.9534301Z small-08-32768-go: 43.123ms full=0.206s
+2026-10-22T12:54:16.8082563Z small-08-32768-go-ebpf: 68.854ms full=0.854s
+2026-10-22T12:54:17.6684721Z small-08-65536-go-ebpf: 44.736ms full=0.859s
+2026-10-22T12:54:17.8752391Z small-09-65536-go: 30.626ms full=0.206s
+2026-10-22T12:54:17.9151645Z small-09-32768-native: 35.650ms full=0.039s
+2026-10-22T12:54:18.1222084Z small-09-32768-go: 42.296ms full=0.206s
+2026-10-22T12:54:18.9708741Z small-09-32768-go-ebpf: 70.279ms full=0.848s
+2026-10-22T12:54:19.8210668Z small-09-65536-go-ebpf: 51.361ms full=0.849s
+2026-10-22T12:54:19.8525274Z small-09-65536-native: 27.231ms full=0.031s
+2026-10-22T12:54:19.8933687Z small-10-32768-native: 36.161ms full=0.040s
+2026-10-22T12:54:20.1005906Z small-10-32768-go: 42.349ms full=0.206s
+2026-10-22T12:54:20.9529808Z small-10-65536-go-ebpf: 51.517ms full=0.851s
+2026-10-22T12:54:20.9846412Z small-10-65536-native: 27.463ms full=0.031s
+2026-10-22T12:54:21.1915290Z small-10-65536-go: 31.044ms full=0.206s
+2026-10-22T12:54:22.0387795Z small-10-32768-go-ebpf: 73.894ms full=0.846s
+2026-10-22T12:54:22.8746936Z small-11-32768-go-ebpf: 65.077ms full=0.835s
+2026-10-22T12:54:23.0811616Z small-11-32768-go: 42.562ms full=0.206s
+2026-10-22T12:54:23.1224090Z small-11-32768-native: 36.773ms full=0.040s
+2026-10-22T12:54:23.1537349Z small-11-65536-native: 27.472ms full=0.031s
+2026-10-22T12:54:23.3606075Z small-11-65536-go: 31.852ms full=0.206s
+2026-10-22T12:54:24.2333201Z small-11-65536-go-ebpf: 52.000ms full=0.872s
+2026-10-22T12:54:24.6111997Z large-00-32768-native: 98.697ms full=0.102s
+2026-10-22T12:54:25.5923544Z large-00-32768-go-ebpf: 144.569ms full=0.954s
+2026-10-22T12:54:25.8248532Z large-00-65536-go: 79.915ms full=0.205s
+2026-10-22T12:54:25.9363199Z large-00-65536-native: 80.849ms full=0.084s
+2026-10-22T12:54:26.2696764Z large-00-32768-go: 111.171ms full=0.306s
+2026-10-22T12:54:27.2390631Z large-00-65536-go-ebpf: 109.183ms full=0.942s
+2026-10-22T12:54:28.1229346Z large-01-65536-go-ebpf: 105.723ms full=0.856s
+2026-10-22T12:54:28.3557145Z large-01-65536-go: 92.979ms full=0.206s
+2026-10-22T12:54:28.4931490Z large-01-32768-native: 106.522ms full=0.110s
+2026-10-22T12:54:28.6007117Z large-01-65536-native: 76.939ms full=0.080s
+2026-10-22T12:54:28.9345277Z large-01-32768-go: 113.005ms full=0.306s
+2026-10-22T12:54:29.9137224Z large-01-32768-go-ebpf: 147.767ms full=0.952s
+2026-10-22T12:54:30.8949142Z large-02-32768-go-ebpf: 158.780ms full=0.954s
+2026-10-22T12:54:31.0004660Z large-02-65536-native: 75.311ms full=0.079s
+2026-10-22T12:54:31.2335909Z large-02-65536-go: 82.994ms full=0.206s
+2026-10-22T12:54:32.1194371Z large-02-65536-go-ebpf: 107.688ms full=0.859s
+2026-10-22T12:54:32.2466031Z large-02-32768-native: 96.290ms full=0.100s
+2026-10-22T12:54:32.5801153Z large-02-32768-go: 108.895ms full=0.306s
+2026-10-22T12:54:33.5503105Z large-03-65536-go-ebpf: 110.654ms full=0.943s
+2026-10-22T12:54:34.5265788Z large-03-32768-go-ebpf: 146.116ms full=0.949s
+2026-10-22T12:54:34.6363305Z large-03-65536-native: 79.375ms full=0.083s
+2026-10-22T12:54:34.9699307Z large-03-32768-go: 119.995ms full=0.306s
+2026-10-22T12:54:35.1055598Z large-03-32768-native: 105.097ms full=0.109s
+2026-10-22T12:54:35.3395012Z large-03-65536-go: 80.621ms full=0.206s
+2026-10-22T12:54:36.3202688Z large-04-32768-go-ebpf: 164.003ms full=0.953s
+2026-10-22T12:54:36.4492633Z large-04-32768-native: 97.985ms full=0.102s
+2026-10-22T12:54:36.5641621Z large-04-65536-native: 84.122ms full=0.088s
+2026-10-22T12:54:36.7970569Z large-04-65536-go: 83.568ms full=0.206s
+2026-10-22T12:54:37.0297212Z large-04-32768-go: 103.787ms full=0.206s
+2026-10-22T12:54:37.9968641Z large-04-65536-go-ebpf: 106.713ms full=0.940s
+2026-10-22T12:54:38.3299018Z large-05-32768-go: 104.466ms full=0.306s
+2026-10-22T12:54:39.2062324Z large-05-65536-go-ebpf: 105.930ms full=0.850s
+2026-10-22T12:54:40.1910704Z large-05-32768-go-ebpf: 167.730ms full=0.957s
+2026-10-22T12:54:40.3057326Z large-05-65536-native: 83.831ms full=0.087s
+2026-10-22T12:54:40.4355740Z large-05-32768-native: 98.960ms full=0.103s
+2026-10-22T12:54:40.6690540Z large-05-65536-go: 80.714ms full=0.206s
+2026-10-22T12:54:41.6444284Z large-06-32768-go-ebpf: 150.116ms full=0.948s
+2026-10-22T12:54:41.8776222Z large-06-32768-go: 103.942ms full=0.205s
+2026-10-22T12:54:41.9925008Z large-06-65536-native: 83.869ms full=0.088s
+2026-10-22T12:54:42.2260791Z large-06-65536-go: 86.462ms full=0.207s
+2026-10-22T12:54:42.3525850Z large-06-32768-native: 95.909ms full=0.099s
+2026-10-22T12:54:43.3297475Z large-06-65536-go-ebpf: 114.452ms full=0.950s
+2026-10-22T12:54:43.4577920Z large-07-32768-native: 97.284ms full=0.101s
+2026-10-22T12:54:43.5707096Z large-07-65536-native: 81.970ms full=0.086s
+2026-10-22T12:54:43.8036844Z large-07-65536-go: 86.560ms full=0.206s
+2026-10-22T12:54:44.7950301Z large-07-32768-go-ebpf: 147.646ms full=0.964s
+2026-10-22T12:54:45.7650360Z large-07-65536-go-ebpf: 115.171ms full=0.943s
+2026-10-22T12:54:46.0990431Z large-07-32768-go: 104.366ms full=0.306s
+2026-10-22T12:54:47.0765003Z large-08-32768-go-ebpf: 142.855ms full=0.950s
+2026-10-22T12:54:47.3104293Z large-08-32768-go: 106.215ms full=0.206s
+2026-10-22T12:54:47.4411797Z large-08-32768-native: 99.512ms full=0.103s
+2026-10-22T12:54:47.6743642Z large-08-65536-go: 86.128ms full=0.206s
+2026-10-22T12:54:48.6523318Z large-08-65536-go-ebpf: 112.583ms full=0.951s
+2026-10-22T12:54:48.7622177Z large-08-65536-native: 79.371ms full=0.083s
+2026-10-22T12:54:49.0959394Z large-09-32768-go: 108.140ms full=0.306s
+2026-10-22T12:54:49.2367930Z large-09-32768-native: 109.157ms full=0.113s
+2026-10-22T12:54:49.4697127Z large-09-65536-go: 84.470ms full=0.206s
+2026-10-22T12:54:50.3458289Z large-09-65536-go-ebpf: 104.141ms full=0.849s
+2026-10-22T12:54:50.4574214Z large-09-65536-native: 80.897ms full=0.085s
+2026-10-22T12:54:51.4512872Z large-09-32768-go-ebpf: 158.437ms full=0.966s
+2026-10-22T12:54:51.5916831Z large-10-32768-native: 108.553ms full=0.112s
+2026-10-22T12:54:52.5721192Z large-10-32768-go-ebpf: 156.863ms full=0.953s
+2026-10-22T12:54:52.6827178Z large-10-65536-native: 79.641ms full=0.083s
+2026-10-22T12:54:52.9170462Z large-10-65536-go: 88.954ms full=0.207s
+2026-10-22T12:54:53.2500310Z large-10-32768-go: 108.655ms full=0.306s
+2026-10-22T12:54:54.2195121Z large-10-65536-go-ebpf: 112.106ms full=0.943s
+2026-10-22T12:54:54.3489424Z large-11-32768-native: 98.503ms full=0.102s
+2026-10-22T12:54:55.3323046Z large-11-65536-go-ebpf: 104.070ms full=0.956s
+2026-10-22T12:54:55.5652565Z large-11-65536-go: 78.018ms full=0.206s
+2026-10-22T12:54:56.5486998Z large-11-32768-go-ebpf: 146.271ms full=0.956s
+2026-10-22T12:54:56.6559748Z large-11-65536-native: 76.359ms full=0.080s
+2026-10-22T12:54:56.9898461Z large-11-32768-go: 110.423ms full=0.306s
+2026-10-22T12:54:57.0022695Z ##[group]Run python3 experiments/value-cost/analyze.py seal results/r001
+2026-10-22T12:54:57.0023269Z [36;1mpython3 experiments/value-cost/analyze.py seal results/r001[0m
+2026-10-22T12:54:57.0085835Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:54:57.0086090Z env:
+2026-10-22T12:54:57.0086283Z   GOMAXPROCS: 2
+2026-10-22T12:54:57.0086502Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:54:57.0086742Z   GOTOOLCHAIN: local
+2026-10-22T12:54:57.0086966Z ##[endgroup]
+2026-10-22T12:55:12.3860762Z {
+2026-10-22T12:55:12.3861167Z   "small": {
+2026-10-22T12:55:12.3861508Z     "B_over_A": {
+2026-10-22T12:55:12.3862021Z       "n": 12,
+2026-10-22T12:55:12.3862293Z       "median": 0.760878997594712,
+2026-10-22T12:55:12.3862574Z       "ci95": [
+2026-10-22T12:55:12.3862824Z         0.7452391061433321,
+2026-10-22T12:55:12.3863091Z         0.7775116939510103
+2026-10-22T12:55:12.3863324Z       ],
+2026-10-22T12:55:12.3863558Z       "min": 0.7229159833605227,
+2026-10-22T12:55:12.3863919Z       "max": 0.8136059164563957
+2026-10-22T12:55:12.3864162Z     },
+2026-10-22T12:55:12.3864368Z     "choice": "B"
+2026-10-22T12:55:12.3864825Z   },
+2026-10-22T12:55:12.3865015Z   "large": {
+2026-10-22T12:55:12.3865220Z     "B_over_A": {
+2026-10-22T12:55:12.3865432Z       "n": 12,
+2026-10-22T12:55:12.3865678Z       "median": 0.7898680815462303,
+2026-10-22T12:55:12.3865944Z       "ci95": [
+2026-10-22T12:55:12.3866187Z         0.7481781850444933,
+2026-10-22T12:55:12.3866456Z         0.8448541951524071
+2026-10-22T12:55:12.3866677Z       ],
+2026-10-22T12:55:12.3866903Z       "min": 0.7222774854753169,
+2026-10-22T12:55:12.3867186Z       "max": 0.8744611136867031
+2026-10-22T12:55:12.3867412Z     },
+2026-10-22T12:55:12.3867608Z     "choice": "B"
+2026-10-22T12:55:12.3867797Z   }
+2026-10-22T12:55:12.3867975Z }
+2026-10-22T12:55:12.3965238Z ##[group]Run python3 experiments/value-cost/run.py --phase holdout --root results/r001 --binary bin/costbench
+2026-10-22T12:55:12.3966039Z [36;1mpython3 experiments/value-cost/run.py --phase holdout --root results/r001 --binary bin/costbench[0m
+2026-10-22T12:55:12.4027985Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:55:12.4028270Z env:
+2026-10-22T12:55:12.4028498Z   GOMAXPROCS: 2
+2026-10-22T12:55:12.4028733Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:55:12.4028986Z   GOTOOLCHAIN: local
+2026-10-22T12:55:12.4029222Z ##[endgroup]
+2026-10-22T12:55:12.6399445Z small-holdout-00-32768-native: 68.005ms full=0.071s
+2026-10-22T12:55:12.6915826Z small-holdout-00-65536-native: 47.173ms full=0.051s
+2026-10-22T12:55:12.7597503Z small-holdout-01-32768-native: 63.531ms full=0.067s
+2026-10-22T12:55:12.8116872Z small-holdout-01-65536-native: 47.401ms full=0.051s
+2026-10-22T12:55:12.8802642Z small-holdout-02-32768-native: 63.931ms full=0.068s
+2026-10-22T12:55:12.9316893Z small-holdout-02-65536-native: 46.812ms full=0.050s
+2026-10-22T12:55:12.9826988Z small-holdout-03-65536-native: 46.343ms full=0.050s
+2026-10-22T12:55:13.0522384Z small-holdout-03-32768-native: 64.198ms full=0.068s
+2026-10-22T12:55:13.1193992Z small-holdout-04-32768-native: 62.602ms full=0.066s
+2026-10-22T12:55:13.1764861Z small-holdout-04-65536-native: 52.575ms full=0.056s
+2026-10-22T12:55:13.2430341Z small-holdout-05-32768-native: 62.064ms full=0.065s
+2026-10-22T12:55:13.3004400Z small-holdout-05-65536-native: 52.701ms full=0.056s
+2026-10-22T12:55:13.3668037Z small-holdout-06-32768-native: 61.731ms full=0.065s
+2026-10-22T12:55:13.4226647Z small-holdout-06-65536-native: 51.241ms full=0.055s
+2026-10-22T12:55:13.4781029Z small-holdout-07-65536-native: 50.769ms full=0.054s
+2026-10-22T12:55:13.5448175Z small-holdout-07-32768-native: 61.979ms full=0.066s
+2026-10-22T12:55:13.6010263Z small-holdout-08-65536-native: 51.665ms full=0.055s
+2026-10-22T12:55:13.6661629Z small-holdout-08-32768-native: 60.578ms full=0.064s
+2026-10-22T12:55:13.7317676Z small-holdout-09-32768-native: 61.224ms full=0.065s
+2026-10-22T12:55:13.7830491Z small-holdout-09-65536-native: 46.860ms full=0.050s
+2026-10-22T12:55:13.8495026Z small-holdout-10-32768-native: 61.806ms full=0.065s
+2026-10-22T12:55:13.9007681Z small-holdout-10-65536-native: 46.677ms full=0.050s
+2026-10-22T12:55:13.9667991Z small-holdout-11-32768-native: 61.569ms full=0.065s
+2026-10-22T12:55:14.0249427Z small-holdout-11-65536-native: 53.351ms full=0.057s
+2026-10-22T12:55:14.4103090Z large-holdout-00-32768-native: 107.796ms full=0.111s
+2026-10-22T12:55:14.5279559Z large-holdout-00-65536-native: 92.882ms full=0.096s
+2026-10-22T12:55:14.6346432Z large-holdout-01-65536-native: 81.823ms full=0.085s
+2026-10-22T12:55:14.7655985Z large-holdout-01-32768-native: 106.146ms full=0.110s
+2026-10-22T12:55:14.8900866Z large-holdout-02-32768-native: 99.677ms full=0.103s
+2026-10-22T12:55:14.9913957Z large-holdout-02-65536-native: 76.990ms full=0.081s
+2026-10-22T12:55:15.1040235Z large-holdout-03-65536-native: 86.555ms full=0.090s
+2026-10-22T12:55:15.2381440Z large-holdout-03-32768-native: 108.983ms full=0.113s
+2026-10-22T12:55:15.3534410Z large-holdout-04-65536-native: 90.240ms full=0.094s
+2026-10-22T12:55:15.4853705Z large-holdout-04-32768-native: 106.778ms full=0.111s
+2026-10-22T12:55:15.6135261Z large-holdout-05-32768-native: 103.149ms full=0.107s
+2026-10-22T12:55:15.7179435Z large-holdout-05-65536-native: 79.683ms full=0.083s
+2026-10-22T12:55:15.8299337Z large-holdout-06-65536-native: 87.037ms full=0.091s
+2026-10-22T12:55:15.9644986Z large-holdout-06-32768-native: 109.723ms full=0.114s
+2026-10-22T12:55:16.0697442Z large-holdout-07-65536-native: 80.430ms full=0.084s
+2026-10-22T12:55:16.2051132Z large-holdout-07-32768-native: 105.567ms full=0.110s
+2026-10-22T12:55:16.3170192Z large-holdout-08-65536-native: 86.766ms full=0.090s
+2026-10-22T12:55:16.4544548Z large-holdout-08-32768-native: 112.654ms full=0.116s
+2026-10-22T12:55:16.5870350Z large-holdout-09-32768-native: 107.344ms full=0.111s
+2026-10-22T12:55:16.6969416Z large-holdout-09-65536-native: 85.106ms full=0.089s
+2026-10-22T12:55:16.8165574Z large-holdout-10-32768-native: 95.012ms full=0.099s
+2026-10-22T12:55:16.9280977Z large-holdout-10-65536-native: 86.697ms full=0.090s
+2026-10-22T12:55:17.0647218Z large-holdout-11-32768-native: 111.657ms full=0.115s
+2026-10-22T12:55:17.1732857Z large-holdout-11-65536-native: 84.079ms full=0.088s
+2026-10-22T12:55:17.1872164Z ##[group]Run python3 experiments/value-cost/analyze.py evaluate results/r001
+2026-10-22T12:55:17.1873219Z [36;1mpython3 experiments/value-cost/analyze.py evaluate results/r001[0m
+2026-10-22T12:55:17.1957521Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:55:17.1957798Z env:
+2026-10-22T12:55:17.1958001Z   GOMAXPROCS: 2
+2026-10-22T12:55:17.1958224Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:55:17.1958465Z   GOTOOLCHAIN: local
+2026-10-22T12:55:17.1958685Z ##[endgroup]
+2026-10-22T12:55:18.1037265Z {
+2026-10-22T12:55:18.1037831Z   "acquisition_trials": 144,
+2026-10-22T12:55:18.1038310Z   "holdout_trials": 48,
+2026-10-22T12:55:18.1038672Z   "cases": {
+2026-10-22T12:55:18.1038996Z     "small": {
+2026-10-22T12:55:18.1039349Z       "32768": {
+2026-10-22T12:55:18.1039753Z         "modes": {
+2026-10-22T12:55:18.1040173Z           "native": {
+2026-10-22T12:55:18.1040591Z             "hot_ms": {
+2026-10-22T12:55:18.1041029Z               "n": 12,
+2026-10-22T12:55:18.1041625Z               "median": 36.2157865,
+2026-10-22T12:55:18.1042541Z               "ci95": [
+2026-10-22T12:55:18.1043002Z                 36.032171,
+2026-10-22T12:55:18.1043462Z                 36.9348975
+2026-10-22T12:55:18.1043840Z               ],
+2026-10-22T12:55:18.1044294Z               "min": 35.422149,
+2026-10-22T12:55:18.1044784Z               "max": 37.683689
+2026-10-22T12:55:18.1045178Z             },
+2026-10-22T12:55:18.1045622Z             "hot_cpu_ms": 37.357,
+2026-10-22T12:55:18.1046181Z             "target_maxrss_kib": 4348.0,
+2026-10-22T12:55:18.1046763Z             "target_process_cpu_s": 0.03,
+2026-10-22T12:55:18.1047250Z             "full_s": {
+2026-10-22T12:55:18.1047652Z               "n": 12,
+2026-10-22T12:55:18.1048193Z               "median": 0.03987141549999862,
+2026-10-22T12:55:18.1048681Z               "ci95": [
+2026-10-22T12:55:18.1049174Z                 0.03952165600000512,
+2026-10-22T12:55:18.1049712Z                 0.04053227950000604
+2026-10-22T12:55:18.1050126Z               ],
+2026-10-22T12:55:18.1050650Z               "min": 0.03887980200000385,
+2026-10-22T12:55:18.1051222Z               "max": 0.041271362000003364
+2026-10-22T12:55:18.1051638Z             },
+2026-10-22T12:55:18.1052281Z             "alloc_bytes": 0.0
+2026-10-22T12:55:18.1052677Z           },
+2026-10-22T12:55:18.1053001Z           "go": {
+2026-10-22T12:55:18.1053378Z             "hot_ms": {
+2026-10-22T12:55:18.1053779Z               "n": 12,
+2026-10-22T12:55:18.1054304Z               "median": 42.318811999999994,
+2026-10-22T12:55:18.1054817Z               "ci95": [
+2026-10-22T12:55:18.1055275Z                 41.8606265,
+2026-10-22T12:55:18.1055754Z                 42.5341655
+2026-10-22T12:55:18.1056142Z               ],
+2026-10-22T12:55:18.1056589Z               "min": 41.429597,
+2026-10-22T12:55:18.1057063Z               "max": 43.122893
+2026-10-22T12:55:18.1057444Z             },
+2026-10-22T12:55:18.1057875Z             "hot_cpu_ms": 44.316,
+2026-10-22T12:55:18.1058433Z             "target_maxrss_kib": 8988.0,
+2026-10-22T12:55:18.1059328Z             "target_process_cpu_s": 0.04,
+2026-10-22T12:55:18.1059821Z             "full_s": {
+2026-10-22T12:55:18.1060225Z               "n": 12,
+2026-10-22T12:55:18.1060760Z               "median": 0.2059482159999959,
+2026-10-22T12:55:18.1061242Z               "ci95": [
+2026-10-22T12:55:18.1061977Z                 0.20572832099999872,
+2026-10-22T12:55:18.1062536Z                 0.20615146899999814
+2026-10-22T12:55:18.1062965Z               ],
+2026-10-22T12:55:18.1063462Z               "min": 0.20514299099999533,
+2026-10-22T12:55:18.1064043Z               "max": 0.20637884500000325
+2026-10-22T12:55:18.1064463Z             },
+2026-10-22T12:55:18.1064910Z             "alloc_bytes": 16456.0
+2026-10-22T12:55:18.1065297Z           },
+2026-10-22T12:55:18.1065650Z           "go-ebpf": {
+2026-10-22T12:55:18.1066051Z             "hot_ms": {
+2026-10-22T12:55:18.1066457Z               "n": 12,
+2026-10-22T12:55:18.1066958Z               "median": 69.5664855,
+2026-10-22T12:55:18.1067418Z               "ci95": [
+2026-10-22T12:55:18.1068148Z                 66.5440475,
+2026-10-22T12:55:18.1068616Z                 73.3479455
+2026-10-22T12:55:18.1068980Z               ],
+2026-10-22T12:55:18.1069382Z               "min": 64.879758,
+2026-10-22T12:55:18.1069870Z               "max": 74.548594
+2026-10-22T12:55:18.1070286Z             },
+2026-10-22T12:55:18.1070755Z             "hot_cpu_ms": 72.253,
+2026-10-22T12:55:18.1071364Z             "target_maxrss_kib": 8848.0,
+2026-10-22T12:55:18.1072373Z             "target_process_cpu_s": 0.06999999999999999,
+2026-10-22T12:55:18.1072933Z             "full_s": {
+2026-10-22T12:55:18.1073349Z               "n": 12,
+2026-10-22T12:55:18.1073884Z               "median": 0.8491140744999974,
+2026-10-22T12:55:18.1074389Z               "ci95": [
+2026-10-22T12:55:18.1074884Z                 0.8462135800000041,
+2026-10-22T12:55:18.1075430Z                 0.852714759499996
+2026-10-22T12:55:18.1075846Z               ],
+2026-10-22T12:55:18.1076336Z               "min": 0.8345029729999993,
+2026-10-22T12:55:18.1076948Z               "max": 0.8567712540000016
+2026-10-22T12:55:18.1077378Z             },
+2026-10-22T12:55:18.1077834Z             "alloc_bytes": 16512.0,
+2026-10-22T12:55:18.1078490Z             "collector_attach_s": 0.2654368709999986,
+2026-10-22T12:55:18.1079213Z             "collector_maxrss_kib": 103880.0,
+2026-10-22T12:55:18.1079826Z             "collector_cpu_s": 0.26,
+2026-10-22T12:55:18.1080338Z             "maps_first": {
+2026-10-22T12:55:18.1080819Z               "bytes": {
+2026-10-22T12:55:18.1081341Z                 "0": 268435456,
+2026-10-22T12:55:18.1082121Z                 "1": 268435456
+2026-10-22T12:55:18.1082544Z               },
+2026-10-22T12:55:18.1082960Z               "calls": {
+2026-10-22T12:55:18.1083448Z                 "0": 10240,
+2026-10-22T12:55:18.1083930Z                 "1": 8192
+2026-10-22T12:55:18.1084336Z               },
+2026-10-22T12:55:18.1084739Z               "errors": {
+2026-10-22T12:55:18.1085155Z                 "0": 0,
+2026-10-22T12:55:18.1085633Z                 "1": 0
+2026-10-22T12:55:18.1086053Z               },
+2026-10-22T12:55:18.1086516Z               "latency_ns": {
+2026-10-22T12:55:18.1087068Z                 "0": 18625033,
+2026-10-22T12:55:18.1087592Z                 "1": 18445083
+2026-10-22T12:55:18.1088009Z               }
+2026-10-22T12:55:18.1088344Z             }
+2026-10-22T12:55:18.1088659Z           }
+2026-10-22T12:55:18.1088968Z         },
+2026-10-22T12:55:18.1089395Z         "ebpf_over_go_hot_ratio": {
+2026-10-22T12:55:18.1089851Z           "n": 12,
+2026-10-22T12:55:18.1090319Z           "median": 1.6291439435505612,
+2026-10-22T12:55:18.1090764Z           "ci95": [
+2026-10-22T12:55:18.1091199Z             1.575147372478051,
+2026-10-22T12:55:18.1091895Z             1.7440257834186061
+2026-10-22T12:55:18.1092310Z           ],
+2026-10-22T12:55:18.1092759Z           "min": 1.5263501408997233,
+2026-10-22T12:55:18.1093314Z           "max": 1.7924635285099646
+2026-10-22T12:55:18.1093730Z         },
+2026-10-22T12:55:18.1094437Z         "go_over_native_hot_ratio": {
+2026-10-22T12:55:18.1094916Z           "n": 12,
+2026-10-22T12:55:18.1095418Z           "median": 1.1584954973082868,
+2026-10-22T12:55:18.1095900Z           "ci95": [
+2026-10-22T12:55:18.1096352Z             1.1487300620046776,
+2026-10-22T12:55:18.1096868Z             1.1734699797336856
+2026-10-22T12:55:18.1097280Z           ],
+2026-10-22T12:55:18.1097743Z           "min": 1.1175563059773228,
+2026-10-22T12:55:18.1098277Z           "max": 1.1999969567063817
+2026-10-22T12:55:18.1098696Z         },
+2026-10-22T12:55:18.1099129Z         "ebpf_minus_go_full_s": {
+2026-10-22T12:55:18.1099601Z           "n": 12,
+2026-10-22T12:55:18.1100194Z           "median": 0.6434208980000022,
+2026-10-22T12:55:18.1100690Z           "ci95": [
+2026-10-22T12:55:18.1101131Z             0.6400983145000012,
+2026-10-22T12:55:18.1101594Z             0.6467635009999952
+2026-10-22T12:55:18.1102166Z           ],
+2026-10-22T12:55:18.1102608Z           "min": 0.6288555349999996,
+2026-10-22T12:55:18.1103360Z           "max": 0.6516282630000063
+2026-10-22T12:55:18.1103806Z         },
+2026-10-22T12:55:18.1104256Z         "ebpf_minus_go_total_cpu_s": {
+2026-10-22T12:55:18.1104749Z           "n": 12,
+2026-10-22T12:55:18.1105269Z           "median": 0.2899999999999999,
+2026-10-22T12:55:18.1105749Z           "ci95": [
+2026-10-22T12:55:18.1106126Z             0.28,
+2026-10-22T12:55:18.1106720Z             0.2899999999999999
+2026-10-22T12:55:18.1107125Z           ],
+2026-10-22T12:55:18.1107594Z           "min": 0.2799999999999999,
+2026-10-22T12:55:18.1108168Z           "max": 0.29999999999999993
+2026-10-22T12:55:18.1108589Z         }
+2026-10-22T12:55:18.1108908Z       },
+2026-10-22T12:55:18.1109235Z       "65536": {
+2026-10-22T12:55:18.1109632Z         "modes": {
+2026-10-22T12:55:18.1110014Z           "native": {
+2026-10-22T12:55:18.1110447Z             "hot_ms": {
+2026-10-22T12:55:18.1110889Z               "n": 12,
+2026-10-22T12:55:18.1111424Z               "median": 27.6154845,
+2026-10-22T12:55:18.1112146Z               "ci95": [
+2026-10-22T12:55:18.1112731Z                 27.347050000000003,
+2026-10-22T12:55:18.1113291Z                 28.025643
+2026-10-22T12:55:18.1113724Z               ],
+2026-10-22T12:55:18.1114221Z               "min": 26.79965,
+2026-10-22T12:55:18.1114770Z               "max": 28.81967
+2026-10-22T12:55:18.1115212Z             },
+2026-10-22T12:55:18.1115694Z             "hot_cpu_ms": 28.335,
+2026-10-22T12:55:18.1116293Z             "target_maxrss_kib": 4348.0,
+2026-10-22T12:55:18.1116946Z             "target_process_cpu_s": 0.02,
+2026-10-22T12:55:18.1117493Z             "full_s": {
+2026-10-22T12:55:18.1117943Z               "n": 12,
+2026-10-22T12:55:18.1118538Z               "median": 0.031129208999992386,
+2026-10-22T12:55:18.1119068Z               "ci95": [
+2026-10-22T12:55:18.1119606Z                 0.030590136499995424,
+2026-10-22T12:55:18.1120179Z                 0.031488043000003074
+2026-10-22T12:55:18.1120624Z               ],
+2026-10-22T12:55:18.1121140Z               "min": 0.0299162249999938,
+2026-10-22T12:55:18.1121979Z               "max": 0.032216992000002165
+2026-10-22T12:55:18.1122466Z             },
+2026-10-22T12:55:18.1122930Z             "alloc_bytes": 0.0
+2026-10-22T12:55:18.1123342Z           },
+2026-10-22T12:55:18.1123720Z           "go": {
+2026-10-22T12:55:18.1124130Z             "hot_ms": {
+2026-10-22T12:55:18.1124514Z               "n": 12,
+2026-10-22T12:55:18.1125028Z               "median": 31.168930500000002,
+2026-10-22T12:55:18.1125555Z               "ci95": [
+2026-10-22T12:55:18.1126040Z                 30.9362865,
+2026-10-22T12:55:18.1126505Z                 31.8187395
+2026-10-22T12:55:18.1126894Z               ],
+2026-10-22T12:55:18.1127362Z               "min": 30.625561,
+2026-10-22T12:55:18.1127826Z               "max": 32.919585
+2026-10-22T12:55:18.1128230Z             },
+2026-10-22T12:55:18.1128754Z             "hot_cpu_ms": 32.923500000000004,
+2026-10-22T12:55:18.1129386Z             "target_maxrss_kib": 8984.0,
+2026-10-22T12:55:18.1130008Z             "target_process_cpu_s": 0.03,
+2026-10-22T12:55:18.1130888Z             "full_s": {
+2026-10-22T12:55:18.1131311Z               "n": 12,
+2026-10-22T12:55:18.1132093Z               "median": 0.20595124649999974,
+2026-10-22T12:55:18.1132615Z               "ci95": [
+2026-10-22T12:55:18.1133147Z                 0.20577754749999855,
+2026-10-22T12:55:18.1133773Z                 0.20609379300000086
+2026-10-22T12:55:18.1134225Z               ],
+2026-10-22T12:55:18.1134746Z               "min": 0.20546400400000664,
+2026-10-22T12:55:18.1135343Z               "max": 0.20657280899999364
+2026-10-22T12:55:18.1135829Z             },
+2026-10-22T12:55:18.1136292Z             "alloc_bytes": 16456.0
+2026-10-22T12:55:18.1136699Z           },
+2026-10-22T12:55:18.1137095Z           "go-ebpf": {
+2026-10-22T12:55:18.1137528Z             "hot_ms": {
+2026-10-22T12:55:18.1137947Z               "n": 12,
+2026-10-22T12:55:18.1138459Z               "median": 50.73492,
+2026-10-22T12:55:18.1138963Z               "ci95": [
+2026-10-22T12:55:18.1139456Z                 46.3533665,
+2026-10-22T12:55:18.1140329Z                 51.883337
+2026-10-22T12:55:18.1140770Z               ],
+2026-10-22T12:55:18.1141258Z               "min": 44.736245,
+2026-10-22T12:55:18.1142004Z               "max": 52.110239
+2026-10-22T12:55:18.1142448Z             },
+2026-10-22T12:55:18.1142935Z             "hot_cpu_ms": 53.0415,
+2026-10-22T12:55:18.1143513Z             "target_maxrss_kib": 8916.0,
+2026-10-22T12:55:18.1144078Z             "target_process_cpu_s": 0.045,
+2026-10-22T12:55:18.1144401Z             "full_s": {
+2026-10-22T12:55:18.1144657Z               "n": 12,
+2026-10-22T12:55:18.1144987Z               "median": 0.8503104380000011,
+2026-10-22T12:55:18.1145301Z               "ci95": [
+2026-10-22T12:55:18.1145623Z                 0.8465701924999998,
+2026-10-22T12:55:18.1146011Z                 0.8572495825000033
+2026-10-22T12:55:18.1146281Z               ],
+2026-10-22T12:55:18.1146701Z               "min": 0.845035971999998,
+2026-10-22T12:55:18.1147587Z               "max": 0.8717195059999909
+2026-10-22T12:55:18.1148328Z             },
+2026-10-22T12:55:18.1148900Z             "alloc_bytes": 16200.0,
+2026-10-22T12:55:18.1149412Z             "collector_attach_s": 0.26521271700000426,
+2026-10-22T12:55:18.1150050Z             "collector_maxrss_kib": 103836.0,
+2026-10-22T12:55:18.1150522Z             "collector_cpu_s": 0.255,
+2026-10-22T12:55:18.1151016Z             "maps_first": {
+2026-10-22T12:55:18.1151404Z               "bytes": {
+2026-10-22T12:55:18.1152071Z                 "0": 268435456,
+2026-10-22T12:55:18.1163807Z                 "1": 268435456
+2026-10-22T12:55:18.1164305Z               },
+2026-10-22T12:55:18.1164761Z               "calls": {
+2026-10-22T12:55:18.1165109Z                 "0": 6144,
+2026-10-22T12:55:18.1165422Z                 "1": 4096
+2026-10-22T12:55:18.1165680Z               },
+2026-10-22T12:55:18.1165959Z               "errors": {
+2026-10-22T12:55:18.1166247Z                 "0": 0,
+2026-10-22T12:55:18.1166616Z                 "1": 0
+2026-10-22T12:55:18.1166869Z               },
+2026-10-22T12:55:18.1167155Z               "latency_ns": {
+2026-10-22T12:55:18.1167479Z                 "0": 15394350,
+2026-10-22T12:55:18.1167786Z                 "1": 13113637
+2026-10-22T12:55:18.1168049Z               }
+2026-10-22T12:55:18.1168272Z             }
+2026-10-22T12:55:18.1168482Z           }
+2026-10-22T12:55:18.1168676Z         },
+2026-10-22T12:55:18.1168944Z         "ebpf_over_go_hot_ratio": {
+2026-10-22T12:55:18.1169234Z           "n": 12,
+2026-10-22T12:55:18.1169523Z           "median": 1.581181506685579,
+2026-10-22T12:55:18.1169814Z           "ci95": [
+2026-10-22T12:55:18.1170089Z             1.4584993404777644,
+2026-10-22T12:55:18.1170394Z             1.6682680101702538
+2026-10-22T12:55:18.1170636Z           ],
+2026-10-22T12:55:18.1170902Z           "min": 1.417897643606382,
+2026-10-22T12:55:18.1171211Z           "max": 1.6877244438931358
+2026-10-22T12:55:18.1171461Z         },
+2026-10-22T12:55:18.1172029Z         "go_over_native_hot_ratio": {
+2026-10-22T12:55:18.1172550Z           "n": 12,
+2026-10-22T12:55:18.1172847Z           "median": 1.1293416342908729,
+2026-10-22T12:55:18.1173141Z           "ci95": [
+2026-10-22T12:55:18.1173412Z             1.1189199994705334,
+2026-10-22T12:55:18.1173710Z             1.1635332953333375
+2026-10-22T12:55:18.1173951Z           ],
+2026-10-22T12:55:18.1174224Z           "min": 1.0646307886245747,
+2026-10-22T12:55:18.1174540Z           "max": 1.175110222058963
+2026-10-22T12:55:18.1174792Z         },
+2026-10-22T12:55:18.1175049Z         "ebpf_minus_go_full_s": {
+2026-10-22T12:55:18.1175326Z           "n": 12,
+2026-10-22T12:55:18.1175615Z           "median": 0.644234591500009,
+2026-10-22T12:55:18.1175904Z           "ci95": [
+2026-10-22T12:55:18.1176170Z             0.6403205169999993,
+2026-10-22T12:55:18.1176449Z             0.6515588205
+2026-10-22T12:55:18.1176687Z           ],
+2026-10-22T12:55:18.1176948Z           "min": 0.639308622999998,
+2026-10-22T12:55:18.1177256Z           "max": 0.6657198179999995
+2026-10-22T12:55:18.1177497Z         },
+2026-10-22T12:55:18.1177911Z         "ebpf_minus_go_total_cpu_s": {
+2026-10-22T12:55:18.1178209Z           "n": 12,
+2026-10-22T12:55:18.1178464Z           "median": 0.27,
+2026-10-22T12:55:18.1178725Z           "ci95": [
+2026-10-22T12:55:18.1178956Z             0.27,
+2026-10-22T12:55:18.1179186Z             0.28
+2026-10-22T12:55:18.1179399Z           ],
+2026-10-22T12:55:18.1179629Z           "min": 0.26,
+2026-10-22T12:55:18.1179877Z           "max": 0.29
+2026-10-22T12:55:18.1180096Z         }
+2026-10-22T12:55:18.1180282Z       }
+2026-10-22T12:55:18.1180463Z     },
+2026-10-22T12:55:18.1180653Z     "large": {
+2026-10-22T12:55:18.1180861Z       "32768": {
+2026-10-22T12:55:18.1181096Z         "modes": {
+2026-10-22T12:55:18.1181332Z           "native": {
+2026-10-22T12:55:18.1181590Z             "hot_ms": {
+2026-10-22T12:55:18.1182073Z               "n": 12,
+2026-10-22T12:55:18.1182385Z               "median": 98.8283895,
+2026-10-22T12:55:18.1182679Z               "ci95": [
+2026-10-22T12:55:18.1182993Z                 97.63422800000001,
+2026-10-22T12:55:18.1183312Z                 105.809909
+2026-10-22T12:55:18.1183571Z               ],
+2026-10-22T12:55:18.1183847Z               "min": 95.908912,
+2026-10-22T12:55:18.1184158Z               "max": 109.157366
+2026-10-22T12:55:18.1184406Z             },
+2026-10-22T12:55:18.1184727Z             "hot_cpu_ms": 102.40450000000001,
+2026-10-22T12:55:18.1185117Z             "target_maxrss_kib": 4348.0,
+2026-10-22T12:55:18.1185565Z             "target_process_cpu_s": 0.09999999999999999,
+2026-10-22T12:55:18.1185908Z             "full_s": {
+2026-10-22T12:55:18.1186172Z               "n": 12,
+2026-10-22T12:55:18.1186520Z               "median": 0.10254208850000168,
+2026-10-22T12:55:18.1186835Z               "ci95": [
+2026-10-22T12:55:18.1187149Z                 0.10131174149999822,
+2026-10-22T12:55:18.1187493Z                 0.10941440450000073
+2026-10-22T12:55:18.1187765Z               ],
+2026-10-22T12:55:18.1188070Z               "min": 0.0994752599999913,
+2026-10-22T12:55:18.1188440Z               "max": 0.11290191399999117
+2026-10-22T12:55:18.1188708Z             },
+2026-10-22T12:55:18.1188985Z             "alloc_bytes": 0.0
+2026-10-22T12:55:18.1189236Z           },
+2026-10-22T12:55:18.1189454Z           "go": {
+2026-10-22T12:55:18.1189702Z             "hot_ms": {
+2026-10-22T12:55:18.1189958Z               "n": 12,
+2026-10-22T12:55:18.1190263Z               "median": 108.397267,
+2026-10-22T12:55:18.1190564Z               "ci95": [
+2026-10-22T12:55:18.1190860Z                 104.415819,
+2026-10-22T12:55:18.1191151Z                 110.796993
+2026-10-22T12:55:18.1191409Z               ],
+2026-10-22T12:55:18.1191901Z               "min": 103.787069,
+2026-10-22T12:55:18.1192239Z               "max": 119.995326
+2026-10-22T12:55:18.1192492Z             },
+2026-10-22T12:55:18.1192785Z             "hot_cpu_ms": 112.6885,
+2026-10-22T12:55:18.1193141Z             "target_maxrss_kib": 9032.0,
+2026-10-22T12:55:18.1193521Z             "target_process_cpu_s": 0.11,
+2026-10-22T12:55:18.1193988Z             "full_s": {
+2026-10-22T12:55:18.1194260Z               "n": 12,
+2026-10-22T12:55:18.1194602Z               "median": 0.30596158699999876,
+2026-10-22T12:55:18.1194919Z               "ci95": [
+2026-10-22T12:55:18.1195234Z                 0.25579014849999737,
+2026-10-22T12:55:18.1195580Z                 0.3062847644999991
+2026-10-22T12:55:18.1195853Z               ],
+2026-10-22T12:55:18.1196164Z               "min": 0.2051062729999984,
+2026-10-22T12:55:18.1196522Z               "max": 0.3064756939999995
+2026-10-22T12:55:18.1196791Z             },
+2026-10-22T12:55:18.1197077Z             "alloc_bytes": 35192.0
+2026-10-22T12:55:18.1197328Z           },
+2026-10-22T12:55:18.1197562Z           "go-ebpf": {
+2026-10-22T12:55:18.1197823Z             "hot_ms": {
+2026-10-22T12:55:18.1198089Z               "n": 12,
+2026-10-22T12:55:18.1198420Z               "median": 148.94158299999998,
+2026-10-22T12:55:18.1198740Z               "ci95": [
+2026-10-22T12:55:18.1199053Z                 146.19341550000001,
+2026-10-22T12:55:18.1199498Z                 158.608694
+2026-10-22T12:55:18.1199747Z               ],
+2026-10-22T12:55:18.1200024Z               "min": 142.854935,
+2026-10-22T12:55:18.1200335Z               "max": 167.729673
+2026-10-22T12:55:18.1200582Z             },
+2026-10-22T12:55:18.1200868Z             "hot_cpu_ms": 155.305,
+2026-10-22T12:55:18.1201215Z             "target_maxrss_kib": 8984.0,
+2026-10-22T12:55:18.1201822Z             "target_process_cpu_s": 0.15000000000000002,
+2026-10-22T12:55:18.1202179Z             "full_s": {
+2026-10-22T12:55:18.1202447Z               "n": 12,
+2026-10-22T12:55:18.1202776Z               "median": 0.953474769500005,
+2026-10-22T12:55:18.1203083Z               "ci95": [
+2026-10-22T12:55:18.1203389Z                 0.9510719559999998,
+2026-10-22T12:55:18.1203998Z                 0.956631168499996
+2026-10-22T12:55:18.1204470Z               ],
+2026-10-22T12:55:18.1204791Z               "min": 0.9481537099999997,
+2026-10-22T12:55:18.1205147Z               "max": 0.966042365000007
+2026-10-22T12:55:18.1205437Z             },
+2026-10-22T12:55:18.1205715Z             "alloc_bytes": 32160.0,
+2026-10-22T12:55:18.1206116Z             "collector_attach_s": 0.2665245264999996,
+2026-10-22T12:55:18.1206529Z             "collector_maxrss_kib": 103828.0,
+2026-10-22T12:55:18.1206895Z             "collector_cpu_s": 0.26,
+2026-10-22T12:55:18.1207221Z             "maps_first": {
+2026-10-22T12:55:18.1207514Z               "bytes": {
+2026-10-22T12:55:18.1207817Z                 "0": 536870912,
+2026-10-22T12:55:18.1208130Z                 "1": 536870912
+2026-10-22T12:55:18.1208386Z               },
+2026-10-22T12:55:18.1208645Z               "calls": {
+2026-10-22T12:55:18.1208929Z                 "0": 16416,
+2026-10-22T12:55:18.1209216Z                 "1": 16384
+2026-10-22T12:55:18.1209465Z               },
+2026-10-22T12:55:18.1209734Z               "errors": {
+2026-10-22T12:55:18.1210051Z                 "0": 0,
+2026-10-22T12:55:18.1210308Z                 "1": 0
+2026-10-22T12:55:18.1210539Z               },
+2026-10-22T12:55:18.1210817Z               "latency_ns": {
+2026-10-22T12:55:18.1211134Z                 "0": 45692212,
+2026-10-22T12:55:18.1211441Z                 "1": 54412281
+2026-10-22T12:55:18.1211890Z               }
+2026-10-22T12:55:18.1212121Z             }
+2026-10-22T12:55:18.1212327Z           }
+2026-10-22T12:55:18.1212516Z         },
+2026-10-22T12:55:18.1212777Z         "ebpf_over_go_hot_ratio": {
+2026-10-22T12:55:18.1213059Z           "n": 12,
+2026-10-22T12:55:18.1213351Z           "median": 1.42918860143108,
+2026-10-22T12:55:18.1213632Z           "ci95": [
+2026-10-22T12:55:18.1213903Z             1.3161313878577179,
+2026-10-22T12:55:18.1214193Z             1.461611619639871
+2026-10-22T12:55:18.1214430Z           ],
+2026-10-22T12:55:18.1214702Z           "min": 1.2176788369240314,
+2026-10-22T12:55:18.1215020Z           "max": 1.6055969055771058
+2026-10-22T12:55:18.1215263Z         },
+2026-10-22T12:55:18.1215531Z         "go_over_native_hot_ratio": {
+2026-10-22T12:55:18.1215828Z           "n": 12,
+2026-10-22T12:55:18.1216274Z           "median": 1.0700759744491701,
+2026-10-22T12:55:18.1216564Z           "ci95": [
+2026-10-22T12:55:18.1216834Z             1.0574271398381032,
+2026-10-22T12:55:18.1217136Z             1.1236987111617287
+2026-10-22T12:55:18.1217377Z           ],
+2026-10-22T12:55:18.1217641Z           "min": 0.9906780821369398,
+2026-10-22T12:55:18.1217952Z           "max": 1.1417539942679433
+2026-10-22T12:55:18.1218205Z         },
+2026-10-22T12:55:18.1218459Z         "ebpf_minus_go_full_s": {
+2026-10-22T12:55:18.1218737Z           "n": 12,
+2026-10-22T12:55:18.1219019Z           "median": 0.6504905019999967,
+2026-10-22T12:55:18.1219300Z           "ci95": [
+2026-10-22T12:55:18.1219569Z             0.6475163165000097,
+2026-10-22T12:55:18.1219860Z             0.7015929645000085
+2026-10-22T12:55:18.1220094Z           ],
+2026-10-22T12:55:18.1220355Z           "min": 0.6427924510000054,
+2026-10-22T12:55:18.1220674Z           "max": 0.746932263000005
+2026-10-22T12:55:18.1220918Z         },
+2026-10-22T12:55:18.1221303Z         "ebpf_minus_go_total_cpu_s": {
+2026-10-22T12:55:18.1221591Z           "n": 12,
+2026-10-22T12:55:18.1222078Z           "median": 0.30500000000000005,
+2026-10-22T12:55:18.1222366Z           "ci95": [
+2026-10-22T12:55:18.1222638Z             0.29000000000000004,
+2026-10-22T12:55:18.1222936Z             0.31000000000000005
+2026-10-22T12:55:18.1223173Z           ],
+2026-10-22T12:55:18.1223407Z           "min": 0.28,
+2026-10-22T12:55:18.1223692Z           "max": 0.33000000000000007
+2026-10-22T12:55:18.1223937Z         }
+2026-10-22T12:55:18.1224117Z       },
+2026-10-22T12:55:18.1224317Z       "65536": {
+2026-10-22T12:55:18.1224535Z         "modes": {
+2026-10-22T12:55:18.1224769Z           "native": {
+2026-10-22T12:55:18.1225025Z             "hot_ms": {
+2026-10-22T12:55:18.1225289Z               "n": 12,
+2026-10-22T12:55:18.1225574Z               "median": 80.245,
+2026-10-22T12:55:18.1225859Z               "ci95": [
+2026-10-22T12:55:18.1226138Z                 78.1550435,
+2026-10-22T12:55:18.1226433Z                 82.900581
+2026-10-22T12:55:18.1226688Z               ],
+2026-10-22T12:55:18.1226958Z               "min": 75.311399,
+2026-10-22T12:55:18.1227257Z               "max": 84.121501
+2026-10-22T12:55:18.1227503Z             },
+2026-10-22T12:55:18.1227819Z             "hot_cpu_ms": 82.95349999999999,
+2026-10-22T12:55:18.1228193Z             "target_maxrss_kib": 4348.0,
+2026-10-22T12:55:18.1228622Z             "target_process_cpu_s": 0.07500000000000001,
+2026-10-22T12:55:18.1228961Z             "full_s": {
+2026-10-22T12:55:18.1229225Z               "n": 12,
+2026-10-22T12:55:18.1229555Z               "median": 0.08381078650000262,
+2026-10-22T12:55:18.1229871Z               "ci95": [
+2026-10-22T12:55:18.1230185Z                 0.08167622650000084,
+2026-10-22T12:55:18.1230531Z                 0.08657416849999322
+2026-10-22T12:55:18.1230795Z               ],
+2026-10-22T12:55:18.1231099Z               "min": 0.07880235100000732,
+2026-10-22T12:55:18.1231461Z               "max": 0.08787612099999365
+2026-10-22T12:55:18.1231955Z             },
+2026-10-22T12:55:18.1232246Z             "alloc_bytes": 0.0
+2026-10-22T12:55:18.1232498Z           },
+2026-10-22T12:55:18.1232712Z           "go": {
+2026-10-22T12:55:18.1232962Z             "hot_ms": {
+2026-10-22T12:55:18.1233223Z               "n": 12,
+2026-10-22T12:55:18.1233523Z               "median": 84.019398,
+2026-10-22T12:55:18.1233818Z               "ci95": [
+2026-10-22T12:55:18.1234093Z                 80.6677145,
+2026-10-22T12:55:18.1234387Z                 86.5112145
+2026-10-22T12:55:18.1234632Z               ],
+2026-10-22T12:55:18.1234908Z               "min": 78.017934,
+2026-10-22T12:55:18.1235211Z               "max": 92.979441
+2026-10-22T12:55:18.1235454Z             },
+2026-10-22T12:55:18.1235739Z             "hot_cpu_ms": 87.461,
+2026-10-22T12:55:18.1236087Z             "target_maxrss_kib": 8944.0,
+2026-10-22T12:55:18.1236456Z             "target_process_cpu_s": 0.08,
+2026-10-22T12:55:18.1236764Z             "full_s": {
+2026-10-22T12:55:18.1237173Z               "n": 12,
+2026-10-22T12:55:18.1237504Z               "median": 0.20599074799999073,
+2026-10-22T12:55:18.1237812Z               "ci95": [
+2026-10-22T12:55:18.1238121Z                 0.20567443049999667,
+2026-10-22T12:55:18.1238468Z                 0.20616427650000446
+2026-10-22T12:55:18.1238732Z               ],
+2026-10-22T12:55:18.1239037Z               "min": 0.2052758720000014,
+2026-10-22T12:55:18.1239391Z               "max": 0.2072567040000024
+2026-10-22T12:55:18.1239666Z             },
+2026-10-22T12:55:18.1239942Z             "alloc_bytes": 17864.0
+2026-10-22T12:55:18.1240195Z           },
+2026-10-22T12:55:18.1240428Z           "go-ebpf": {
+2026-10-22T12:55:18.1240685Z             "hot_ms": {
+2026-10-22T12:55:18.1240948Z               "n": 12,
+2026-10-22T12:55:18.1241280Z               "median": 108.43537850000001,
+2026-10-22T12:55:18.1241589Z               "ci95": [
+2026-10-22T12:55:18.1242087Z                 105.8266085,
+2026-10-22T12:55:18.1242423Z                 112.34475549999999
+2026-10-22T12:55:18.1242819Z               ],
+2026-10-22T12:55:18.1243110Z               "min": 104.070016,
+2026-10-22T12:55:18.1243424Z               "max": 115.171349
+2026-10-22T12:55:18.1243683Z             },
+2026-10-22T12:55:18.1243962Z             "hot_cpu_ms": 114.005,
+2026-10-22T12:55:18.1244306Z             "target_maxrss_kib": 9024.0,
+2026-10-22T12:55:18.1244677Z             "target_process_cpu_s": 0.11,
+2026-10-22T12:55:18.1244987Z             "full_s": {
+2026-10-22T12:55:18.1245242Z               "n": 12,
+2026-10-22T12:55:18.1245568Z               "median": 0.9423010029999972,
+2026-10-22T12:55:18.1245874Z               "ci95": [
+2026-10-22T12:55:18.1246175Z                 0.857619149499989,
+2026-10-22T12:55:18.1246505Z                 0.9465946434999992
+2026-10-22T12:55:18.1246762Z               ],
+2026-10-22T12:55:18.1247062Z               "min": 0.8489117419999985,
+2026-10-22T12:55:18.1247422Z               "max": 0.9559442200000063
+2026-10-22T12:55:18.1247695Z             },
+2026-10-22T12:55:18.1247982Z             "alloc_bytes": 31240.0,
+2026-10-22T12:55:18.1248386Z             "collector_attach_s": 0.26535918900000155,
+2026-10-22T12:55:18.1248800Z             "collector_maxrss_kib": 103826.0,
+2026-10-22T12:55:18.1249175Z             "collector_cpu_s": 0.26,
+2026-10-22T12:55:18.1249487Z             "maps_first": {
+2026-10-22T12:55:18.1249768Z               "bytes": {
+2026-10-22T12:55:18.1250068Z                 "0": 536870912,
+2026-10-22T12:55:18.1250380Z                 "1": 536870912
+2026-10-22T12:55:18.1250632Z               },
+2026-10-22T12:55:18.1250884Z               "calls": {
+2026-10-22T12:55:18.1251163Z                 "0": 8224,
+2026-10-22T12:55:18.1251445Z                 "1": 8192
+2026-10-22T12:55:18.1251926Z               },
+2026-10-22T12:55:18.1252221Z               "errors": {
+2026-10-22T12:55:18.1252497Z                 "0": 0,
+2026-10-22T12:55:18.1252755Z                 "1": 0
+2026-10-22T12:55:18.1252990Z               },
+2026-10-22T12:55:18.1253262Z               "latency_ns": {
+2026-10-22T12:55:18.1253583Z                 "0": 38642695,
+2026-10-22T12:55:18.1253891Z                 "1": 46491010
+2026-10-22T12:55:18.1254143Z               }
+2026-10-22T12:55:18.1254355Z             }
+2026-10-22T12:55:18.1254557Z           }
+2026-10-22T12:55:18.1254752Z         },
+2026-10-22T12:55:18.1255012Z         "ebpf_over_go_hot_ratio": {
+2026-10-22T12:55:18.1255299Z           "n": 12,
+2026-10-22T12:55:18.1255585Z           "median": 1.3097863010345832,
+2026-10-22T12:55:18.1255867Z           "ci95": [
+2026-10-22T12:55:18.1256142Z             1.2686163805561423,
+2026-10-22T12:55:18.1256438Z             1.3322294829243537
+2026-10-22T12:55:18.1256669Z           ],
+2026-10-22T12:55:18.1256931Z           "min": 1.1370606863510828,
+2026-10-22T12:55:18.1257245Z           "max": 1.3725073406928527
+2026-10-22T12:55:18.1257494Z         },
+2026-10-22T12:55:18.1257760Z         "go_over_native_hot_ratio": {
+2026-10-22T12:55:18.1258046Z           "n": 12,
+2026-10-22T12:55:18.1258324Z           "median": 1.037548557695731,
+2026-10-22T12:55:18.1258738Z           "ci95": [
+2026-10-22T12:55:18.1259008Z             1.004564276888095,
+2026-10-22T12:55:18.1259296Z             1.0935718407255401
+2026-10-22T12:55:18.1259530Z           ],
+2026-10-22T12:55:18.1259792Z           "min": 0.9628193616010223,
+2026-10-22T12:55:18.1260109Z           "max": 1.2084860954897436
+2026-10-22T12:55:18.1260349Z         },
+2026-10-22T12:55:18.1260601Z         "ebpf_minus_go_full_s": {
+2026-10-22T12:55:18.1260872Z           "n": 12,
+2026-10-22T12:55:18.1261159Z           "median": 0.7360347149999953,
+2026-10-22T12:55:18.1261437Z           "ci95": [
+2026-10-22T12:55:18.1261917Z             0.6516684769999941,
+2026-10-22T12:55:18.1262222Z             0.740393789499997
+2026-10-22T12:55:18.1262473Z           ],
+2026-10-22T12:55:18.1262739Z           "min": 0.6428483880000044,
+2026-10-22T12:55:18.1263049Z           "max": 0.75036110100001
+2026-10-22T12:55:18.1263300Z         },
+2026-10-22T12:55:18.1263568Z         "ebpf_minus_go_total_cpu_s": {
+2026-10-22T12:55:18.1263989Z           "n": 12,
+2026-10-22T12:55:18.1264242Z           "median": 0.29,
+2026-10-22T12:55:18.1264493Z           "ci95": [
+2026-10-22T12:55:18.1264765Z             0.27999999999999997,
+2026-10-22T12:55:18.1265028Z             0.29
+2026-10-22T12:55:18.1265238Z           ],
+2026-10-22T12:55:18.1265511Z           "min": 0.27999999999999997,
+2026-10-22T12:55:18.1265924Z           "max": 0.3
+2026-10-22T12:55:18.1266151Z         }
+2026-10-22T12:55:18.1266342Z       }
+2026-10-22T12:55:18.1266519Z     }
+2026-10-22T12:55:18.1266689Z   },
+2026-10-22T12:55:18.1266884Z   "holdout": {
+2026-10-22T12:55:18.1267091Z     "small": {
+2026-10-22T12:55:18.1267305Z       "B_over_A": {
+2026-10-22T12:55:18.1267526Z         "n": 12,
+2026-10-22T12:55:18.1267788Z         "median": 0.7922515892124948,
+2026-10-22T12:55:18.1268060Z         "ci95": [
+2026-10-22T12:55:18.1268311Z           0.7391696044580139,
+2026-10-22T12:55:18.1268590Z           0.8444852793183053
+2026-10-22T12:55:18.1268819Z         ],
+2026-10-22T12:55:18.1269076Z         "min": 0.6936752104627644,
+2026-10-22T12:55:18.1269375Z         "max": 0.8665243352431263
+2026-10-22T12:55:18.1269610Z       },
+2026-10-22T12:55:18.1269816Z       "choice": "B"
+2026-10-22T12:55:18.1270015Z     },
+2026-10-22T12:55:18.1270211Z     "large": {
+2026-10-22T12:55:18.1270427Z       "B_over_A": {
+2026-10-22T12:55:18.1270647Z         "n": 12,
+2026-10-22T12:55:18.1270904Z         "median": 0.7826706238663756,
+2026-10-22T12:55:18.1271173Z         "ci95": [
+2026-10-22T12:55:18.1271429Z           0.7705275450452782,
+2026-10-22T12:55:18.1271996Z           0.8196625568543685
+2026-10-22T12:55:18.1272238Z         ],
+2026-10-22T12:55:18.1272484Z         "min": 0.7530150667471573,
+2026-10-22T12:55:18.1272788Z         "max": 0.9124940217775697
+2026-10-22T12:55:18.1273026Z       },
+2026-10-22T12:55:18.1273232Z       "choice": "B"
+2026-10-22T12:55:18.1273421Z     }
+2026-10-22T12:55:18.1273593Z   },
+2026-10-22T12:55:18.1274033Z   "interpretation": "resource/information ablation, not independent AI decision improvement",
+2026-10-22T12:55:18.1274539Z   "acquisition_artifact_bytes_by_mode": {
+2026-10-22T12:55:18.1274832Z     "native": 42555,
+2026-10-22T12:55:18.1275065Z     "go": 7897789,
+2026-10-22T12:55:18.1275290Z     "go-ebpf": 7931523
+2026-10-22T12:55:18.1275494Z   },
+2026-10-22T12:55:18.1275691Z   "sealed_go_choice": {
+2026-10-22T12:55:18.1275916Z     "choices": {
+2026-10-22T12:55:18.1276134Z       "large": {
+2026-10-22T12:55:18.1276356Z         "B_over_A": {
+2026-10-22T12:55:18.1276600Z           "ci95": [
+2026-10-22T12:55:18.1276873Z             0.7481781850444933,
+2026-10-22T12:55:18.1277282Z             0.8448541951524071
+2026-10-22T12:55:18.1277524Z           ],
+2026-10-22T12:55:18.1277791Z           "max": 0.8744611136867031,
+2026-10-22T12:55:18.1278123Z           "median": 0.7898680815462303,
+2026-10-22T12:55:18.1278455Z           "min": 0.7222774854753169,
+2026-10-22T12:55:18.1278715Z           "n": 12
+2026-10-22T12:55:18.1278913Z         },
+2026-10-22T12:55:18.1279279Z         "choice": "B"
+2026-10-22T12:55:18.1279492Z       },
+2026-10-22T12:55:18.1279799Z       "small": {
+2026-10-22T12:55:18.1280104Z         "B_over_A": {
+2026-10-22T12:55:18.1280342Z           "ci95": [
+2026-10-22T12:55:18.1280608Z             0.7452391061433321,
+2026-10-22T12:55:18.1280908Z             0.7775116939510103
+2026-10-22T12:55:18.1281150Z           ],
+2026-10-22T12:55:18.1281413Z           "max": 0.8136059164563957,
+2026-10-22T12:55:18.1281900Z           "median": 0.760878997594712,
+2026-10-22T12:55:18.1282224Z           "min": 0.7229159833605227,
+2026-10-22T12:55:18.1282495Z           "n": 12
+2026-10-22T12:55:18.1282697Z         },
+2026-10-22T12:55:18.1282915Z         "choice": "B"
+2026-10-22T12:55:18.1283124Z       }
+2026-10-22T12:55:18.1283312Z     },
+2026-10-22T12:55:18.1283528Z     "epoch": 1792673697.096054,
+2026-10-22T12:55:18.1283963Z     "kernel_tie_break": "none: fewer syscalls is not a throughput objective",
+2026-10-22T12:55:18.1284763Z     "method": "Fixed native timing rule, Go profiles available; not an independent AI evaluator"
+2026-10-22T12:55:18.1285207Z   }
+2026-10-22T12:55:18.1285382Z }
+2026-10-22T12:55:18.1318644Z ##[group]Run python3 experiments/value-cost/analyze.py manifest results/r001
+2026-10-22T12:55:18.1319235Z [36;1mpython3 experiments/value-cost/analyze.py manifest results/r001[0m
+2026-10-22T12:55:18.1382633Z shell: /usr/bin/bash -e {0}
+2026-10-22T12:55:18.1382917Z env:
+2026-10-22T12:55:18.1383110Z   GOMAXPROCS: 2
+2026-10-22T12:55:18.1383327Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:55:18.1383550Z   GOTOOLCHAIN: local
+2026-10-22T12:55:18.1383774Z ##[endgroup]
+2026-10-22T12:55:18.3290327Z ##[group]Run actions/upload-artifact@v4
+2026-10-22T12:55:18.3290669Z with:
+2026-10-22T12:55:18.3290889Z   name: r001-value-cost-39782110137-1
+2026-10-22T12:55:18.3291164Z   path: results/r001/
+2026-10-22T12:55:18.3291391Z   retention-days: 30
+2026-10-22T12:55:18.3291623Z   if-no-files-found: error
+2026-10-22T12:55:18.3292082Z   compression-level: 6
+2026-10-22T12:55:18.3292308Z   overwrite: false
+2026-10-22T12:55:18.3292545Z   include-hidden-files: false
+2026-10-22T12:55:18.3292780Z env:
+2026-10-22T12:55:18.3292969Z   GOMAXPROCS: 2
+2026-10-22T12:55:18.3293180Z   PYTHONUNBUFFERED: 1
+2026-10-22T12:55:18.3293396Z   GOTOOLCHAIN: local
+2026-10-22T12:55:18.3293599Z ##[endgroup]
+2026-10-22T12:55:18.4882585Z (node:6548) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T12:55:18.4883350Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T12:55:18.7458035Z With the provided path, there will be 1277 files uploaded
+2026-10-22T12:55:18.7463391Z Artifact name is valid!
+2026-10-22T12:55:18.7464113Z Root directory input is valid!
+2026-10-22T12:55:19.0442224Z Beginning upload of artifact content to blob storage
+2026-10-22T12:55:20.7642869Z (node:6548) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T12:55:21.2925595Z Uploaded bytes 7033192
+2026-10-22T12:55:21.3382858Z Finished uploading artifact content to blob storage!
+2026-10-22T12:55:21.3383691Z SHA256 digest of uploaded artifact zip is 005dc774d8acd5fac2fdb58dbd35c4abf10e500ddb7d8e661e768dd71b2e91af
+2026-10-22T12:55:21.3385561Z Finalizing artifact upload
+2026-10-22T12:55:21.8215064Z Artifact r001-value-cost-39782110137-1.zip successfully finalized. Artifact ID 12426768682
+2026-10-22T12:55:21.8216882Z Artifact r001-value-cost-39782110137-1 has been successfully uploaded! Final size is 7033192 bytes. Artifact ID is 12426768682
+2026-10-22T12:55:21.8222762Z Artifact download URL: https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39782110137/artifacts/12426768682
+2026-10-22T12:55:21.8496185Z Post job cleanup.
+2026-10-22T12:55:21.9710269Z [command]/opt/hostedtoolcache/go/1.25.5/x64/bin/go env GOMODCACHE
+2026-10-22T12:55:21.9762864Z [command]/opt/hostedtoolcache/go/1.25.5/x64/bin/go env GOCACHE
+2026-10-22T12:55:21.9842840Z /home/runner/go/pkg/mod
+2026-10-22T12:55:21.9843324Z /home/runner/.cache/go-build
+2026-10-22T12:55:21.9844540Z Cache hit occurred on the primary key setup-go-Linux-x64-ubuntu24-go-1.25.5-14e76ca21ca31155e6f465923b4ba7d31c4867375efb6fd1b4b6b88a6854e507, not saving cache.
+2026-10-22T12:55:21.9987168Z Post job cleanup.
+2026-10-22T12:55:22.0902564Z [command]/usr/bin/git version
+2026-10-22T12:55:22.0945645Z git version 2.55.0
+2026-10-22T12:55:22.0994481Z Temporarily overriding HOME='/home/runner/work/_temp/8cf8ef4e-a104-4609-90bd-a2dad2b44365' before making global git config changes
+2026-10-22T12:55:22.1006961Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T12:55:22.1012750Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc
+2026-10-22T12:55:22.1055105Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T12:55:22.1093136Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T12:55:22.1345802Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T12:55:22.1378510Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T12:55:22.1624433Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T12:55:22.1659570Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T12:55:22.2078299Z Cleaning up orphan processes
+2026-10-22T12:55:22.2436320Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

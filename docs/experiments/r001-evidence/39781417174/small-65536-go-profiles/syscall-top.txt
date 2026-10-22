@@ -1,0 +1,28 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 20.11ms, 99.70% of 20.17ms total
+Dropped 6 nodes (cum <= 0.10ms)
+      flat  flat%   sum%        cum   cum%
+   19.17ms 95.03% 95.03%    19.17ms 95.03%  syscall.read
+    0.78ms  3.88% 98.91%     0.78ms  3.88%  syscall.Seek
+    0.16ms  0.79% 99.70%     0.16ms  0.79%  syscall.fcntl
+         0     0% 99.70%    19.17ms 95.03%  internal/poll.(*FD).Read
+         0     0% 99.70%     0.78ms  3.88%  internal/poll.(*FD).Seek
+         0     0% 99.70%    19.23ms 95.33%  internal/poll.ignoringEINTRIO
+         0     0% 99.70%    19.17ms 95.03%  main.copyStream
+         0     0% 99.70%    19.95ms 98.91%  main.main
+         0     0% 99.70%    19.95ms 98.91%  main.run
+         0     0% 99.70%    19.17ms 95.03%  os.(*File).Read
+         0     0% 99.70%     0.78ms  3.88%  os.(*File).Seek
+         0     0% 99.70%    19.17ms 95.03%  os.(*File).read
+         0     0% 99.70%     0.78ms  3.88%  os.(*File).seek
+         0     0% 99.70%     0.16ms  0.79%  os.Open
+         0     0% 99.70%     0.16ms  0.79%  os.OpenFile
+         0     0% 99.70%     0.16ms  0.79%  os.ReadFile
+         0     0% 99.70%     0.16ms  0.79%  os.newFile
+         0     0% 99.70%     0.16ms  0.79%  os.openFileNolog
+         0     0% 99.70%     0.16ms  0.79%  runtime/pprof.(*profileBuilder).readMapping
+         0     0% 99.70%     0.16ms  0.79%  runtime/pprof.newProfileBuilder
+         0     0% 99.70%     0.16ms  0.79%  runtime/pprof.profileWriter
+         0     0% 99.70%    19.17ms 95.03%  syscall.Read
+         0     0% 99.70%     0.16ms  0.79%  syscall.SetNonblock

@@ -1,0 +1,18 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 50631.10us, 99.82% of 50721.92us total
+Dropped 11 nodes (cum <= 253.61us)
+      flat  flat%   sum%        cum   cum%
+50054.72us 98.68% 98.68% 50054.72us 98.68%  syscall.read
+  576.38us  1.14% 99.82%   576.38us  1.14%  syscall.Seek
+         0     0% 99.82% 50054.72us 98.68%  internal/poll.(*FD).Read
+         0     0% 99.82%   576.38us  1.14%  internal/poll.(*FD).Seek
+         0     0% 99.82% 50145.54us 98.86%  internal/poll.ignoringEINTRIO
+         0     0% 99.82% 49926.46us 98.43%  main.copyStream
+         0     0% 99.82% 50502.85us 99.57%  main.main
+         0     0% 99.82% 50502.85us 99.57%  main.run
+         0     0% 99.82% 50054.72us 98.68%  os.(*File).Read
+         0     0% 99.82%   576.38us  1.14%  os.(*File).Seek
+         0     0% 99.82% 50054.72us 98.68%  os.(*File).read
+         0     0% 99.82%   576.38us  1.14%  os.(*File).seek
+         0     0% 99.82% 50054.72us 98.68%  syscall.Read

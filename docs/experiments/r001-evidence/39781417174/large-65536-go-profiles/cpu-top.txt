@@ -1,0 +1,48 @@
+File: costbench
+Build ID: c6c2c1551f0d9c290844434ea13cb01f648fbcbb
+Type: cpu
+Time: 2026-10-22 12:49:29 UTC
+Duration: 3.32s, Total samples = 1.37s (41.26%)
+Showing nodes accounting for 1.37s, 100% of 1.37s total
+Showing top 40 nodes out of 55
+      flat  flat%   sum%        cum   cum%
+     1.30s 94.89% 94.89%      1.30s 94.89%  internal/runtime/syscall.Syscall6
+     0.01s  0.73% 95.62%      0.01s  0.73%  internal/runtime/atomic.(*Uint8).Load (inline)
+     0.01s  0.73% 96.35%      0.02s  1.46%  runtime.entersyscall
+     0.01s  0.73% 97.08%      0.02s  1.46%  runtime.exitsyscallfast
+     0.01s  0.73% 97.81%      0.01s  0.73%  runtime.futex
+     0.01s  0.73% 98.54%      0.01s  0.73%  runtime.step
+     0.01s  0.73% 99.27%      0.01s  0.73%  runtime.sysMunmap
+     0.01s  0.73%   100%      0.01s  0.73%  runtime.traceAcquireEnabled
+         0     0%   100%      0.68s 49.64%  internal/poll.(*FD).Read
+         0     0%   100%      0.66s 48.18%  internal/poll.(*FD).Write
+         0     0%   100%      1.34s 97.81%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.01s  0.73%  internal/runtime/atomic.(*Bool).Load (inline)
+         0     0%   100%      1.34s 97.81%  main.copyStream
+         0     0%   100%      1.37s   100%  main.main
+         0     0%   100%      1.37s   100%  main.run
+         0     0%   100%      0.68s 49.64%  os.(*File).Read
+         0     0%   100%      0.66s 48.18%  os.(*File).Write
+         0     0%   100%      0.68s 49.64%  os.(*File).read (inline)
+         0     0%   100%      0.66s 48.18%  os.(*File).write (inline)
+         0     0%   100%      0.01s  0.73%  runtime.(*Frames).Next
+         0     0%   100%      0.01s  0.73%  runtime.(*traceMap).reset
+         0     0%   100%      0.01s  0.73%  runtime.(*traceRegionAlloc).drop
+         0     0%   100%      0.01s  0.73%  runtime.(*traceStackTable).dump
+         0     0%   100%      0.01s  0.73%  runtime.(*traceStringTable).reset
+         0     0%   100%      0.01s  0.73%  runtime.ReadMemStats
+         0     0%   100%      0.02s  1.46%  runtime.StopTrace (inline)
+         0     0%   100%      0.01s  0.73%  runtime.dumpStacksRec
+         0     0%   100%      0.02s  1.46%  runtime.exitsyscall
+         0     0%   100%      0.01s  0.73%  runtime.funcline1
+         0     0%   100%      0.01s  0.73%  runtime.futexwakeup
+         0     0%   100%      1.37s   100%  runtime.main
+         0     0%   100%      0.01s  0.73%  runtime.makeTraceFrames
+         0     0%   100%      0.01s  0.73%  runtime.munmap
+         0     0%   100%      0.01s  0.73%  runtime.notewakeup
+         0     0%   100%      0.01s  0.73%  runtime.pcvalue
+         0     0%   100%      0.01s  0.73%  runtime.reentersyscall
+         0     0%   100%      0.01s  0.73%  runtime.startTheWorld
+         0     0%   100%      0.01s  0.73%  runtime.startTheWorld.func1
+         0     0%   100%      0.01s  0.73%  runtime.startTheWorldWithSema
+         0     0%   100%      0.01s  0.73%  runtime.startm

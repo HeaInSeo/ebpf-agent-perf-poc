@@ -52,3 +52,23 @@ This confirms the recorded implementation paths and runner/kernel combinations,
 not all hooks or kernels. Agent-driven code modification is a future objective;
 F001 does not require implementing it. E005's lack of demonstrated ranking gain
 and the remaining incremental-value questions are preserved.
+
+## Selective tracing value and resource cost (R001)
+
+Two unchanged manual Actions runs completed 384 timed observations and four
+controls. Exact kernel counters and output hashes passed; 2,552 original files
+were checksum-verified. Both runs used identical source and target binary, with
+Intel/AMD hosted CPUs respectively.
+
+Adding bpftrace to the same Go profiling increased hot-copy elapsed ratios by
+11–63% across condition medians, added about 0.57–0.74s per collector invocation,
+and used about 102MiB collector peak RSS. These are scoped measurements, not a
+universal eBPF overhead estimate. Incremental AI decision quality remains open.
+
+- [R001 first opinion and detailed results](docs/experiments/R001-RESULT.md)
+- [Pre-registered protocol](docs/experiments/R001-PROTOCOL.md)
+- [Full immutable evidence](docs/experiments/r001-evidence/README.md)
+
+The author's first opinion is to withhold routine fleet-wide adoption and retain
+selective diagnostics as a possibility. E006's independent evaluation is not
+complete. No operational guardrail or upstream workflow was changed.

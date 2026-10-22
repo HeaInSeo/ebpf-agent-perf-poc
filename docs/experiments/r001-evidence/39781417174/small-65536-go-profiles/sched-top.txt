@@ -1,0 +1,28 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 1027.65us, 99.39% of 1033.92us total
+Dropped 2 nodes (cum <= 5.17us)
+      flat  flat%   sum%        cum   cum%
+  510.72us 49.40% 49.40%   520.77us 50.37%  runtime.gcStart
+  288.58us 27.91% 77.31%   288.58us 27.91%  runtime.chansend1
+  164.99us 15.96% 93.27%   164.99us 15.96%  runtime.systemstack_switch
+   30.98us  3.00% 96.26%    30.98us  3.00%  internal/poll.(*FD).Write
+   15.81us  1.53% 97.79%    15.81us  1.53%  os.(*File).Seek
+    8.83us  0.85% 98.64%     8.83us  0.85%  errors.Is
+    6.08us  0.59% 99.23%     6.08us  0.59%  runtime.gcBgMarkStartWorkers
+    1.66us  0.16% 99.39%     7.94us  0.77%  runtime/trace.(*traceMultiplexer).startLocked
+         0     0% 99.39%    39.81us  3.85%  main.copyStream
+         0     0% 99.39%   584.32us 56.52%  main.main
+         0     0% 99.39%   584.32us 56.52%  main.run
+         0     0% 99.39%    30.98us  3.00%  os.(*File).Write
+         0     0% 99.39%    30.98us  3.00%  os.(*File).write
+         0     0% 99.39%     6.27us  0.61%  runtime.StartTrace
+         0     0% 99.39%   449.60us 43.48%  runtime.gcBgMarkWorker
+         0     0% 99.39%   161.02us 15.57%  runtime.gcMarkDone
+         0     0% 99.39%   161.02us 15.57%  runtime.gcMarkTermination
+         0     0% 99.39%   520.77us 50.37%  runtime.makeslice
+         0     0% 99.39%   520.77us 50.37%  runtime.mallocgc
+         0     0% 99.39%   520.77us 50.37%  runtime.mallocgcLarge
+         0     0% 99.39%     7.94us  0.77%  runtime/trace.(*traceMultiplexer).addedSubscriber
+         0     0% 99.39%     7.94us  0.77%  runtime/trace.(*traceMultiplexer).subscribeTraceStartWriter
+         0     0% 99.39%     7.94us  0.77%  runtime/trace.Start

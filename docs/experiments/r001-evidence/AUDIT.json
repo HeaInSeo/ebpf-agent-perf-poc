@@ -1,0 +1,32 @@
+[
+  {
+    "go_cpu_profile_aggregate_samples": {
+      "large-32768-go-profiles": "1.57s (44.65%)",
+      "large-65536-go-profiles": "1.37s (41.26%)",
+      "small-32768-go-profiles": "370ms (15.31%)",
+      "small-65536-go-profiles": "280ms (11.58%)"
+    },
+    "manifest_files_verified": 1276,
+    "run": "39781417174",
+    "seal_precedes_holdout": true,
+    "status": "PASS",
+    "timed_trials": 192,
+    "traced_controls": 2,
+    "traced_timed_trials": 48
+  },
+  {
+    "go_cpu_profile_aggregate_samples": {
+      "large-32768-go-profiles": "1.31s (39.45%)",
+      "large-65536-go-profiles": "1.01s (41.72%)",
+      "small-32768-go-profiles": "530ms (21.88%)",
+      "small-65536-go-profiles": "380ms (15.68%)"
+    },
+    "manifest_files_verified": 1276,
+    "run": "39782110137",
+    "seal_precedes_holdout": true,
+    "status": "PASS",
+    "timed_trials": 192,
+    "traced_controls": 2,
+    "traced_timed_trials": 48
+  }
+]

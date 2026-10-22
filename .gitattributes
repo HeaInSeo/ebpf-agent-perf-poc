@@ -1,2 +1,4 @@
 # Preserve downloaded F001 evidence byte-for-byte, including original log line endings.
 docs/experiments/f001-evidence/** -text
+# Preserve original R001 ZIPs and downloaded text without normalization.
+docs/experiments/r001-evidence/** -text

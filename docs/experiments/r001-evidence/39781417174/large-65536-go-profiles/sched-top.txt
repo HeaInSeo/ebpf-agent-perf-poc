@@ -1,0 +1,21 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 332.22us, 99.60% of 333.57us total
+Dropped 1 node (cum <= 1.67us)
+      flat  flat%   sum%        cum   cum%
+  145.02us 43.48% 43.48%   145.02us 43.48%  runtime.systemstack_switch
+  130.37us 39.08% 82.56%   275.39us 82.56%  runtime.gcMarkDone
+   53.06us 15.91% 98.47%    53.06us 15.91%  internal/poll.(*FD).Write
+    2.69us  0.81% 99.27%     2.69us  0.81%  runtime.traceStartReadCPU
+    1.09us  0.33% 99.60%     5.12us  1.53%  runtime/trace.(*traceMultiplexer).startLocked
+         0     0% 99.60%    53.06us 15.91%  main.copyStream
+         0     0% 99.60%    58.18us 17.44%  main.main
+         0     0% 99.60%    58.18us 17.44%  main.run
+         0     0% 99.60%    53.06us 15.91%  os.(*File).Write
+         0     0% 99.60%    53.06us 15.91%  os.(*File).write
+         0     0% 99.60%     4.03us  1.21%  runtime.StartTrace
+         0     0% 99.60%   275.39us 82.56%  runtime.gcBgMarkWorker
+         0     0% 99.60%   145.02us 43.48%  runtime.gcMarkTermination
+         0     0% 99.60%     5.12us  1.53%  runtime/trace.(*traceMultiplexer).addedSubscriber
+         0     0% 99.60%     5.12us  1.53%  runtime/trace.(*traceMultiplexer).subscribeTraceStartWriter
+         0     0% 99.60%     5.12us  1.53%  runtime/trace.Start

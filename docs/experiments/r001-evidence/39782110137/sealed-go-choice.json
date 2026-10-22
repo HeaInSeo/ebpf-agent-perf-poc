@@ -1,0 +1,33 @@
+{
+  "choices": {
+    "large": {
+      "B_over_A": {
+        "ci95": [
+          0.7481781850444933,
+          0.8448541951524071
+        ],
+        "max": 0.8744611136867031,
+        "median": 0.7898680815462303,
+        "min": 0.7222774854753169,
+        "n": 12
+      },
+      "choice": "B"
+    },
+    "small": {
+      "B_over_A": {
+        "ci95": [
+          0.7452391061433321,
+          0.7775116939510103
+        ],
+        "max": 0.8136059164563957,
+        "median": 0.760878997594712,
+        "min": 0.7229159833605227,
+        "n": 12
+      },
+      "choice": "B"
+    }
+  },
+  "epoch": 1792673697.096054,
+  "kernel_tie_break": "none: fewer syscalls is not a throughput objective",
+  "method": "Fixed native timing rule, Go profiles available; not an independent AI evaluator"
+}

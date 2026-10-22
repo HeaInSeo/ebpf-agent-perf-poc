@@ -1,0 +1,17 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 5248ns, 100% of 5248ns total
+      flat  flat%   sum%        cum   cum%
+    1728ns 32.93% 32.93%     1728ns 32.93%  runtime.traceStartReadCPU
+    1536ns 29.27% 62.20%     1536ns 29.27%  internal/poll.(*FD).Write
+    1024ns 19.51% 81.71%     3712ns 70.73%  runtime/trace.(*traceMultiplexer).startLocked
+     960ns 18.29%   100%      960ns 18.29%  runtime.(*traceAdvancerState).start
+         0     0%   100%     1536ns 29.27%  main.copyStream
+         0     0%   100%     5248ns   100%  main.main
+         0     0%   100%     5248ns   100%  main.run
+         0     0%   100%     1536ns 29.27%  os.(*File).Write
+         0     0%   100%     1536ns 29.27%  os.(*File).write
+         0     0%   100%     2688ns 51.22%  runtime.StartTrace
+         0     0%   100%     3712ns 70.73%  runtime/trace.(*traceMultiplexer).addedSubscriber
+         0     0%   100%     3712ns 70.73%  runtime/trace.(*traceMultiplexer).subscribeTraceStartWriter
+         0     0%   100%     3712ns 70.73%  runtime/trace.Start

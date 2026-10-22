@@ -1,0 +1,48 @@
+File: costbench
+Build ID: c6c2c1551f0d9c290844434ea13cb01f648fbcbb
+Type: cpu
+Time: 2026-10-22 12:54:25 UTC
+Duration: 2.42s, Total samples = 1.01s (41.72%)
+Showing nodes accounting for 1.01s, 100% of 1.01s total
+Showing top 40 nodes out of 53
+      flat  flat%   sum%        cum   cum%
+     0.89s 88.12% 88.12%      0.89s 88.12%  internal/runtime/syscall.Syscall6
+     0.02s  1.98% 90.10%      0.02s  1.98%  internal/runtime/atomic.(*UnsafePointer).StoreNoWB (inline)
+     0.02s  1.98% 92.08%      0.02s  1.98%  runtime.nanotime (inline)
+     0.01s  0.99% 93.07%      0.98s 97.03%  main.copyStream
+     0.01s  0.99% 94.06%      0.01s  0.99%  runtime.(*traceBuf).varint (inline)
+     0.01s  0.99% 95.05%      0.01s  0.99%  runtime.duffzero
+     0.01s  0.99% 96.04%      0.01s  0.99%  runtime.fpTracebackPCs (inline)
+     0.01s  0.99% 97.03%      0.09s  8.91%  runtime.systemstack
+     0.01s  0.99% 98.02%      0.01s  0.99%  runtime.traceAcquireEnabled
+     0.01s  0.99% 99.01%      0.01s  0.99%  runtime.traceLocker.eventWriter
+     0.01s  0.99%   100%      0.03s  2.97%  runtime.traceStack
+         0     0%   100%      0.47s 46.53%  internal/poll.(*FD).Read
+         0     0%   100%      0.50s 49.50%  internal/poll.(*FD).Write
+         0     0%   100%      0.97s 96.04%  internal/poll.ignoringEINTRIO (inline)
+         0     0%   100%      0.01s  0.99%  internal/runtime/atomic.(*Pointer[go.shape.struct { runtime.spanSetBlockHeader2; runtime.spans [512]runtime.atomicMSpanPointer }]).StoreNoWB (inline)
+         0     0%   100%      0.99s 98.02%  main.main
+         0     0%   100%      0.99s 98.02%  main.run
+         0     0%   100%      0.47s 46.53%  os.(*File).Read
+         0     0%   100%      0.50s 49.50%  os.(*File).Write
+         0     0%   100%      0.47s 46.53%  os.(*File).read (inline)
+         0     0%   100%      0.50s 49.50%  os.(*File).write (inline)
+         0     0%   100%      0.01s  0.99%  runtime.(*atomicMSpanPointer).StoreNoWB (inline)
+         0     0%   100%      0.01s  0.99%  runtime.(*mcache).releaseAll
+         0     0%   100%      0.01s  0.99%  runtime.(*mcentral).uncacheSpan
+         0     0%   100%      0.02s  1.98%  runtime.(*spanSet).push
+         0     0%   100%      0.01s  0.99%  runtime.(*sweepLocked).sweep
+         0     0%   100%      0.01s  0.99%  runtime.ReadMemStats
+         0     0%   100%      0.01s  0.99%  runtime.ReadMemStats.func1
+         0     0%   100%      0.01s  0.99%  runtime.bgsweep
+         0     0%   100%      0.06s  5.94%  runtime.entersyscall
+         0     0%   100%      0.02s  1.98%  runtime.exitsyscall
+         0     0%   100%      0.01s  0.99%  runtime.exitsyscall.func2
+         0     0%   100%      0.01s  0.99%  runtime.exitsyscallfast
+         0     0%   100%      0.01s  0.99%  runtime.flushallmcaches
+         0     0%   100%      0.01s  0.99%  runtime.flushmcache
+         0     0%   100%      0.99s 98.02%  runtime.main
+         0     0%   100%      0.01s  0.99%  runtime.readmemstats_m
+         0     0%   100%      0.06s  5.94%  runtime.reentersyscall
+         0     0%   100%      0.06s  5.94%  runtime.reentersyscall.func3
+         0     0%   100%      0.01s  0.99%  runtime.sweepone

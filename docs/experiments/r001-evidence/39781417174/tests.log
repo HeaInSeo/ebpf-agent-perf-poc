@@ -1,0 +1,4 @@
+ok  	github.com/HeaInSeo/ebpf-agent-perf-poc/cmd/benchrun	0.015s
+ok  	github.com/HeaInSeo/ebpf-agent-perf-poc/cmd/costbench	0.006s
+ok  	github.com/HeaInSeo/ebpf-agent-perf-poc/cmd/iobench	0.035s
+ok  	github.com/HeaInSeo/ebpf-agent-perf-poc/cmd/costbench	1.055s

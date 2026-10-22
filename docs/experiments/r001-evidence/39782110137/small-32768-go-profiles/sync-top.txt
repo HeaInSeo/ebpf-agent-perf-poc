@@ -1,0 +1,20 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 164.22us, 100% of 164.22us total
+      flat  flat%   sum%        cum   cum%
+  158.85us 96.73% 96.73%   164.22us   100%  runtime.gcStart
+    5.38us  3.27%   100%     5.38us  3.27%  runtime.chanrecv1
+         0     0%   100%     5.38us  3.27%  main.main
+         0     0%   100%     5.38us  3.27%  main.run
+         0     0%   100%   158.85us 96.73%  os.ReadFile
+         0     0%   100%   158.85us 96.73%  os.readFileContents
+         0     0%   100%     5.38us  3.27%  runtime.gcBgMarkStartWorkers
+         0     0%   100%   158.85us 96.73%  runtime.growslice
+         0     0%   100%     5.38us  3.27%  runtime.makeslice
+         0     0%   100%   164.22us   100%  runtime.mallocgc
+         0     0%   100%     5.38us  3.27%  runtime.mallocgcLarge
+         0     0%   100%   158.85us 96.73%  runtime.mallocgcSmallNoscan
+         0     0%   100%   158.85us 96.73%  runtime/pprof.(*profileBuilder).readMapping
+         0     0%   100%   158.85us 96.73%  runtime/pprof.newProfileBuilder
+         0     0%   100%   158.85us 96.73%  runtime/pprof.profileWriter
+         0     0%   100%   158.85us 96.73%  slices.Grow[...]

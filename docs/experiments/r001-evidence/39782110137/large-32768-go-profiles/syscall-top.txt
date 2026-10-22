@@ -1,0 +1,18 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 108.42ms, 99.71% of 108.74ms total
+Dropped 16 nodes (cum <= 0.54ms)
+      flat  flat%   sum%        cum   cum%
+   80.30ms 73.85% 73.85%    80.30ms 73.85%  syscall.read
+   28.12ms 25.86% 99.71%    28.12ms 25.86%  syscall.Seek
+         0     0% 99.71%    80.30ms 73.85%  internal/poll.(*FD).Read
+         0     0% 99.71%    28.12ms 25.86%  internal/poll.(*FD).Seek
+         0     0% 99.71%    80.48ms 74.01%  internal/poll.ignoringEINTRIO
+         0     0% 99.71%    80.30ms 73.85%  main.copyStream
+         0     0% 99.71%   108.42ms 99.71%  main.main
+         0     0% 99.71%   108.42ms 99.71%  main.run
+         0     0% 99.71%    80.30ms 73.85%  os.(*File).Read
+         0     0% 99.71%    28.12ms 25.86%  os.(*File).Seek
+         0     0% 99.71%    80.30ms 73.85%  os.(*File).read
+         0     0% 99.71%    28.12ms 25.86%  os.(*File).seek
+         0     0% 99.71%    80.30ms 73.85%  syscall.Read

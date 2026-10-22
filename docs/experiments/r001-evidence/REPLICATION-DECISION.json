@@ -1,0 +1,6 @@
+{
+  "epoch": 1792673612.8699272,
+  "first_run": 39781417174,
+  "first_source": "24a6e4a3ca48a53d0b16bf22882c0a9793c60623",
+  "reason": "Large-file acquisition B/A CI 0.7643..1.0384 includes practical tie; assess reproducibility on a second runner. No candidate, workload, mode, repetition, statistic or threshold changes. Preserve both full runs; do not substitute second outcome for first."
+}

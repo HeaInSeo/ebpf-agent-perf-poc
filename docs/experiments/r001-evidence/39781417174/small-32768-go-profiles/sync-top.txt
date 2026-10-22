@@ -1,0 +1,6 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 20.10us, 100% of 20.10us total
+      flat  flat%   sum%        cum   cum%
+   20.10us   100%   100%    20.10us   100%  runtime.gcMarkDone
+         0     0%   100%    20.10us   100%  runtime.gcBgMarkWorker

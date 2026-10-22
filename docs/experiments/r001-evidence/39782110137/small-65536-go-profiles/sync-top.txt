@@ -1,0 +1,12 @@
+Main binary filename not available.
+Type: delay
+Showing nodes accounting for 4.54us, 100% of 4.54us total
+      flat  flat%   sum%        cum   cum%
+    4.54us   100%   100%     4.54us   100%  runtime.chanrecv1
+         0     0%   100%     4.54us   100%  main.main
+         0     0%   100%     4.54us   100%  main.run
+         0     0%   100%     4.54us   100%  runtime.gcBgMarkStartWorkers
+         0     0%   100%     4.54us   100%  runtime.gcStart
+         0     0%   100%     4.54us   100%  runtime.makeslice
+         0     0%   100%     4.54us   100%  runtime.mallocgc
+         0     0%   100%     4.54us   100%  runtime.mallocgcLarge
