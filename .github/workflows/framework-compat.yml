@@ -78,6 +78,12 @@ jobs:
             cp --parents "$file" "results/f001/$FRAMEWORK/"
           done
           find experiments/frameworks/build -maxdepth 1 -type f -exec sha256sum {} + > "results/f001/$FRAMEWORK/binaries.sha256" || true
+          git diff --exit-code -- experiments/frameworks/cilium/go.mod experiments/frameworks/cilium/go.sum experiments/frameworks/aya-user/Cargo.lock experiments/frameworks/aya-ebpf/Cargo.lock
+      - name: Seal complete artifact after all writers exit
+        if: always()
+        env:
+          FRAMEWORK: ${{ matrix.framework }}
+        run: sudo /usr/bin/python3 experiments/frameworks/seal_evidence.py "results/f001/$FRAMEWORK"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

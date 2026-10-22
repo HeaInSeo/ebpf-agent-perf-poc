@@ -193,7 +193,9 @@ def main():
     (args.output / "result.json").write_text(json.dumps(summary, indent=2) + "\n")
     sums = []
     for path in sorted(args.output.rglob("*")):
-        if path.is_file() and path.name != "SHA256SUMS.txt":
+        # The outer workflow's tee still owns probe.log; final sealing happens
+        # after that process and the provenance-copy step have completed.
+        if path.is_file() and path.name not in {"SHA256SUMS.txt", "probe.log"}:
             sums.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.relative_to(args.output)}")
     (args.output / "SHA256SUMS.txt").write_text("\n".join(sums) + "\n")
     print(json.dumps({"framework": args.framework, "verdict": verdict, "passed_trials": summary["passed_trials"], "error": error}))
