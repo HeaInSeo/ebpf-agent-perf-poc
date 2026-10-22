@@ -1,0 +1,40 @@
+{
+  "aya": {
+    "verdict": "BUILD_FAIL",
+    "passed_trials": 0,
+    "source_matches": null,
+    "original_manifest_mismatches": []
+  },
+  "bcc": {
+    "verdict": "FAIL",
+    "passed_trials": 0,
+    "source_matches": true,
+    "original_manifest_mismatches": [
+      "probe.log"
+    ]
+  },
+  "bpftrace": {
+    "verdict": "FAIL",
+    "passed_trials": 1,
+    "source_matches": true,
+    "original_manifest_mismatches": [
+      "probe.log"
+    ]
+  },
+  "cilium": {
+    "verdict": "PASS",
+    "passed_trials": 9,
+    "source_matches": true,
+    "original_manifest_mismatches": [
+      "probe.log"
+    ]
+  },
+  "libbpf": {
+    "verdict": "PASS",
+    "passed_trials": 9,
+    "source_matches": true,
+    "original_manifest_mismatches": [
+      "probe.log"
+    ]
+  }
+}

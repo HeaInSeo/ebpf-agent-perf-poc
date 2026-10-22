@@ -1,0 +1,33 @@
+go: downloading github.com/cilium/ebpf v0.22.0
+go: downloading github.com/go-quicktest/qt v1.101.1-0.20240301121107-c6c8733fa1e6
+go: downloading golang.org/x/sys v0.43.0
+go: downloading github.com/google/go-cmp v0.7.0
+go: downloading github.com/jsimonetti/rtnetlink/v2 v2.0.1
+go: downloading golang.org/x/sync v0.20.0
+go: downloading github.com/kr/pretty v0.3.1
+go: downloading github.com/kr/text v0.2.0
+go: downloading github.com/rogpeppe/go-internal v1.14.1
+go: downloading github.com/mdlayher/netlink v1.7.2
+go: downloading github.com/josharian/native v1.1.0
+go: downloading golang.org/x/net v0.48.0
+go: downloading github.com/mdlayher/socket v0.5.1
+all modules verified
+/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/cilium: go1.25.5
+	path	github.com/HeaInSeo/ebpf-agent-perf-poc/framework-cilium
+	mod	github.com/HeaInSeo/ebpf-agent-perf-poc/framework-cilium	(devel)	
+	dep	github.com/cilium/ebpf	v0.22.0	h1:v2ktp0roffpMOj2MMf3idtCQZOsAoC4BJbAJN+ke2bY=
+	dep	golang.org/x/sys	v0.43.0	h1:Rlag2XtaFTxp19wS8MXlJwTvoh8ArU6ezoyFsMyCTNI=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=1
+	build	GOARCH=amd64
+	build	GOOS=linux
+	build	GOAMD64=v1
+	build	vcs=git
+	build	vcs.revision=f12a3aaa059c0e29d2736580ef2a23ab1b2309e6
+	build	vcs.time=2026-10-22T12:00:10Z
+	build	vcs.modified=true
+aea819ee3a83fb27fc2eefe0efb65fc371071382a88ac999005750cf6585aea7  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/cilium
+d497c5248cc3436e97a79a649eca5343f862225c1ffca2d9091e3921db2bcb0a  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/counter.bpf.o
+771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/target

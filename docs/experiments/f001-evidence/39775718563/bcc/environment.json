@@ -1,0 +1,22 @@
+{
+  "framework": "bcc",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervmxehtw",
+    "release": "7.0.0-1017-azure",
+    "version": "#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792670836.0490127,
+  "source_sha": "feb1511236065cdf298050837162681f75b22c50",
+  "github": {
+    "GITHUB_RUN_ID": "39775718563",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261018.339.1"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport"
+}

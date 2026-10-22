@@ -1,0 +1,100 @@
+{
+  "framework": "bcc",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervmfese6",
+    "release": "7.0.0-1017-azure",
+    "version": "#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792670454.4990947,
+  "source_sha": "f12a3aaa059c0e29d2736580ef2a23ab1b2309e6",
+  "github": {
+    "GITHUB_RUN_ID": "39774887636",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261021.345.10"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport",
+  "verdict": "FAIL",
+  "error": "RuntimeError: process exited before readiness/result: rc=1",
+  "passed_trials": 0,
+  "expected_trials": 9,
+  "trials": [
+    {
+      "batches": [],
+      "expected": 0,
+      "negative_control_calls": 137,
+      "selected_pid": 2855,
+      "negative_pid": 2856,
+      "before": {
+        "programs": [
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          79,
+          80,
+          81,
+          83,
+          85,
+          86,
+          87,
+          88
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          66,
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          79,
+          80,
+          81,
+          83,
+          85,
+          86,
+          87,
+          88
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": "RuntimeError: process exited before readiness/result: rc=1",
+      "verdict": "FAIL"
+    }
+  ],
+  "boundary": "Only this pinned toolchain, hook, map counter and recorded runner; no all-hook, performance or agent-improvement claim."
+}

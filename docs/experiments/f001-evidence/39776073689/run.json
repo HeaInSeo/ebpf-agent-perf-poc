@@ -1,0 +1,11 @@
+{
+  "id": 39776073689,
+  "html_url": "https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39776073689",
+  "event": "workflow_dispatch",
+  "status": "completed",
+  "conclusion": "success",
+  "head_sha": "5d45ef49e26b81ab4495ce43fe4ef91959bd643a",
+  "run_attempt": 1,
+  "run_started_at": "2026-10-22T12:09:33Z",
+  "updated_at": "2026-10-22T12:11:49Z"
+}

@@ -1,0 +1,2 @@
+bcc r0 zero: FAIL observed=None expected=0
+{"framework": "bcc", "verdict": "FAIL", "passed_trials": 0, "error": "RuntimeError: process exited before readiness/result: rc=1"}

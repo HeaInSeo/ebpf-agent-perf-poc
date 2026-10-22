@@ -1,0 +1,57 @@
+{
+  "frameworks": {
+    "aya": {
+      "verdict": "PASS",
+      "trials": 9,
+      "manifest_files": 37,
+      "expected_and_observed": 18000,
+      "kernel": "7.0.0-1017-azure",
+      "image": "20261021.345.10"
+    },
+    "bcc": {
+      "verdict": "PASS",
+      "trials": 9,
+      "manifest_files": 37,
+      "expected_and_observed": 18000,
+      "kernel": "7.0.0-1017-azure",
+      "image": "20261018.339.1"
+    },
+    "bpftrace": {
+      "verdict": "PASS",
+      "trials": 9,
+      "manifest_files": 37,
+      "expected_and_observed": 18000,
+      "kernel": "6.17.0-1022-azure",
+      "image": "20261012.334.1"
+    },
+    "cilium": {
+      "verdict": "PASS",
+      "trials": 9,
+      "manifest_files": 37,
+      "expected_and_observed": 18000,
+      "kernel": "7.0.0-1017-azure",
+      "image": "20261018.339.1"
+    },
+    "libbpf": {
+      "verdict": "PASS",
+      "trials": 9,
+      "manifest_files": 37,
+      "expected_and_observed": 18000,
+      "kernel": "6.17.0-1022-azure",
+      "image": "20261012.334.1"
+    }
+  },
+  "shared_C_BPF_hashes": {
+    "cilium": "d497c5248cc3436e97a79a649eca5343f862225c1ffca2d9091e3921db2bcb0a",
+    "libbpf": "d497c5248cc3436e97a79a649eca5343f862225c1ffca2d9091e3921db2bcb0a"
+  },
+  "target_hashes": {
+    "aya": "771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365",
+    "bcc": "771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365",
+    "bpftrace": "771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365",
+    "cilium": "771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365",
+    "libbpf": "771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365"
+  },
+  "manifest_mismatches": [],
+  "raw_counter_rechecks": "45/45 PASS"
+}

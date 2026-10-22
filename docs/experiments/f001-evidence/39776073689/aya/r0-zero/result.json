@@ -1,0 +1,87 @@
+{
+  "batches": [],
+  "expected": 0,
+  "negative_control_calls": 137,
+  "selected_pid": 6512,
+  "negative_pid": 6513,
+  "collector_exit": 0,
+  "observed": 0,
+  "introduced": {
+    "programs": [
+      96
+    ],
+    "maps": [
+      12,
+      15,
+      16
+    ]
+  },
+  "remaining": {
+    "programs": [],
+    "maps": []
+  },
+  "before": {
+    "programs": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      83,
+      85,
+      86,
+      87,
+      88
+    ],
+    "maps": [
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "after": {
+    "programs": [
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      83,
+      85,
+      86,
+      87,
+      88
+    ],
+    "maps": [
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "error": null,
+  "verdict": "PASS"
+}

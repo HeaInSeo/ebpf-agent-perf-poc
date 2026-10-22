@@ -1,0 +1,20 @@
+all modules verified
+/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/cilium: go1.25.5
+	path	github.com/HeaInSeo/ebpf-agent-perf-poc/framework-cilium
+	mod	github.com/HeaInSeo/ebpf-agent-perf-poc/framework-cilium	(devel)	
+	dep	github.com/cilium/ebpf	v0.22.0	h1:v2ktp0roffpMOj2MMf3idtCQZOsAoC4BJbAJN+ke2bY=
+	dep	golang.org/x/sys	v0.43.0	h1:Rlag2XtaFTxp19wS8MXlJwTvoh8ArU6ezoyFsMyCTNI=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=1
+	build	GOARCH=amd64
+	build	GOOS=linux
+	build	GOAMD64=v1
+	build	vcs=git
+	build	vcs.revision=5d45ef49e26b81ab4495ce43fe4ef91959bd643a
+	build	vcs.time=2026-10-22T12:09:27Z
+	build	vcs.modified=false
+a46018714c65b45be7eaa0b5234a3f837d4295cd732500ba804a30c86d61052e  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/cilium
+d497c5248cc3436e97a79a649eca5343f862225c1ffca2d9091e3921db2bcb0a  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/counter.bpf.o
+771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/target

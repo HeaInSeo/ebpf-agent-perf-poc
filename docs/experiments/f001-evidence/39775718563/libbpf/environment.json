@@ -1,0 +1,22 @@
+{
+  "framework": "libbpf",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervm8k3b6",
+    "release": "6.17.0-1022-azure",
+    "version": "#22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792670833.220291,
+  "source_sha": "feb1511236065cdf298050837162681f75b22c50",
+  "github": {
+    "GITHUB_RUN_ID": "39775718563",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261012.334.1"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport"
+}

@@ -1,0 +1,2 @@
+# Preserve downloaded F001 evidence byte-for-byte, including original log line endings.
+docs/experiments/f001-evidence/** -text

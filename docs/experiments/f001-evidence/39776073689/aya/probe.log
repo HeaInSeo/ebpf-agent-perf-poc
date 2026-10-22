@@ -1,0 +1,10 @@
+aya r0 zero: PASS observed=0 expected=0
+aya r0 single: PASS observed=500 expected=500
+aya r0 batches: PASS observed=5500 expected=5500
+aya r1 zero: PASS observed=0 expected=0
+aya r1 single: PASS observed=500 expected=500
+aya r1 batches: PASS observed=5500 expected=5500
+aya r2 zero: PASS observed=0 expected=0
+aya r2 single: PASS observed=500 expected=500
+aya r2 batches: PASS observed=5500 expected=5500
+{"framework": "aya", "verdict": "PASS", "passed_trials": 9, "error": null}

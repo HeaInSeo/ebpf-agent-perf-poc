@@ -1,0 +1,3 @@
+d497c5248cc3436e97a79a649eca5343f862225c1ffca2d9091e3921db2bcb0a  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/counter.bpf.o
+fa794d868848dcfbe910fdf6f5e049ada1400ac78134faed2b14fa7f3982b90c  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/libbpf
+771c26d1a9f8364734dd74a2a1d1c55381b5d8ed10b993e964b7ad8187962365  /home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/build/target

@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/bcc.py", line 6, in <module>
+    from bcc import BPF
+  File "/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/bcc.py", line 6, in <module>
+    from bcc import BPF
+ImportError: cannot import name 'BPF' from partially initialized module 'bcc' (most likely due to a circular import) (/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/frameworks/bcc.py)

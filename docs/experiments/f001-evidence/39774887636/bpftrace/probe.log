@@ -1,0 +1,3 @@
+bpftrace r0 zero: PASS observed=0 expected=0
+bpftrace r0 single: FAIL observed=0 expected=500
+{"framework": "bpftrace", "verdict": "FAIL", "passed_trials": 1, "error": "RuntimeError: counter mismatch: expected=500 observed=0"}

@@ -1,0 +1,10 @@
+bcc r0 zero: PASS observed=0 expected=0
+bcc r0 single: PASS observed=500 expected=500
+bcc r0 batches: PASS observed=5500 expected=5500
+bcc r1 zero: PASS observed=0 expected=0
+bcc r1 single: PASS observed=500 expected=500
+bcc r1 batches: PASS observed=5500 expected=5500
+bcc r2 zero: PASS observed=0 expected=0
+bcc r2 single: PASS observed=500 expected=500
+bcc r2 batches: PASS observed=5500 expected=5500
+{"framework": "bcc", "verdict": "PASS", "passed_trials": 9, "error": null}

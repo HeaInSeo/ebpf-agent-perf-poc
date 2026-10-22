@@ -1,0 +1,22 @@
+{
+  "framework": "aya",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervmfese6",
+    "release": "7.0.0-1017-azure",
+    "version": "#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792671104.4152708,
+  "source_sha": "5d45ef49e26b81ab4495ce43fe4ef91959bd643a",
+  "github": {
+    "GITHUB_RUN_ID": "39776073689",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261021.345.10"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport"
+}

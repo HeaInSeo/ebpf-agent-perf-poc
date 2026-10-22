@@ -39,10 +39,16 @@ This repository is **not** a kernel performance autotuner and does not claim eBP
 
 ## Framework compatibility experiment (F001)
 
-Current scope includes verifying whether several eBPF implementation paths work on
-GitHub-hosted Actions. Agent-driven code modification is a future objective, not
-an acceptance condition of this capability experiment.
+**PASS: bpftrace, C/libbpf, Go/cilium-ebpf, Rust/Aya and Python/BCC each passed
+9/9 exact-count, PID-isolation and BPF-object-cleanup trials (45/45 total).**
 
-- [F001 frozen compatibility protocol](docs/experiments/F001-FRAMEWORK-COMPAT-PROTOCOL.md)
-- [Implementations and manual workflow](experiments/frameworks/README.md)
-- Initial registration: NOT RUN. Earlier E005 results remain unchanged.
+- [F001 detailed results, failures, corrections and scope](docs/experiments/F001-RESULT.md)
+- [Final GitHub Actions run 39776073689](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39776073689)
+- Tested source: `5d45ef49e26b81ab4495ce43fe4ef91959bd643a`.
+- [Frozen compatibility protocol](docs/experiments/F001-FRAMEWORK-COMPAT-PROTOCOL.md)
+- [Permanently preserved raw evidence](docs/experiments/f001-evidence/)
+
+This confirms the recorded implementation paths and runner/kernel combinations,
+not all hooks or kernels. Agent-driven code modification is a future objective;
+F001 does not require implementing it. E005's lack of demonstrated ranking gain
+and the remaining incremental-value questions are preserved.

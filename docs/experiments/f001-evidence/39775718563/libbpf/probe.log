@@ -1,0 +1,10 @@
+libbpf r0 zero: PASS observed=0 expected=0
+libbpf r0 single: PASS observed=500 expected=500
+libbpf r0 batches: PASS observed=5500 expected=5500
+libbpf r1 zero: PASS observed=0 expected=0
+libbpf r1 single: PASS observed=500 expected=500
+libbpf r1 batches: PASS observed=5500 expected=5500
+libbpf r2 zero: PASS observed=0 expected=0
+libbpf r2 single: PASS observed=500 expected=500
+libbpf r2 batches: PASS observed=5500 expected=5500
+{"framework": "libbpf", "verdict": "PASS", "passed_trials": 9, "error": null}

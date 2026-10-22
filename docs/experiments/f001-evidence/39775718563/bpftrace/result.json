@@ -1,0 +1,830 @@
+{
+  "framework": "bpftrace",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervm8k3b6",
+    "release": "6.17.0-1022-azure",
+    "version": "#22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792670829.0819368,
+  "source_sha": "feb1511236065cdf298050837162681f75b22c50",
+  "github": {
+    "GITHUB_RUN_ID": "39775718563",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261012.334.1"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport",
+  "verdict": "PASS",
+  "error": null,
+  "passed_trials": 9,
+  "expected_trials": 9,
+  "trials": [
+    {
+      "batches": [],
+      "expected": 0,
+      "negative_control_calls": 137,
+      "selected_pid": 2882,
+      "negative_pid": 2883,
+      "collector_exit": 0,
+      "observed": 0,
+      "introduced": {
+        "programs": [
+          92
+        ],
+        "maps": [
+          13,
+          14,
+          15
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        500
+      ],
+      "expected": 500,
+      "negative_control_calls": 137,
+      "selected_pid": 2895,
+      "negative_pid": 2896,
+      "collector_exit": 0,
+      "observed": 500,
+      "introduced": {
+        "programs": [
+          95
+        ],
+        "maps": [
+          17,
+          18,
+          19
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        1,
+        499,
+        5000
+      ],
+      "expected": 5500,
+      "negative_control_calls": 137,
+      "selected_pid": 2908,
+      "negative_pid": 2909,
+      "collector_exit": 0,
+      "observed": 5500,
+      "introduced": {
+        "programs": [
+          98
+        ],
+        "maps": [
+          21,
+          22,
+          23
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [],
+      "expected": 0,
+      "negative_control_calls": 137,
+      "selected_pid": 2921,
+      "negative_pid": 2922,
+      "collector_exit": 0,
+      "observed": 0,
+      "introduced": {
+        "programs": [
+          101
+        ],
+        "maps": [
+          25,
+          26,
+          27
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        500
+      ],
+      "expected": 500,
+      "negative_control_calls": 137,
+      "selected_pid": 2934,
+      "negative_pid": 2935,
+      "collector_exit": 0,
+      "observed": 500,
+      "introduced": {
+        "programs": [
+          104
+        ],
+        "maps": [
+          29,
+          30,
+          31
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        1,
+        499,
+        5000
+      ],
+      "expected": 5500,
+      "negative_control_calls": 137,
+      "selected_pid": 2947,
+      "negative_pid": 2948,
+      "collector_exit": 0,
+      "observed": 5500,
+      "introduced": {
+        "programs": [
+          107
+        ],
+        "maps": [
+          33,
+          34,
+          35
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [],
+      "expected": 0,
+      "negative_control_calls": 137,
+      "selected_pid": 2960,
+      "negative_pid": 2961,
+      "collector_exit": 0,
+      "observed": 0,
+      "introduced": {
+        "programs": [
+          110
+        ],
+        "maps": [
+          37,
+          38,
+          39
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        500
+      ],
+      "expected": 500,
+      "negative_control_calls": 137,
+      "selected_pid": 2973,
+      "negative_pid": 2974,
+      "collector_exit": 0,
+      "observed": 500,
+      "introduced": {
+        "programs": [
+          113
+        ],
+        "maps": [
+          41,
+          42,
+          43
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        1,
+        499,
+        5000
+      ],
+      "expected": 5500,
+      "negative_control_calls": 137,
+      "selected_pid": 2986,
+      "negative_pid": 2987,
+      "collector_exit": 0,
+      "observed": 5500,
+      "introduced": {
+        "programs": [
+          116
+        ],
+        "maps": [
+          45,
+          46,
+          47
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          67,
+          68,
+          69,
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          84,
+          86,
+          87,
+          88,
+          89
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    }
+  ],
+  "boundary": "Only this pinned toolchain, hook, map counter and recorded runner; no all-hook, performance or agent-improvement claim."
+}

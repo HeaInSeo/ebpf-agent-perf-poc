@@ -1,0 +1,10 @@
+cilium r0 zero: PASS observed=0 expected=0
+cilium r0 single: PASS observed=500 expected=500
+cilium r0 batches: PASS observed=5500 expected=5500
+cilium r1 zero: PASS observed=0 expected=0
+cilium r1 single: PASS observed=500 expected=500
+cilium r1 batches: PASS observed=5500 expected=5500
+cilium r2 zero: PASS observed=0 expected=0
+cilium r2 single: PASS observed=500 expected=500
+cilium r2 batches: PASS observed=5500 expected=5500
+{"framework": "cilium", "verdict": "PASS", "passed_trials": 9, "error": null}

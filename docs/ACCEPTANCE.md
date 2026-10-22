@@ -14,13 +14,24 @@
 
 A successful instrumentation demo **does not** count as an accepted PoC.
 
-## F001 — implementation-path capability (registered, not run)
+## F001 — implementation-path capability: PASS
 
-Per the 2026-10-22 scope clarification, this stage validates execution evidence
-and future integration feasibility. Automated agent code modification is not
-required to complete F001. Its PASS does not close the incremental-value gates.
+The 2026-10-22 scope clarification asks for evidence and future integration
+feasibility. Automated agent code modification is not required in this phase.
 
-Five paths must be attempted: bpftrace, libbpf, cilium/ebpf, Aya and BCC. For each,
-retain build/load/attach, exact counts, PID isolation, repeat and cleanup results;
-report unsupported or blocked paths explicitly. See the
-[F001 protocol](experiments/F001-FRAMEWORK-COMPAT-PROTOCOL.md).
+| Path | Exact count / PID isolation / repeat / cleanup |
+|---|---|
+| bpftrace | PASS 9/9 |
+| C/libbpf | PASS 9/9 |
+| Go/cilium-ebpf | PASS 9/9 |
+| Rust/Aya | PASS 9/9 |
+| Python/BCC | PASS 9/9 |
+
+[Final run 39776073689](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/39776073689)
+used exact source `5d45ef49e26b81ab4495ce43fe4ef91959bd643a`.
+All 185 artifact files matched their final checksum manifests; raw counters were
+independently rechecked for all 45 trials. See [full results](experiments/F001-RESULT.md).
+
+These results close F001 for the recorded environments. They do not close G6,
+prove improved agent decisions, or establish support for other hook/kernel types.
+Earlier failed attempts and their original manifests remain available.

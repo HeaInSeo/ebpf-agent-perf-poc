@@ -1,0 +1,205 @@
+{
+  "framework": "bpftrace",
+  "kernel": {
+    "system": "Linux",
+    "node": "runnervmxehtw",
+    "release": "7.0.0-1017-azure",
+    "version": "#17~24.04.1-Ubuntu SMP PREEMPT Thu Sep 24 18:46:57 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "utc_epoch": 1792670493.401932,
+  "source_sha": "f12a3aaa059c0e29d2736580ef2a23ab1b2309e6",
+  "github": {
+    "GITHUB_RUN_ID": "39774887636",
+    "GITHUB_RUN_ATTEMPT": "1",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20261018.339.1"
+  },
+  "hook": "tracepoint/raw_syscalls/sys_enter",
+  "syscall_id": 39,
+  "signal_loss": "in-kernel map aggregation; no streamed event transport",
+  "verdict": "FAIL",
+  "error": "RuntimeError: counter mismatch: expected=500 observed=0",
+  "passed_trials": 1,
+  "expected_trials": 9,
+  "trials": [
+    {
+      "batches": [],
+      "expected": 0,
+      "negative_control_calls": 137,
+      "selected_pid": 3153,
+      "negative_pid": 3154,
+      "collector_exit": 0,
+      "observed": 0,
+      "introduced": {
+        "programs": [
+          143
+        ],
+        "maps": [
+          13,
+          14,
+          15
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          129,
+          130,
+          131,
+          133,
+          135,
+          136,
+          137,
+          138
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          129,
+          130,
+          131,
+          133,
+          135,
+          136,
+          137,
+          138
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": null,
+      "verdict": "PASS"
+    },
+    {
+      "batches": [
+        500
+      ],
+      "expected": 500,
+      "negative_control_calls": 137,
+      "selected_pid": 3165,
+      "negative_pid": 3166,
+      "collector_exit": 0,
+      "observed": 0,
+      "introduced": {
+        "programs": [
+          149
+        ],
+        "maps": [
+          17,
+          18,
+          19
+        ]
+      },
+      "remaining": {
+        "programs": [],
+        "maps": []
+      },
+      "before": {
+        "programs": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          129,
+          130,
+          131,
+          133,
+          135,
+          136,
+          137,
+          138
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "after": {
+        "programs": [
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125,
+          129,
+          130,
+          131,
+          133,
+          135,
+          136,
+          137,
+          138
+        ],
+        "maps": [
+          4,
+          5,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "error": "RuntimeError: counter mismatch: expected=500 observed=0",
+      "verdict": "FAIL"
+    }
+  ],
+  "boundary": "Only this pinned toolchain, hook, map counter and recorded runner; no all-hook, performance or agent-improvement claim."
+}
