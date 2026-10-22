@@ -1,0 +1,5 @@
+BEGIN { printf("READY\n"); }
+tracepoint:raw_syscalls:sys_enter
+/pid == $1 && args->id == 39/
+{ @events = count(); }
+END { print(@events); clear(@events); }

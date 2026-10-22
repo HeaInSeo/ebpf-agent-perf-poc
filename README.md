@@ -36,3 +36,13 @@ AI-generated implementations. The PoC must also permit a negative result.
 See [protocol](docs/PROTOCOL.md) and [acceptance](docs/ACCEPTANCE.md).
 
 This repository is **not** a kernel performance autotuner and does not claim eBPF directly observes Go goroutines.
+
+## Framework compatibility experiment (F001)
+
+Current scope includes verifying whether several eBPF implementation paths work on
+GitHub-hosted Actions. Agent-driven code modification is a future objective, not
+an acceptance condition of this capability experiment.
+
+- [F001 frozen compatibility protocol](docs/experiments/F001-FRAMEWORK-COMPAT-PROTOCOL.md)
+- [Implementations and manual workflow](experiments/frameworks/README.md)
+- Initial registration: NOT RUN. Earlier E005 results remain unchanged.

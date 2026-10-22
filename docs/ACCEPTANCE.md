@@ -13,3 +13,14 @@
 | G7 report | immutable input, raw data, CI, and clear positive/negative/inconclusive verdict | PARTIAL — E001–E005 retained; E006 and independent review pending |
 
 A successful instrumentation demo **does not** count as an accepted PoC.
+
+## F001 — implementation-path capability (registered, not run)
+
+Per the 2026-10-22 scope clarification, this stage validates execution evidence
+and future integration feasibility. Automated agent code modification is not
+required to complete F001. Its PASS does not close the incremental-value gates.
+
+Five paths must be attempted: bpftrace, libbpf, cilium/ebpf, Aya and BCC. For each,
+retain build/load/attach, exact counts, PID isolation, repeat and cleanup results;
+report unsupported or blocked paths explicitly. See the
+[F001 protocol](experiments/F001-FRAMEWORK-COMPAT-PROTOCOL.md).

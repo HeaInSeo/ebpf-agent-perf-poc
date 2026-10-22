@@ -1,0 +1,12 @@
+[package]
+name = "framework-counter"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+aya-ebpf = "=0.1.1"
+
+[profile.release]
+panic = "abort"
+lto = true
+codegen-units = 1

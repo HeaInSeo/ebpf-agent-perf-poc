@@ -1,0 +1,86 @@
+name: eBPF framework compatibility (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: framework-compat-manual
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [bpftrace, libbpf, cilium, aya, bcc]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Initialize immutable evidence directory
+        run: mkdir -p results/f001/${{ matrix.framework }}
+      - name: Install Go for Go loader
+        if: matrix.framework == 'cilium'
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+      - name: Install pinned Rust compiler for Aya
+        if: matrix.framework == 'aya'
+        run: rustup toolchain install nightly-2025-09-01 --profile minimal --component rust-src
+      - name: Install disposable runner dependencies
+        env:
+          FRAMEWORK: ${{ matrix.framework }}
+        run: |
+          set -o pipefail
+          {
+            uname -a
+            test "$(uname -m)" = x86_64
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends gcc clang llvm libbpf-dev libelf-dev zlib1g-dev pkg-config
+            case "$FRAMEWORK" in
+              bpftrace) sudo apt-get install -y --no-install-recommends bpftrace ;;
+              bcc)
+                sudo apt-get install -y --no-install-recommends python3-bpfcc
+                if apt-cache show "linux-headers-$(uname -r)" >/dev/null 2>&1; then
+                  sudo apt-get install -y "linux-headers-$(uname -r)"
+                fi ;;
+            esac
+            dpkg-query -W gcc clang llvm libbpf-dev libelf-dev zlib1g-dev python3-bpfcc bpftrace 2>/dev/null || true
+            test -r /sys/kernel/btf/vmlinux && sha256sum /sys/kernel/btf/vmlinux
+          } 2>&1 | tee "results/f001/$FRAMEWORK/setup.log"
+      - name: Build framework and record provenance
+        env:
+          FRAMEWORK: ${{ matrix.framework }}
+        run: |
+          set -o pipefail
+          bash experiments/frameworks/build.sh "$FRAMEWORK" 2>&1 | tee "results/f001/$FRAMEWORK/build.log"
+      - name: Exact count, PID isolation and cleanup (9 trials)
+        env:
+          FRAMEWORK: ${{ matrix.framework }}
+        run: |
+          set -o pipefail
+          sudo --preserve-env=GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,ImageOS,ImageVersion \
+            /usr/bin/python3 experiments/frameworks/probe.py --framework "$FRAMEWORK" \
+            --output "results/f001/$FRAMEWORK" 2>&1 | tee "results/f001/$FRAMEWORK/probe.log"
+      - name: Preserve resolved dependencies and source identities
+        if: always()
+        env:
+          FRAMEWORK: ${{ matrix.framework }}
+        run: |
+          git rev-parse HEAD > "results/f001/$FRAMEWORK/source-sha.txt"
+          find experiments/frameworks -name Cargo.lock -o -name go.sum | while read -r file; do
+            cp --parents "$file" "results/f001/$FRAMEWORK/"
+          done
+          find experiments/frameworks/build -maxdepth 1 -type f -exec sha256sum {} + > "results/f001/$FRAMEWORK/binaries.sha256" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: f001-${{ matrix.framework }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/f001/${{ matrix.framework }}/
+          retention-days: 90
+          if-no-files-found: error
