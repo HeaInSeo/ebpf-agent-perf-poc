@@ -2,6 +2,16 @@
 
 **Status: E001 eBPF feasibility PASS; E005 corrected kernel measurement PASS; extra implementation-ranking value NOT DEMONSTRATED. Final PoC hypothesis remains OPEN.**
 
+## 처음 해보는 eBPF: GitHub에서 Hello World 보기
+
+커널에서 나온 **`Hello World!`**를 GitHub Actions 로그와 실행 요약 화면에서 확인할 수 있는 학습용 실험을 추가했어.
+
+- [Hello World 실행 화면](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/workflows/hello-world.yml)에서 **Run workflow → main → Run workflow**를 눌러.
+- 완료된 실행의 **Summary**와 **커널에서 Hello World 확인 → Hello World 실행 및 커널 메시지 확인** 로그를 열면 돼.
+- [쉬운 설명과 코드 읽는 순서](experiments/hello-world/README.md) · [H001 실험 기록](docs/experiments/H001-HELLO-WORLD.md)
+
+`ebpf-study`의 예제를 이 저장소에 가져와 자동 실행에 맞게 확장했어. 성능 실험과 별도로 실행하며, 실제 커널 메시지 수신으로 성공을 판정해.
+
 ## Experiment evidence
 
 - [Required experiment record policy](docs/EXPERIMENT_RECORD_POLICY.md) · [new report template](docs/experiments/TEMPLATE.md)
@@ -72,3 +82,4 @@ universal eBPF overhead estimate. Incremental AI decision quality remains open.
 The author's first opinion is to withhold routine fleet-wide adoption and retain
 selective diagnostics as a possibility. E006's independent evaluation is not
 complete. No operational guardrail or upstream workflow was changed.
+

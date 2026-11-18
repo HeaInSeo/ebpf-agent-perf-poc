@@ -1,0 +1,92 @@
+name: eBPF Hello World (manual)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ebpf-hello-world-manual
+  cancel-in-progress: false
+
+jobs:
+  hello-world:
+    name: 커널에서 Hello World 확인
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: 실험 코드 가져오기
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: 기록 폴더 준비
+        shell: bash
+        run: |
+          mkdir -p results/hello-world
+          git rev-parse HEAD > results/hello-world/source-sha.txt
+
+      - name: 빌드 도구 설치
+        shell: bash
+        run: |
+          set -o pipefail
+          {
+            uname -a
+            test "$(uname -m)" = x86_64
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends \
+              clang llvm gcc make pkg-config libbpf-dev libelf-dev zlib1g-dev
+            clang --version
+            gcc --version
+            pkg-config --modversion libbpf
+          } 2>&1 | tee results/hello-world/setup.log
+
+      - name: eBPF와 로더 컴파일 및 판정 검사
+        shell: bash
+        run: |
+          set -o pipefail
+          {
+            make -C experiments/hello-world
+            python3 -m unittest discover -s experiments/hello-world -p test_run.py -v
+          } 2>&1 | tee results/hello-world/build.log
+
+      - name: Hello World 실행 및 커널 메시지 확인
+        shell: bash
+        run: |
+          set -o pipefail
+          {
+            if ! mountpoint -q /sys/kernel/tracing; then
+              sudo mount -t tracefs tracefs /sys/kernel/tracing
+            fi
+            sudo --preserve-env=GITHUB_REPOSITORY,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,ImageOS,ImageVersion \
+              /usr/bin/python3 -u experiments/hello-world/run.py --output results/hello-world
+          } 2>&1 | tee results/hello-world/probe.log
+
+      - name: 실행 요약 표시 및 원본 로그 봉인
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p results/hello-world
+          if [ -f results/hello-world/summary.md ]; then
+            cat results/hello-world/summary.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo '# eBPF Hello World — 실행 준비 실패'
+              echo ''
+              echo '커널 메시지 검증 단계가 완료되지 않았어. 실패한 단계의 로그를 확인해 줘.'
+            } | tee results/hello-world/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+          (
+            cd results/hello-world
+            find . -type f ! -name SHA256SUMS.txt -print0 | sort -z | xargs -0 -r sha256sum > SHA256SUMS.txt
+          )
+
+      - name: 원본 결과 파일 보관
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-world-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/hello-world/
+          retention-days: 30
+          if-no-files-found: error
