@@ -72,26 +72,32 @@ def wait_ready(process, expected, destination, timeout=8):
     raise RuntimeError("제한 시간 안에 준비 완료 메시지를 받지 못했어")
 
 
-def collect_events(fd, pid, cookie, destination, timeout):
+def collect_events(fd, pid, cookie, destination, timeout, diagnostics=None):
+    if diagnostics is None:
+        diagnostics = {}
+    diagnostics.update(bytes_read=0, complete_lines=0, candidate_lines=[])
     deadline = time.monotonic() + timeout
     drain_deadline = None
     events = []
     pending = b""
     while time.monotonic() < (drain_deadline or deadline):
         remaining = (drain_deadline or deadline) - time.monotonic()
-        ready, _, _ = select.select([fd], [], [], min(0.1, max(0, remaining)))
-        if not ready:
-            continue
         try:
             chunk = os.read(fd, 65536)
         except BlockingIOError:
+            # Nonblocking read is authoritative; poll is only a bounded wait.
+            select.select([fd], [], [], min(0.1, max(0, remaining)))
             continue
         if not chunk:
             raise RuntimeError("커널 추적 스트림이 예기치 않게 끝났어")
         pending += chunk
+        diagnostics["bytes_read"] += len(chunk)
         while b"\n" in pending:
             raw, pending = pending.split(b"\n", 1)
             line = raw.decode("utf-8", errors="replace")
+            diagnostics["complete_lines"] += 1
+            if "Hello World!" in line and f"cookie={cookie}" in line and len(diagnostics["candidate_lines"]) < 8:
+                diagnostics["candidate_lines"].append(line)
             if is_target_event(line, pid, cookie):
                 events.append(line)
                 destination.write(line + "\n")
@@ -102,7 +108,34 @@ def collect_events(fd, pid, cookie, destination, timeout):
                     drain_deadline = min(deadline, time.monotonic() + 0.25)
         if len(pending) > 1024 * 1024:
             raise RuntimeError("추적 스트림에서 비정상적으로 긴 레코드를 받았어")
+    diagnostics["partial_bytes"] = len(pending)
     return events
+
+
+def trace_state(tracing):
+    state = {}
+    for name in ("tracing_on", "current_tracer", "buffer_percent", "trace_options",
+                 "events/bpf_trace/bpf_trace_printk/enable"):
+        path = tracing / name
+        state[name] = path.read_text().strip() if path.is_file() else "unavailable"
+    return state
+
+
+def ensure_trace_ready(tracing, changed):
+    # New kernels enable bpf_trace_printk asynchronously during BPF loading.
+    # READY means attached; confirm the output channel separately before execve.
+    for name in ("tracing_on", "events/bpf_trace/bpf_trace_printk/enable"):
+        path = tracing / name
+        if not path.is_file():
+            raise Blocked(f"커널 출력 채널 설정이 없어: {name}")
+        previous = path.read_text().strip()
+        if previous not in ("0", "1"):
+            raise Blocked(f"커널 출력 채널 상태를 확인할 수 없어: {name}={previous}")
+        if previous != "1":
+            changed.append((path, previous))
+            path.write_text("1\n")
+        if path.read_text().strip() != "1":
+            raise RuntimeError(f"커널 출력 채널 활성화 실패: {name}")
 
 
 def stop_process(process, stdout_file, normal_loader=False):
@@ -225,6 +258,10 @@ def main():
     }
     target = loader = None
     trace_fd = None
+    tracing = Path("/sys/kernel/tracing")
+    trace_changes = []
+    trace_diagnostics = {}
+    read_diagnostics = {}
     failure = None
     with (args.output / "loader.stdout.log").open("wb") as loader_out, \
          (args.output / "loader.stderr.log").open("wb") as loader_err, \
@@ -238,12 +275,12 @@ def main():
                 raise RuntimeError("체크아웃한 소스 SHA와 Actions의 GITHUB_SHA가 달라")
             if os.geteuid() != 0:
                 raise Blocked("격리된 Linux 실험 환경에서 sudo 권한이 필요해")
-            tracing = Path("/sys/kernel/tracing")
             if not (tracing / "events/syscalls/sys_enter_execve/id").is_file():
                 raise Blocked("tracefs 또는 sys_enter_execve tracepoint가 없어")
             if not args.object.is_file() or not args.loader.is_file():
                 raise Blocked("빌드 결과가 없어. 먼저 make -C experiments/hello-world를 실행해 줘")
             trace_fd = os.open(tracing / "trace_pipe", os.O_RDONLY | os.O_NONBLOCK)
+            trace_diagnostics["before_attach"] = trace_state(tracing)
             log("[준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었어")
             target = subprocess.Popen(
                 [sys.executable, "-u", "-c", TARGET], stdin=subprocess.PIPE,
@@ -259,12 +296,17 @@ def main():
             wait_ready(loader, f"READY pid={target.pid} cookie={result['cookie']}", loader_out)
             result["attached"] = True
             log("[연결] eBPF를 커널에 적재하고 execve 이벤트에 연결했어")
+            trace_diagnostics["before_output_ready"] = trace_state(tracing)
+            ensure_trace_ready(tracing, trace_changes)
+            trace_diagnostics["output_ready"] = trace_state(tracing)
+            log("[출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인했어")
             target.stdin.write(b"1")
             target.stdin.close()
             target.stdin = None
             result["target_exit"] = target.wait(timeout=5)
             log("[실험] 테스트 프로세스가 /usr/bin/true를 실행했어")
-            result["events"] = collect_events(trace_fd, target.pid, result["cookie"], events_out, args.timeout)
+            result["events"] = collect_events(trace_fd, target.pid, result["cookie"], events_out,
+                                               args.timeout, read_diagnostics)
         except Blocked as exc:
             result["status"] = "BLOCKED"
             failure = str(exc)
@@ -281,6 +323,13 @@ def main():
                     failure = f"{failure + '; ' if failure else ''}{name} 정리 오류: {exc}"
             if trace_fd is not None:
                 os.close(trace_fd)
+            for path, previous in reversed(trace_changes):
+                try:
+                    path.write_text(previous + "\n")
+                except OSError as exc:
+                    failure = f"{failure + '; ' if failure else ''}추적 설정 복원 오류: {exc}"
+    (args.output / "trace-settings.json").write_text(json.dumps(trace_diagnostics, ensure_ascii=False, indent=2) + "\n")
+    (args.output / "reader.json").write_text(json.dumps(read_diagnostics, ensure_ascii=False, indent=2) + "\n")
     if failure is None:
         try:
             validate_result(result["events"], result["target_exit"], result["loader_exit"], result["detached"])

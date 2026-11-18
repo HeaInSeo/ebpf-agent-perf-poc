@@ -4,6 +4,8 @@
 
 이 예제는 `ebpf-study`의 Hello World를 GitHub Actions에서 자동으로 실행하고 확인하도록 옮긴 학습 실험이야.
 
+**현재 검증 상태:** [첫 실행](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610)은 컴파일과 커널 연결까지 성공했지만, 대상 커널 메시지를 받지 못해 **FAIL**이야. 추적 설정 확인과 수집 방식을 보완했고 두 번째 실행을 기다리고 있어. 실패 원인은 아직 확정하지 않았어. 자세한 원문과 보정 내용은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 남겼어.
+
 ## 직접 확인하는 방법
 
 1. [eBPF Hello World (manual) Actions](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/workflows/hello-world.yml)를 열어.
@@ -20,7 +22,7 @@
 
 1. **컴파일:** C 소스를 eBPF 오브젝트와 사용자 공간 로더로 각각 빌드해.
 2. **연결:** 로더가 eBPF 프로그램을 커널에 올리고 `execve()` 이벤트에 연결해.
-3. **이벤트 발생:** 연결 완료를 확인한 뒤, 테스트 프로세스가 `/usr/bin/true`를 실행해. 이때 `execve()`가 호출돼.
+3. **이벤트 발생:** 연결 완료와 커널 메시지 기록 설정을 확인한 뒤, 테스트 프로세스가 `/usr/bin/true`를 실행해. 이때 `execve()`가 호출돼.
 4. **커널 메시지 수신:** eBPF가 `Hello World!`를 기록하면, 수집기가 커널의 `trace_pipe`에서 읽어 Actions 로그에 표시해.
 5. **검증과 종료:** 8초 안에 이번 테스트의 메시지를 정확히 한 건 받았는지 확인하고 로더와 연결을 정리해.
 
@@ -74,6 +76,7 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | `kernel-events.log` | 이번 PID·cookie에 해당하는 커널 메시지 원문 |
 | `loader.stdout.log` / `loader.stderr.log` | 로더의 연결·정리 기록과 오류 |
 | `result.json` / `environment.json` | 판정과 재현 환경 |
+| `trace-settings.json` / `reader.json` | 추적 설정과 메시지 읽기 진단. 두 번째 실행용 보정부터 추가됐어. |
 | `SHA256SUMS.txt` | 보관한 결과 파일의 해시 |
 
 이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관돼. 첫 실행의 실제 링크와 증거는 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에서 확인할 수 있어.

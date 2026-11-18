@@ -1,0 +1,14 @@
+make: Entering directory '/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/hello-world'
+mkdir -p build
+clang -O2 -g -target bpf -Wall -Wextra -Werror -I/usr/include/x86_64-linux-gnu -c hello.bpf.c -o build/hello.bpf.o
+gcc -O2 -g -std=c11 -Wall -Wextra -Werror  hello.c -o build/hello -lbpf 
+make: Leaving directory '/home/runner/work/ebpf-agent-perf-poc/ebpf-agent-perf-poc/experiments/hello-world'
+test_accepts_only_matching_kernel_payload (test_run.EvidenceChecks.test_accepts_only_matching_kernel_payload) ... ok
+test_one_event_and_clean_exit_pass (test_run.EvidenceChecks.test_one_event_and_clean_exit_pass) ... ok
+test_process_or_cleanup_failure_cannot_pass (test_run.EvidenceChecks.test_process_or_cleanup_failure_cannot_pass) ... ok
+test_zero_or_duplicate_events_cannot_pass (test_run.EvidenceChecks.test_zero_or_duplicate_events_cannot_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.000s
+
+OK

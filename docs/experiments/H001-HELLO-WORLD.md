@@ -1,6 +1,6 @@
 # H001 — Actions 화면에서 eBPF Hello World 확인
 
-**현재 상태: 첫 실행 대기. 아래는 실행 전에 정한 기준이며, 아직 PASS를 주장하지 않는다.**
+**현재 상태: 1차 실행 FAIL. 추적 설정·수집 보정 후 2차 실행 대기. 아직 PASS를 주장하지 않는다.**
 
 [쉽게 따라 하는 안내](../../experiments/hello-world/README.md) · [수동 실행 workflow](../../.github/workflows/hello-world.yml)
 
@@ -31,7 +31,7 @@
 - Workflow: `eBPF Hello World (manual)`, `workflow_dispatch` 전용.
 - 러너: GitHub-hosted `ubuntu-24.04`. 실행별 이미지·커널·아키텍처·도구 버전과 코드 SHA를 결과에 남긴다.
 - 권한: workflow 토큰은 `contents: read`. 커널 적재와 추적 버퍼 읽기는 일회성 러너에서 `sudo`로 수행한다.
-- 입력: 대기 중인 테스트 프로세스 한 개. 로더의 `READY`를 확인한 뒤 `/usr/bin/true`로 `execve()` 한 번을 발생시킨다.
+- 입력: 대기 중인 테스트 프로세스 한 개. 로더의 `READY`를 확인한 뒤 `/usr/bin/true`로 `execve()` 한 번을 발생시킨다. 2차 보정에서는 이벤트 발생 전에 추적 설정 활성화도 확인한다.
 - 구분 값: 대상 PID와 실행별 무작위 cookie. 실제 값은 원시 로그·결과에 보관한다.
 - 수집: `/sys/kernel/tracing/trace_pipe`. 대상 PID와 cookie가 모두 일치하는 메시지만 이번 실험의 증거로 사용한다.
 - 종료: 수신 대기 한도는 8초다. 로더에 종료 신호를 보내고 `DETACHED` 및 종료 코드를 확인한다. 로더에도 별도의 30초 제한이 있다.
@@ -60,9 +60,43 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 
 | 시도 | 코드 SHA | 실행 링크 | 측정·오류 근거 | 판정 |
 | --- | --- | --- | --- | --- |
-| 1 | 실행 후 기록 | 실행 후 기록 | 실행 후 기록 | 실행 대기 |
+| 1 | [`005dd51233a46ac9a3cad28ede679b6731368d7d`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/005dd51233a46ac9a3cad28ede679b6731368d7d) | [44294538610](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610) | 연결 성공, 대상·로더 정상 종료, 일치 메시지 0건 | **FAIL** |
+| 2 | 보정 코드 SHA 기록 예정 | 실행 예정 | 추적 설정·비차단 읽기 보정 검증 예정 | 실행 대기 |
 
-실행 후 이 표에 실제 SHA·run URL·job 결과·Artifact ID와 해시를 기록한다. 실패가 발생하면 해당 행을 남기고, 수정 후 실행은 새 행으로 추가한다.
+### 1차 실행 — 메시지 수신 0건으로 실패
+
+- 실행 시각: `2026-11-18T11:26:37.680789+00:00` (UTC).
+- Job: [`134768010011`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610/job/134768010011).
+- 환경: Ubuntu 이미지 `ubuntu24 / 20261111.127.1`, 커널 `7.0.0-1014-aws`, x86_64, 4 CPU, 실행 UID 0.
+- 도구: Clang `18.1.3`, GCC `13.3.0`, libbpf `1.3.0`, Python `3.12.3`.
+- 빌드와 검증 테스트 4개는 통과했다. eBPF 연결도 성공했다.
+- 대상 PID는 `2753`, cookie는 `5797601167314965267`이었다.
+- 대상 프로세스와 로더의 종료 코드는 모두 `0`이며, `DETACHED`를 확인했다.
+- PID·cookie가 일치하는 커널 메시지는 **0건**이었다. 사전 기준인 정확히 1건을 충족하지 못해 **FAIL**로 판정했다.
+
+원시 결과의 오류는 `대상 커널 메시지가 정확히 1건이어야 해: 실제 0건`이다. 연결 성공과 정상 종료만으로 테스트를 통과시키지 않은 기록이다.
+
+증거:
+
+- [영구 보존한 원시 파일](h001-evidence/44294538610-1/), [result.json](h001-evidence/44294538610-1/result.json), [environment.json](h001-evidence/44294538610-1/environment.json), [로더 출력](h001-evidence/44294538610-1/loader.stdout.log).
+- [Artifact `14422053876`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610/artifacts/14422053876).
+- 다운로드한 Artifact ZIP의 SHA-256: `fbc11ead70357ee6b0b160f6f48c906647915e8486bef12b9ed9e7c31b7feab4`.
+- 다운로드 무결성을 확인한 뒤 원시 파일을 보존했다. 파일별 해시는 [SHA256SUMS.txt](h001-evidence/44294538610-1/SHA256SUMS.txt)에 있다.
+
+### 2차 실행을 위한 보정 — 아직 실행 전
+
+**1차 실패의 원인은 확정되지 않았다.** 1차 실행에는 추적 설정과 읽기 동작을 구분할 진단 기록이 없어, 출력 활성화 시점이나 수집 방식 중 무엇이 원인이었는지 판단할 수 없다.
+
+커널의 [`bpf_trace.c`](https://github.com/torvalds/linux/blob/master/kernel/trace/bpf_trace.c)는 `bpf_trace_printk` 이벤트 활성화를 `schedule_work()`로 예약한다. 이는 연결 직후의 설정을 명시적으로 확인할 근거이며, 해당 러너에서 실제로 그 지연이 실패를 일으켰다는 증거는 아니다.
+
+다음 보정으로 재실행한다.
+
+1. 로더의 `READY` 이후 `tracing_on`과 `events/bpf_trace/bpf_trace_printk/enable`이 `1`인지 동기적으로 확인하고, 필요한 설정 변경은 종료 시 원래 값으로 복원한다.
+2. 수집기는 비차단 읽기를 먼저 시도하고, `EAGAIN`일 때 대기한다. 준비 알림이 없더라도 직접 읽을 데이터가 있는 경우를 다룬다.
+3. `trace-settings.json`과 `reader.json`을 추가해 추적 설정 및 수신 동작을 보존한다.
+4. 준비 알림 없이 직접 읽는 경우를 검증하는 다섯 번째 단위 테스트를 추가한다.
+
+실제 보정 SHA와 두 번째 run URL은 실행 후 기록한다. 첫 실패의 코드·결과·원시 증거는 그대로 유지한다.
 
 ### 보관할 증거
 
@@ -75,13 +109,14 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 - `loader.stdout.log`, `loader.stderr.log`: 연결 준비·해제 기록과 오류.
 - `setup.log`, `build.log`, `probe.log`: 준비·빌드·실행 과정.
 - `summary.md`: Actions Summary에 표시한 한국어 요약.
+- `trace-settings.json`, `reader.json`: 2차 보정부터 수집하는 추적 설정·읽기 진단. 1차 실행에는 존재하지 않는다.
 - `SHA256SUMS.txt`: 결과 파일의 무결성 확인용 해시.
 
-Artifact는 30일간 보관한다. 보존 기간 이후에도 검토할 수 있도록, 첫 완료 실행의 검토된 최소 원시 증거와 run 메타데이터를 이 문서와 함께 보존한다. 실제 영구 보존 경로와 Artifact 해시는 실행 후 기록한다.
+Artifact는 30일간 보관한다. 보존 기간 이후에도 검토할 수 있도록 시도별 원시 증거를 `h001-evidence/`에 보존한다. 1차 실행의 실제 경로와 Artifact 해시는 위 기록에 연결했다.
 
 ## 분석 및 독립 검토
 
-현재는 실행 전이므로 관찰 결과와 최종 판정이 없다.
+현재 관찰 사실은 **1차 실행의 빌드·연결·종료 성공과 커널 메시지 수신 실패**다. 원인은 미확정이며, 보정한 수집 경로의 성공 여부는 두 번째 실행으로 확인해야 한다.
 
 검토자는 실행 SHA의 소스와 workflow, 수신된 커널 원문, PID·cookie, 로더의 준비·해제 기록을 대조할 수 있다. 같은 workflow를 다시 실행하면 새 PID·cookie로 재현할 수 있다. 메시지가 없거나 다른 PID·cookie인 경우 성공으로 통과하지 않는지는 [검증 테스트](../../experiments/hello-world/test_run.py)에서 확인한다.
 
