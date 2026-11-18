@@ -74,7 +74,7 @@ jobs:
             {
               echo '# eBPF Hello World — 실행 준비 실패'
               echo ''
-              echo '커널 메시지 검증 단계가 완료되지 않았어. 실패한 단계의 로그를 확인해 줘.'
+              echo '커널 메시지 검증 단계가 완료되지 않음. 실패한 단계의 로그 확인이 필요함.'
             } | tee results/hello-world/summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
           (

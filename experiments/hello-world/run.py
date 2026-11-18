@@ -42,11 +42,11 @@ def is_target_event(line, pid, cookie):
 
 def validate_result(events, target_exit, loader_exit, detached):
     if len(events) != 1:
-        raise RuntimeError(f"대상 커널 메시지가 정확히 1건이어야 해: 실제 {len(events)}건")
+        raise RuntimeError(f"대상 커널 메시지가 정확히 1건이어야 함: 실제 {len(events)}건")
     if target_exit != 0:
-        raise RuntimeError(f"테스트 프로그램이 정상 종료하지 않았어: {target_exit}")
+        raise RuntimeError(f"테스트 프로그램이 정상 종료하지 않음: {target_exit}")
     if loader_exit != 0 or not detached:
-        raise RuntimeError(f"eBPF 로더의 정상 정리를 확인하지 못했어: exit={loader_exit}")
+        raise RuntimeError(f"eBPF 로더의 정상 정리를 확인하지 못함: exit={loader_exit}")
 
 
 def wait_ready(process, expected, destination, timeout=8):
@@ -57,11 +57,11 @@ def wait_ready(process, expected, destination, timeout=8):
         ready, _, _ = select.select([process.stdout], [], [], 0.1)
         if not ready:
             if process.poll() is not None:
-                raise RuntimeError(f"연결 준비 전에 프로세스가 종료됐어: exit={process.returncode}")
+                raise RuntimeError(f"연결 준비 전에 프로세스가 종료됨: exit={process.returncode}")
             continue
         chunk = os.read(process.stdout.fileno(), 65536)
         if not chunk:
-            raise RuntimeError("준비 완료 메시지 없이 출력이 끝났어")
+            raise RuntimeError("준비 완료 메시지 없이 출력이 종료됨")
         destination.write(chunk)
         destination.flush()
         pending += chunk
@@ -69,7 +69,7 @@ def wait_ready(process, expected, destination, timeout=8):
             line, pending = pending.split(b"\n", 1)
             if line.decode("utf-8", errors="replace") == expected:
                 return
-    raise RuntimeError("제한 시간 안에 준비 완료 메시지를 받지 못했어")
+    raise RuntimeError("제한 시간 안에 준비 완료 메시지를 받지 못함")
 
 
 def collect_events(fd, pid, cookie, destination, timeout, diagnostics=None):
@@ -89,7 +89,7 @@ def collect_events(fd, pid, cookie, destination, timeout, diagnostics=None):
             select.select([fd], [], [], min(0.1, max(0, remaining)))
             continue
         if not chunk:
-            raise RuntimeError("커널 추적 스트림이 예기치 않게 끝났어")
+            raise RuntimeError("커널 추적 스트림이 예기치 않게 종료됨")
         pending += chunk
         diagnostics["bytes_read"] += len(chunk)
         while b"\n" in pending:
@@ -107,7 +107,7 @@ def collect_events(fd, pid, cookie, destination, timeout, diagnostics=None):
                 if drain_deadline is None:
                     drain_deadline = min(deadline, time.monotonic() + 0.25)
         if len(pending) > 1024 * 1024:
-            raise RuntimeError("추적 스트림에서 비정상적으로 긴 레코드를 받았어")
+            raise RuntimeError("추적 스트림에서 비정상적으로 긴 레코드를 수신함")
     diagnostics["partial_bytes"] = len(pending)
     return events
 
@@ -127,10 +127,10 @@ def ensure_trace_ready(tracing, changed):
     for name in ("tracing_on", "events/bpf_trace/bpf_trace_printk/enable"):
         path = tracing / name
         if not path.is_file():
-            raise Blocked(f"커널 출력 채널 설정이 없어: {name}")
+            raise Blocked(f"커널 출력 채널 설정이 없음: {name}")
         previous = path.read_text().strip()
         if previous not in ("0", "1"):
-            raise Blocked(f"커널 출력 채널 상태를 확인할 수 없어: {name}={previous}")
+            raise Blocked(f"커널 출력 채널 상태를 확인할 수 없음: {name}={previous}")
         if previous != "1":
             changed.append((path, previous))
             path.write_text("1\n")
@@ -208,7 +208,7 @@ def summary(result, env):
     if events:
         lines += ["```text", *events, "```", ""]
     else:
-        lines += ["이번 실행에서 검증 가능한 커널 메시지를 받지 못했어.", ""]
+        lines += ["이번 실행에서 검증 가능한 커널 메시지를 받지 못함.", ""]
     lines += [
         "## 확인 결과",
         "",
@@ -226,11 +226,11 @@ def summary(result, env):
         "",
         "메시지 전달 경로: `execve` 이벤트 → eBPF의 `bpf_printk()` → `trace_pipe` 수집 → 이 화면.",
         "",
-        "메시지는 커널 추적 스트림에서 읽은 원문이야. PID와 이번 실행의 식별값이 모두 일치해야 집계해.",
+        "메시지는 커널 추적 스트림에서 읽은 원문임. PID와 이번 실행의 식별값이 모두 일치해야 집계함.",
         "",
-        "이 실험은 기능 확인용이야. 성능 측정이나 기존 PoC 가설에 대한 판정은 포함하지 않아.",
+        "이 실험은 기능 확인용임. 성능 측정이나 기존 PoC 가설에 대한 판정은 포함하지 않음.",
         "",
-        "자세한 과정은 **Hello World 실행 및 커널 메시지 확인** 로그, 원본 파일은 아래 Artifact에서 볼 수 있어.",
+        "자세한 과정은 **Hello World 실행 및 커널 메시지 확인** 로그, 원본 파일은 아래 Artifact에서 확인할 수 있음.",
         "",
     ]
     if env["run_url"]:
@@ -251,7 +251,7 @@ def main():
     env = environment(args.output)
     (args.output / "environment.json").write_text(json.dumps(env, ensure_ascii=False, indent=2) + "\n")
     result = {
-        "status": "FAIL", "reason": "실행이 완료되지 않았어", "attached": False,
+        "status": "FAIL", "reason": "실행이 완료되지 않음", "attached": False,
         "target_pid": None, "cookie": secrets.randbits(63) or 1,
         "expected_events": 1, "events": [], "target_exit": None,
         "loader_exit": None, "detached": False,
@@ -270,41 +270,41 @@ def main():
          (args.output / "kernel-events.log").open("w") as events_out:
         try:
             if env["source_sha"] == "unavailable":
-                raise Blocked("sudo 전에 git rev-parse HEAD 결과를 출력 폴더의 source-sha.txt에 기록해 줘")
+                raise Blocked("sudo 전에 git rev-parse HEAD 결과를 출력 폴더의 source-sha.txt에 기록해야 함")
             if env["github_sha"] and env["github_sha"] != env["source_sha"]:
-                raise RuntimeError("체크아웃한 소스 SHA와 Actions의 GITHUB_SHA가 달라")
+                raise RuntimeError("체크아웃한 소스 SHA와 Actions의 GITHUB_SHA가 다름")
             if os.geteuid() != 0:
-                raise Blocked("격리된 Linux 실험 환경에서 sudo 권한이 필요해")
+                raise Blocked("격리된 Linux 실험 환경에서 sudo 권한이 필요함")
             if not (tracing / "events/syscalls/sys_enter_execve/id").is_file():
-                raise Blocked("tracefs 또는 sys_enter_execve tracepoint가 없어")
+                raise Blocked("tracefs 또는 sys_enter_execve tracepoint가 없음")
             if not args.object.is_file() or not args.loader.is_file():
-                raise Blocked("빌드 결과가 없어. 먼저 make -C experiments/hello-world를 실행해 줘")
+                raise Blocked("빌드 결과가 없음. 먼저 make -C experiments/hello-world를 실행해야 함")
             trace_fd = os.open(tracing / "trace_pipe", os.O_RDONLY | os.O_NONBLOCK)
             trace_diagnostics["before_attach"] = trace_state(tracing)
-            log("[준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었어")
+            log("[준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음")
             target = subprocess.Popen(
                 [sys.executable, "-u", "-c", TARGET], stdin=subprocess.PIPE,
                 stdout=subprocess.PIPE, stderr=target_err, bufsize=0,
             )
             result["target_pid"] = target.pid
             wait_ready(target, "TARGET_READY", target_out)
-            log(f"[준비] 테스트 프로세스 PID={target.pid}; 아직 execve 이벤트를 발생시키지 않았어")
+            log(f"[준비] 테스트 프로세스 PID={target.pid}; 아직 execve 이벤트를 발생시키지 않음")
             loader = subprocess.Popen(
                 [str(args.loader.resolve()), str(args.object.resolve()), str(target.pid), str(result["cookie"])],
                 stdout=subprocess.PIPE, stderr=loader_err, bufsize=0,
             )
             wait_ready(loader, f"READY pid={target.pid} cookie={result['cookie']}", loader_out)
             result["attached"] = True
-            log("[연결] eBPF를 커널에 적재하고 execve 이벤트에 연결했어")
+            log("[연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함")
             trace_diagnostics["before_output_ready"] = trace_state(tracing)
             ensure_trace_ready(tracing, trace_changes)
             trace_diagnostics["output_ready"] = trace_state(tracing)
-            log("[출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인했어")
+            log("[출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함")
             target.stdin.write(b"1")
             target.stdin.close()
             target.stdin = None
             result["target_exit"] = target.wait(timeout=5)
-            log("[실험] 테스트 프로세스가 /usr/bin/true를 실행했어")
+            log("[실험] 테스트 프로세스가 /usr/bin/true를 실행함")
             result["events"] = collect_events(trace_fd, target.pid, result["cookie"], events_out,
                                                args.timeout, read_diagnostics)
         except Blocked as exc:
@@ -334,7 +334,7 @@ def main():
         try:
             validate_result(result["events"], result["target_exit"], result["loader_exit"], result["detached"])
             result["status"] = "PASS"
-            result["reason"] = "테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료했어."
+            result["reason"] = "테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함."
         except RuntimeError as exc:
             failure = str(exc)
     if failure is not None:
