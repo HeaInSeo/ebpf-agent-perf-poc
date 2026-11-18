@@ -1,0 +1,8 @@
+[준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[준비] 테스트 프로세스 PID=2772; 아직 execve 이벤트를 발생시키지 않음
+[CPU 확인] 요청=2, 대상 affinity=[2]
+[연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[정리] loader_exit=0, DETACHED=True
+[판정] FAIL: 대상 커널 메시지가 정확히 1건이어야 함: 실제 0건

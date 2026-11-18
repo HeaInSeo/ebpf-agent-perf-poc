@@ -1,0 +1,130 @@
+[raw CPU 0 round 1] 실행 시작
+[raw CPU 0 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 0 round 1] [준비] 테스트 프로세스 PID=2722; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 0 round 1] [CPU 확인] 요청=0, 대상 affinity=[0]
+[raw CPU 0 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 0 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 0 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 0 round 1] [커널 원문]             true-2722    [000] ...3.    58.901895: bpf_trace_printk: Hello World! pid=2722 cookie=6118832034617420031
+[raw CPU 0 round 1] [정리] loader_exit=0, DETACHED=True
+[raw CPU 0 round 1] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 0 round 1] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[raw CPU 0 round 2] 실행 시작
+[raw CPU 0 round 2] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 0 round 2] [준비] 테스트 프로세스 PID=2728; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 0 round 2] [CPU 확인] 요청=0, 대상 affinity=[0]
+[raw CPU 0 round 2] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 0 round 2] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 0 round 2] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 0 round 2] [커널 원문]             true-2728    [000] ...3.    59.267831: bpf_trace_printk: Hello World! pid=2728 cookie=8646812701523419971
+[raw CPU 0 round 2] [정리] loader_exit=0, DETACHED=True
+[raw CPU 0 round 2] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 0 round 2] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[typed CPU 0 round 1] 실행 시작
+[typed CPU 0 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[typed CPU 0 round 1] [준비] 테스트 프로세스 PID=2734; 아직 execve 이벤트를 발생시키지 않음
+[typed CPU 0 round 1] [CPU 확인] 요청=0, 대상 affinity=[0]
+[typed CPU 0 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[typed CPU 0 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[typed CPU 0 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[typed CPU 0 round 1] [커널 원문]             true-2734    [000] ...31    59.632186: bpf_trace_printk: Hello World! pid=2734 cookie=5153540402370463151
+[typed CPU 0 round 1] [정리] loader_exit=0, DETACHED=True
+[typed CPU 0 round 1] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[typed CPU 0 round 1] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[raw CPU 1 round 1] 실행 시작
+[raw CPU 1 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 1 round 1] [준비] 테스트 프로세스 PID=2740; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 1 round 1] [CPU 확인] 요청=1, 대상 affinity=[1]
+[raw CPU 1 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 1 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 1 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 1 round 1] [커널 원문]             true-2740    [001] ...3.    60.049022: bpf_trace_printk: Hello World! pid=2740 cookie=5487903564217422869
+[raw CPU 1 round 1] [정리] loader_exit=0, DETACHED=True
+[raw CPU 1 round 1] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 1 round 1] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[raw CPU 1 round 2] 실행 시작
+[raw CPU 1 round 2] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 1 round 2] [준비] 테스트 프로세스 PID=2746; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 1 round 2] [CPU 확인] 요청=1, 대상 affinity=[1]
+[raw CPU 1 round 2] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 1 round 2] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 1 round 2] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 1 round 2] [커널 원문]             true-2746    [001] ...3.    60.415998: bpf_trace_printk: Hello World! pid=2746 cookie=331655457669662724
+[raw CPU 1 round 2] [정리] loader_exit=0, DETACHED=True
+[raw CPU 1 round 2] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 1 round 2] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[typed CPU 1 round 1] 실행 시작
+[typed CPU 1 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[typed CPU 1 round 1] [준비] 테스트 프로세스 PID=2752; 아직 execve 이벤트를 발생시키지 않음
+[typed CPU 1 round 1] [CPU 확인] 요청=1, 대상 affinity=[1]
+[typed CPU 1 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[typed CPU 1 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[typed CPU 1 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[typed CPU 1 round 1] [정리] loader_exit=0, DETACHED=True
+[typed CPU 1 round 1] [판정] FAIL: 대상 커널 메시지가 정확히 1건이어야 함: 실제 0건
+[typed CPU 1 round 1] NO_EVENT: typed 대조에서 정상 연결·실행·정리 후 커널 메시지 0건을 관찰함
+[raw CPU 2 round 1] 실행 시작
+[raw CPU 2 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 2 round 1] [준비] 테스트 프로세스 PID=2760; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 2 round 1] [CPU 확인] 요청=2, 대상 affinity=[2]
+[raw CPU 2 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 2 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 2 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 2 round 1] [커널 원문]             true-2760    [002] ...3.    68.913940: bpf_trace_printk: Hello World! pid=2760 cookie=3034199534498641904
+[raw CPU 2 round 1] [정리] loader_exit=0, DETACHED=True
+[raw CPU 2 round 1] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 2 round 1] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[raw CPU 2 round 2] 실행 시작
+[raw CPU 2 round 2] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 2 round 2] [준비] 테스트 프로세스 PID=2766; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 2 round 2] [CPU 확인] 요청=2, 대상 affinity=[2]
+[raw CPU 2 round 2] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 2 round 2] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 2 round 2] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 2 round 2] [커널 원문]             true-2766    [002] ...3.    69.284044: bpf_trace_printk: Hello World! pid=2766 cookie=2548141379138587330
+[raw CPU 2 round 2] [정리] loader_exit=0, DETACHED=True
+[raw CPU 2 round 2] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 2 round 2] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[typed CPU 2 round 1] 실행 시작
+[typed CPU 2 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[typed CPU 2 round 1] [준비] 테스트 프로세스 PID=2772; 아직 execve 이벤트를 발생시키지 않음
+[typed CPU 2 round 1] [CPU 확인] 요청=2, 대상 affinity=[2]
+[typed CPU 2 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[typed CPU 2 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[typed CPU 2 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[typed CPU 2 round 1] [정리] loader_exit=0, DETACHED=True
+[typed CPU 2 round 1] [판정] FAIL: 대상 커널 메시지가 정확히 1건이어야 함: 실제 0건
+[typed CPU 2 round 1] NO_EVENT: typed 대조에서 정상 연결·실행·정리 후 커널 메시지 0건을 관찰함
+[raw CPU 3 round 1] 실행 시작
+[raw CPU 3 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 3 round 1] [준비] 테스트 프로세스 PID=2778; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 3 round 1] [CPU 확인] 요청=3, 대상 affinity=[3]
+[raw CPU 3 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 3 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 3 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 3 round 1] [커널 원문]             true-2778    [003] ...3.    77.783270: bpf_trace_printk: Hello World! pid=2778 cookie=6235942839344825518
+[raw CPU 3 round 1] [정리] loader_exit=0, DETACHED=True
+[raw CPU 3 round 1] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 3 round 1] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[raw CPU 3 round 2] 실행 시작
+[raw CPU 3 round 2] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[raw CPU 3 round 2] [준비] 테스트 프로세스 PID=2784; 아직 execve 이벤트를 발생시키지 않음
+[raw CPU 3 round 2] [CPU 확인] 요청=3, 대상 affinity=[3]
+[raw CPU 3 round 2] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[raw CPU 3 round 2] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[raw CPU 3 round 2] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[raw CPU 3 round 2] [커널 원문]             true-2784    [003] ...3.    78.147254: bpf_trace_printk: Hello World! pid=2784 cookie=4729171212302743783
+[raw CPU 3 round 2] [정리] loader_exit=0, DETACHED=True
+[raw CPU 3 round 2] [판정] PASS: 테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.
+[raw CPU 3 round 2] PASS: 지정한 CPU의 실제 커널 메시지 1건과 정상 종료·연결 해제를 확인함
+[typed CPU 3 round 1] 실행 시작
+[typed CPU 3 round 1] [준비] 테스트 이벤트를 기다릴 커널 메시지 수집기를 열었음
+[typed CPU 3 round 1] [준비] 테스트 프로세스 PID=2791; 아직 execve 이벤트를 발생시키지 않음
+[typed CPU 3 round 1] [CPU 확인] 요청=3, 대상 affinity=[3]
+[typed CPU 3 round 1] [연결] eBPF를 커널에 적재하고 execve 이벤트에 연결함
+[typed CPU 3 round 1] [출력 준비] tracing_on=1, bpf_trace_printk 이벤트 활성화를 확인함
+[typed CPU 3 round 1] [실험] 테스트 프로세스가 /usr/bin/true를 실행함
+[typed CPU 3 round 1] [정리] loader_exit=0, DETACHED=True
+[typed CPU 3 round 1] [판정] FAIL: 대상 커널 메시지가 정확히 1건이어야 함: 실제 0건
+[typed CPU 3 round 1] NO_EVENT: typed 대조에서 정상 연결·실행·정리 후 커널 메시지 0건을 관찰함
+[CPU 검증] PASS: 허용된 모든 CPU에서 raw 경로의 실제 커널 메시지 수신을 반복 확인하고 typed 대조 결과를 보존함.

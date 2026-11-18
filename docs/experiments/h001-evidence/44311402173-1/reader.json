@@ -1,0 +1,8 @@
+{
+  "bytes_read": 118,
+  "complete_lines": 1,
+  "candidate_lines": [
+    "         python3-2712    [003] ...3.    58.529018: bpf_trace_printk: Hello World! pid=2712 cookie=5926992076653090457"
+  ],
+  "partial_bytes": 0
+}

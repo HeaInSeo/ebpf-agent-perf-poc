@@ -1,0 +1,23 @@
+{
+  "before_attach": {
+    "tracing_on": "1",
+    "current_tracer": "nop",
+    "buffer_percent": "50",
+    "trace_options": "print-parent\nnosym-offset\nnosym-addr\nnoverbose\nnoraw\nnohex\nnobin\nnoblock\nnofields\ntrace_printk\nannotate\nnouserstacktrace\nnosym-userobj\nnoprintk-msg-only\ncontext-info\nnolatency-format\nrecord-cmd\nnorecord-tgid\noverwrite\nnodisable_on_free\nirq-info\nmarkers\nnoevent-fork\ntrace_printk_dest\ncopy_trace_marker\nnopause-on-trace\nhash-ptr\nnobitmask-list\nfunction-trace\nnofunction-fork\nnodisplay-graph\nnostacktrace\nnoprof-text-offset\ngraph-time\nnotest_nop_accept\nnotest_nop_refuse",
+    "events/bpf_trace/bpf_trace_printk/enable": "0"
+  },
+  "before_output_ready": {
+    "tracing_on": "1",
+    "current_tracer": "nop",
+    "buffer_percent": "50",
+    "trace_options": "print-parent\nnosym-offset\nnosym-addr\nnoverbose\nnoraw\nnohex\nnobin\nnoblock\nnofields\ntrace_printk\nannotate\nnouserstacktrace\nnosym-userobj\nnoprintk-msg-only\ncontext-info\nnolatency-format\nrecord-cmd\nnorecord-tgid\noverwrite\nnodisable_on_free\nirq-info\nmarkers\nnoevent-fork\ntrace_printk_dest\ncopy_trace_marker\nnopause-on-trace\nhash-ptr\nnobitmask-list\nfunction-trace\nnofunction-fork\nnodisplay-graph\nnostacktrace\nnoprof-text-offset\ngraph-time\nnotest_nop_accept\nnotest_nop_refuse",
+    "events/bpf_trace/bpf_trace_printk/enable": "1"
+  },
+  "output_ready": {
+    "tracing_on": "1",
+    "current_tracer": "nop",
+    "buffer_percent": "50",
+    "trace_options": "print-parent\nnosym-offset\nnosym-addr\nnoverbose\nnoraw\nnohex\nnobin\nnoblock\nnofields\ntrace_printk\nannotate\nnouserstacktrace\nnosym-userobj\nnoprintk-msg-only\ncontext-info\nnolatency-format\nrecord-cmd\nnorecord-tgid\noverwrite\nnodisable_on_free\nirq-info\nmarkers\nnoevent-fork\ntrace_printk_dest\ncopy_trace_marker\nnopause-on-trace\nhash-ptr\nnobitmask-list\nfunction-trace\nnofunction-fork\nnodisplay-graph\nnostacktrace\nnoprof-text-offset\ngraph-time\nnotest_nop_accept\nnotest_nop_refuse",
+    "events/bpf_trace/bpf_trace_printk/enable": "1"
+  }
+}

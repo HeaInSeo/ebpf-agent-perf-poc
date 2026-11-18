@@ -1,8 +1,12 @@
 # H001 후속 — CPU별 메시지 누락 재현 및 raw tracepoint 검증
 
-**현재 상태: 사전 계획. 수정 코드의 실제 커널 검증 결과는 아직 없음.** 기존 성공 뒤 같은 코드의 재실행에서 발생한 메시지 누락을 CPU별로 대조하며, 실제 실행 결과를 받은 뒤 판정을 추가함.
+**현재 상태: PASS. 일반 Hello World 1건 수신 및 raw CPU별 반복 검사 8/8 통과를 확인함. 같은 Azure 러너에서 기존 typed 방식의 CPU 1·2·3 이벤트 누락도 직접 재현했음.**
 
 [기존 H001 결과와 실패 증거](H001-HELLO-WORLD.md) · [Hello World 안내](../../experiments/hello-world/README.md) · [실행 workflow](../../.github/workflows/hello-world.yml)
+
+[성공 실행·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1) · [실행 전 고정한 사전 계획](https://github.com/HeaInSeo/ebpf-agent-perf-poc/blob/c6eb3d9723d04587cd4ff4552b7402b8495ef683/docs/experiments/H001-CPU-REGRESSION.md)
+
+아래 질문·고정 조건·반복 횟수·판정 기준은 실행 전 계획을 보존한 내용임. 실제 실행의 증거와 환경 한계는 마지막 결과 절에 기록함.
 
 ## 질문과 사전 가설
 
@@ -102,6 +106,61 @@ attempt 2·3도 연결 성공과 대상·로더 정상 종료, `DETACHED`가 확
 
 ## 후속 실행 결과
 
-아직 실행 결과가 없음. 새 실행의 고정 SHA, run URL·attempt·job, 환경, CPU별 결과표, Artifact ID·ZIP 해시, 원시 증거 경로와 최종 판정을 실제 증거 확인 후 추가함.
+### 실행 식별과 환경
+
+| 항목 | 실제 값 |
+| --- | --- |
+| 실행 | [44311402173 / attempt 1](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1) |
+| Job | [134826193606](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/job/134826193606) |
+| 소스 SHA | [`c6eb3d9723d04587cd4ff4552b7402b8495ef683`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/c6eb3d9723d04587cd4ff4552b7402b8495ef683) |
+| 일반 실행 시각 | `2026-11-18T13:13:09.383506+00:00`, 한국 시간 `2026-11-18 22:13:09` |
+| CPU 대조 시작·종료 | `2026-11-18T13:13:09.813238+00:00` ~ `2026-11-18T13:13:37.558558+00:00` |
+| 이미지 | `ubuntu24 / 20261111.370.1` |
+| 커널 | `7.0.0-1017-azure` |
+| 아키텍처·권한 | x86_64, UID `0` |
+| CPU 수·허용 집합 | 4개, `[0, 1, 2, 3]` |
+| 도구 | Clang `18.1.3`, GCC `13.3.0`, libbpf `1.3.0`, Python `3.12.3` |
+| 빌드·단위 테스트 | eBPF 두 객체와 로더 빌드 성공, 테스트 **15개 통과** |
+
+### 일반 Hello World와 CPU별 결과
+
+일반 실행에서 대상 PID `2712`, cookie `5926992076653090457`의 실제 커널 메시지 1건을 받았음. 이 실행에는 CPU 고정을 적용하지 않았으며, 메시지 원문의 CPU는 `[003]`임. 대상·로더 종료 코드 `0/0`과 `DETACHED=true`를 확인했음.
+
+```text
+         python3-2712    [003] ...3.    58.529018: bpf_trace_printk: Hello World! pid=2712 cookie=5926992076653090457
+```
+
+CPU 대조 결과는 다음과 같음. 각 칸은 해당 시험에서 실제로 받은 메시지 수임.
+
+| CPU | 기존 typed: 1회 | 수정 raw: 1회차 | 수정 raw: 2회차 |
+| --- | --- | --- | --- |
+| 0 | 1건, PASS | 1건, PASS | 1건, PASS |
+| 1 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+| 2 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+| 3 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+
+수정 raw 방식은 **8/8 통과**이며 모든 수신 원문의 CPU 표시가 지정 CPU와 일치함. 대조를 포함한 12개 실행에서 대상·로더 종료 코드 `0/0`, 정상 적재·연결 및 `DETACHED=true`를 확인했음. 외부 실행 시간 초과는 없었음.
+
+typed CPU 1·2·3의 개별 결과는 **FAIL**, 실행기 종료 코드는 `1`임. 비교 실행기는 정상 준비·실행·정리 뒤 메시지만 0건인 조건을 확인해 이를 `NO_EVENT`로 분류했음. 따라서 `typed_valid=4`는 대조 기록 네 개가 해석 가능한 조건을 충족했다는 의미이며, 기존 경로 네 개가 모두 메시지를 받았다는 뜻이 아님.
+
+### 해석과 환경 한계
+
+**이번 `7.0.0-1017-azure` 러너에서는 기존 typed 연결의 CPU별 누락과 raw 연결의 수정 효과를 직접 확인했음.** 같은 소스의 공통 PID·cookie·출력 코드를 사용하면서 연결 방식에 따라 CPU 1·2·3의 수신 결과가 달라졌음. 이 관측은 [runner-images #15003](https://github.com/actions/runner-images/issues/15003)의 Ubuntu 7.0 회귀 설명과 일치함.
+
+이전 실패 두 건은 `7.0.0-1014-aws`, 이미지 `20261111.127.1`에서 발생했으며 이번 새 실행은 `7.0.0-1017-azure`, 이미지 `20261111.370.1`을 사용함. 따라서 **이전 AWS 환경에서 CPU별 대조까지 직접 완료했다고 해석할 수 없음.** 과거 실패 시 대상 CPU가 기록되지 않았으므로 해당 실패 각각의 원인을 완전히 확정하는 데에는 한계가 있음. 수정 효과의 직접 검증 범위는 위 Azure 환경과 기록된 CPU 집합임.
+
+일반 Hello World와 CPU 회귀 검사가 모두 사전 기준을 충족했으며 workflow의 빌드·실행·요약·Artifact 단계도 성공했으므로, 이번 보정 검증의 최종 판정은 **PASS**임.
+
+### 원시 증거와 무결성
+
+- [보존 증거 전체](h001-evidence/44311402173-1/), [실행 환경](h001-evidence/44311402173-1/environment.json), [일반 결과](h001-evidence/44311402173-1/result.json), [실제 커널 원문](h001-evidence/44311402173-1/kernel-events.log).
+- [CPU별 비교 JSON](h001-evidence/44311402173-1/cpu-checks/result.json), [CPU별 Summary](h001-evidence/44311402173-1/cpu-checks/summary.md), [raw 개별 실행](h001-evidence/44311402173-1/cpu-checks/raw/), [typed 개별 실행](h001-evidence/44311402173-1/cpu-checks/typed/).
+- [Artifact `14428934541`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/artifacts/14428934541), 이름 `hello-world-44311402173-1`.
+- 다운로드한 ZIP SHA-256: `df58d202e2935c1ec9de3c43269e76f4b62c37a63801b16bfba303f57b087252`.
+- 내부 파일 **174개**를 [SHA256SUMS.txt](h001-evidence/44311402173-1/SHA256SUMS.txt)와 대조해 보존했음. [Artifact 메타데이터](h001-evidence/44311402173-1/artifact.json)에 다운로드와 검증 정보를 기록함.
+
+### 독립 검토
+
+별도 검토에서 ZIP 해시와 내부 원본 175개 파일의 바이트 일치, manifest 대상 174개 해시, 모든 실행의 소스 SHA, 실제 커널 원문·PID·cookie·CPU, 13개 실행의 정상 종료·연결 해제를 대조했음. 일반 Hello World 1건, raw 8/8 성공, typed CPU 0 수신 및 CPU 1·2·3 미수신, 단위 테스트 15개 통과와 job 전체 성공을 독립적으로 확인했음.
 
 이 실험은 해당 러너의 메시지 전달과 연결 정리를 검증함. 성능 수치, 모든 커널의 호환성, 기존 성능 PoC의 구현 선택 가설에 대한 결론은 포함하지 않음.

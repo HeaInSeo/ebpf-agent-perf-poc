@@ -4,9 +4,18 @@
 
 이 예제는 `ebpf-study`의 Hello World를 GitHub Actions에서 자동으로 실행하고 확인하도록 옮긴 학습 실험임.
 
-**현재 상태: 첫 성공 이후 같은 코드의 재실행에서 메시지 누락이 확인되어 보정 검증 중임.** [기존 성공 시도·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) · [실제 커널 메시지가 나온 작업 로그](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134771451816)
+**현재 상태: 수정 검증 PASS. 일반 Hello World 1건 수신과 CPU 0·1·2·3에서의 반복 검사 8/8 통과를 확인함.** [수정 후 성공 실행·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1) · [실제 커널 메시지와 CPU별 대조 로그](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/job/134826193606)
 
-2026년 11월 18일 20:33(KST)에 대상 커널 메시지 **1건**을 받고 정상 종료했으나, 같은 실행의 attempt 2·3에서는 메시지가 **0건**으로 실패했음. 시도별 결과는 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 보존함. CPU에 따라 기존 추적 지점의 이벤트가 누락되는지 [CPU별 대조 실험](../../docs/experiments/H001-CPU-REGRESSION.md)으로 확인하며, 수정 코드의 성공 여부는 새 실행 결과로 판정함.
+이전 코드는 한 번 성공한 뒤 같은 실행의 attempt 2·3에서 메시지 **0건**으로 실패했음. 연결 방식을 수정한 뒤 2026년 11월 18일 22:13(KST)에 새 실행을 수행했으며, 같은 시험 러너에서 기존 방식과 수정한 방식을 CPU별로 대조했음.
+
+| 실행 CPU | 기존 방식: 1회 실행 | 수정한 방식: 2회 실행 |
+| --- | --- | --- |
+| CPU 0 | 메시지 1건 수신 | 두 번 모두 메시지 1건 수신 |
+| CPU 1 | 메시지 0건 | 두 번 모두 메시지 1건 수신 |
+| CPU 2 | 메시지 0건 | 두 번 모두 메시지 1건 수신 |
+| CPU 3 | 메시지 0건 | 두 번 모두 메시지 1건 수신 |
+
+이번 대조에서는 기존 방식의 CPU별 누락과 수정한 방식의 수신 성공을 함께 확인했음. 검증한 커널은 `7.0.0-1017-azure`이며, 이전 실패의 `7.0.0-1014-aws`와는 다름. 시도별 실패·수정 이력은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md), 실제 결과와 해석 범위는 [CPU별 대조 결과](../../docs/experiments/H001-CPU-REGRESSION.md)에 보존함.
 
 ## 직접 확인하는 방법
 
@@ -41,10 +50,10 @@
 
 eBPF의 `bpf_printk()`는 **커널의 추적 버퍼에 메시지를 기록함.** 따라서 이 예제에서는 `/sys/kernel/tracing/trace_pipe`를 읽어 표준 출력으로 전달함. 로그에 나타나는 커널 메시지는 그곳에서 실제로 읽은 원문임.
 
-성공한 두 번째 실행에서 받은 메시지 부분은 다음과 같음. 숫자는 실행마다 달라짐.
+수정 후 성공한 일반 Hello World 실행에서 받은 메시지 부분은 다음과 같음. 숫자는 실행마다 달라짐.
 
 ```text
-Hello World! pid=2752 cookie=9099829962833102368
+Hello World! pid=2712 cookie=5926992076653090457
 ```
 
 - **pid:** 이번에 실행한 테스트 프로세스의 번호.
@@ -88,7 +97,7 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | `cpu-checks/` | CPU별 수정 방식·기존 방식의 원시 결과, 비교 판정과 요약 |
 | `SHA256SUMS.txt` | 보관한 결과 파일의 해시 |
 
-이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관됨. [기존 성공 시도의 Artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14423148780)와 [영구 보존한 원시 증거](../../docs/experiments/h001-evidence/44295526471-1/)를 확인할 수 있음. 실패를 포함한 시도별 기록은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 있음.
+이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관됨. [수정 검증 실행의 Artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/artifacts/14428934541)와 [영구 보존한 원시 증거](../../docs/experiments/h001-evidence/44311402173-1/)를 확인할 수 있음. 실패를 포함한 시도별 기록은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 있음.
 
 ## 이 실험이 확인하는 범위
 

@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "reason": "테스트 프로세스의 execve에서 나온 Hello World를 1건 받고 정상 종료함.",
+  "attached": true,
+  "target_pid": 2784,
+  "cookie": 4729171212302743783,
+  "target_cpu": 3,
+  "target_affinity": [
+    3
+  ],
+  "expected_events": 1,
+  "events": [
+    "            true-2784    [003] ...3.    78.147254: bpf_trace_printk: Hello World! pid=2784 cookie=4729171212302743783"
+  ],
+  "target_exit": 0,
+  "loader_exit": 0,
+  "detached": true,
+  "received_events": 1
+}

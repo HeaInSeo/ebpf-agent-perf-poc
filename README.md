@@ -6,8 +6,8 @@
 
 커널에서 나온 **`Hello World!`**를 GitHub Actions 로그와 실행 요약 화면에서 확인할 수 있는 학습용 실험을 제공함.
 
-- **현재 상태: 재실행 시 커널 메시지 누락을 확인하여 CPU별 원인 검증과 보정을 진행 중임.** [CPU별 검증 계획과 기록](docs/experiments/H001-CPU-REGRESSION.md)에서 확인 가능함.
-- [최초 성공 기록 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) — 대상 메시지 1건 수신과 정상 종료·연결 해제를 확인했으나, 동일 코드의 후속 재실행 2회에서 메시지 0건으로 실패했음.
+- **[수정 후 성공한 실행·Summary 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1)** — 기본 Hello World 메시지 1건 수신과 CPU 0~3의 반복 검사 **8/8 통과**를 확인함.
+- 같은 검증 러너에서 기존 연결 방식의 CPU별 메시지 누락을 재현하고 raw tracepoint 방식의 수신을 확인함. [CPU별 대조 결과와 검증 환경](docs/experiments/H001-CPU-REGRESSION.md)에 기록함.
 - [Hello World 실행 화면](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/workflows/hello-world.yml)에서 **Run workflow → main → Run workflow**를 선택하여 실행함.
 - 완료된 실행의 **Summary**와 **커널에서 Hello World 확인 → Hello World 실행 및 커널 메시지 확인** 로그에서 결과를 확인함.
 - [쉬운 설명과 코드 읽는 순서](experiments/hello-world/README.md) · [H001 실험 기록](docs/experiments/H001-HELLO-WORLD.md)

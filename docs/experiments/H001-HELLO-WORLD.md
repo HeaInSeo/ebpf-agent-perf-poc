@@ -1,8 +1,8 @@
 # H001 — Actions 화면에서 eBPF Hello World 확인
 
-**현재 상태: 기존 성공 실행의 attempt 2·3에서 메시지 0건으로 FAIL이 재현됨. CPU별 누락 여부와 대체 연결 방식의 수정 효과를 검증 중임. 기존 PASS와 모든 FAIL 기록은 보존함.**
+**현재 상태: raw tracepoint 보정 실행 PASS. 일반 Hello World 1건 수신과 CPU별 raw 반복 검사 8/8 통과를 확인함. 같은 Azure 러너의 기존 typed 방식은 CPU 0에서만 수신하고 CPU 1·2·3에서 0건으로 누락됨. 기존 PASS와 모든 FAIL 기록은 보존함.**
 
-[기존 성공 시도·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) · [쉽게 따라 하는 안내](../../experiments/hello-world/README.md) · [CPU별 대조 사전 계획](H001-CPU-REGRESSION.md) · [수동 실행 workflow](../../.github/workflows/hello-world.yml)
+[수정 후 성공 실행·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1) · [쉽게 따라 하는 안내](../../experiments/hello-world/README.md) · [CPU별 대조 결과](H001-CPU-REGRESSION.md) · [수동 실행 workflow](../../.github/workflows/hello-world.yml)
 
 ## 연구 질문 / 범위
 
@@ -64,6 +64,7 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | 2 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 1](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) | 대상 메시지 1건, 대상·로더 정상 종료, 연결 해제, 결과 게시 성공 | **PASS** |
 | 2의 재실행 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 2](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/2) | 연결 성공, 대상·로더 정상 종료, 수신 0바이트·메시지 0건 | **FAIL** |
 | 2의 재실행 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 3](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/3) | 연결 성공, 대상·로더 정상 종료, 수신 0바이트·메시지 0건 | **FAIL** |
+| 3 — raw 보정·CPU 대조 | [`c6eb3d9723d04587cd4ff4552b7402b8495ef683`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/c6eb3d9723d04587cd4ff4552b7402b8495ef683) | [44311402173 / attempt 1](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1) | 일반 메시지 1건, raw CPU별 8/8 통과. typed CPU 1·2·3의 0건 대조 결과 보존 | **PASS** |
 
 ### 1차 실행 — 메시지 수신 0건으로 실패
 
@@ -186,10 +187,36 @@ Artifact는 30일간 보관함. 보존 기간 이후에도 검토할 수 있도�
 - attempt 3: [원시 파일](h001-evidence/44295526471-3/), [result.json](h001-evidence/44295526471-3/result.json), [reader.json](h001-evidence/44295526471-3/reader.json), [trace-settings.json](h001-evidence/44295526471-3/trace-settings.json), [Artifact `14429561558`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14429561558).
 - attempt 3 ZIP SHA-256: `b8c97808a68ad175818d63d1b92d6767eb58c052f151b6d256a679f25447c533`. 내부 파일 14개를 [SHA256SUMS.txt](h001-evidence/44295526471-3/SHA256SUMS.txt)와 대조했음.
 
-### 원인 후보와 다음 검증
+### 대조 전 원인 후보와 검증 계획
 
 [GitHub runner-images #15003](https://github.com/actions/runner-images/issues/15003)은 일부 Ubuntu 7.0 커널에서 syscall 진입 tracepoint의 BPF 호출이 CPU에 따라 누락되는 회귀를 보고함. `execve`도 영향 대상으로 명시됨. [tinytap #444](https://github.com/shinagawa-web/tinytap/issues/444)에는 이번과 같은 `7.0.0-1014-aws`에서 `write` 누락을 관찰한 기록이 있음. 이는 이번 현상과 일치하는 원인 후보이며, 해당 보고만으로 이번 `execve` 누락의 원인이 확정되는 것은 아님.
 
-기존 성공 메시지의 CPU 표시는 `[000]`이지만 실패한 대상의 실행 CPU는 기록되지 않았음. 다음 실행에서는 대상 프로세스를 CPU별로 고정하고 기존 `tracepoint/syscalls/sys_enter_execve`와 수정한 `raw_tracepoint/sys_enter` 경로를 같은 러너에서 비교함. 세부 입력, 반복 횟수, 성공 기준과 결과 보관 방법은 [H001 CPU별 대조 사전 계획](H001-CPU-REGRESSION.md)에 고정함. 수정 방식에서도 실제 커널 메시지가 정확히 1건이어야 한다는 기준을 유지함.
+기존 성공 메시지의 CPU 표시는 `[000]`이지만 실패한 대상의 실행 CPU는 기록되지 않았음. 이에 대상 프로세스를 CPU별로 고정하고 기존 `tracepoint/syscalls/sys_enter_execve`와 수정한 `raw_tracepoint/sys_enter` 경로를 같은 러너에서 비교하는 계획을 세웠음. 세부 입력, 반복 횟수, 성공 기준과 결과 보관 방법은 [실행 전 고정한 H001 CPU 대조 계획](https://github.com/HeaInSeo/ebpf-agent-perf-poc/blob/c6eb3d9723d04587cd4ff4552b7402b8495ef683/docs/experiments/H001-CPU-REGRESSION.md)에 보존함. 수정 방식에서도 실제 커널 메시지가 정확히 1건이어야 한다는 기준을 유지함.
 
 `Re-run jobs`는 원래 실행의 SHA를 재사용하므로, 수정 코드는 **Run workflow → main → Run workflow**로 새 실행을 시작해야 함. 기존 성공 기록의 링크는 `/attempts/1`로 고정해 후속 실패 attempt와 구분함. [GitHub 공식 설명](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)
+
+## 3차 실행 — raw 보정 및 CPU별 대조 PASS
+
+2026년 11월 18일 22:13(KST)에 수정한 소스 `c6eb3d9723d04587cd4ff4552b7402b8495ef683`를 새 Actions 실행으로 검증했음. [run `44311402173` / attempt 1](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/attempts/1), [job `134826193606`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/job/134826193606)의 빌드·단위 테스트 15개·일반 Hello World·CPU 대조·Summary·Artifact 단계가 모두 통과했음.
+
+일반 Hello World는 대상 PID `2712`, cookie `5926992076653090457`의 실제 메시지를 CPU `[003]`에서 1건 수신했으며 대상·로더 종료 코드 `0/0`, `DETACHED=true`를 확인했음.
+
+| CPU | 기존 typed: 1회 | 수정 raw: 1회차 | 수정 raw: 2회차 |
+| --- | --- | --- | --- |
+| 0 | 1건, PASS | 1건, PASS | 1건, PASS |
+| 1 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+| 2 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+| 3 | 0건, `NO_EVENT` | 1건, PASS | 1건, PASS |
+
+CPU별 12개 실행은 모두 정상 적재·연결, 대상·로더 정상 종료, 연결 해제가 확인됨. 수정 raw 방식은 **8/8**에서 지정한 CPU의 실제 메시지 1건을 확인했음. 기존 typed 방식의 CPU 1·2·3은 개별 `result.json`에 **FAIL**, 실행기 종료 코드 `1`로 보존되며, 대조 분류만 `NO_EVENT`임. 원래 경로의 실패를 성공으로 바꾸지 않았음.
+
+검증 환경은 Ubuntu 이미지 `ubuntu24 / 20261111.370.1`, 커널 `7.0.0-1017-azure`, x86_64, 허용 CPU `[0,1,2,3]`임. **이전 실패의 `7.0.0-1014-aws` 러너와는 다른 환경임.** 이번 Azure 러너에서 기존 경로의 CPU별 누락을 직접 재현하고 수정 효과를 확인했으며, 알려진 Ubuntu 7.0 회귀와 일치함. 과거 AWS 실패에는 대상 실행 CPU가 기록되지 않았으므로 각 과거 실패의 원인을 이번 대조만으로 완전히 확정할 수 없음.
+
+원시 증거:
+
+- [보존 파일 전체](h001-evidence/44311402173-1/), [일반 실행 결과](h001-evidence/44311402173-1/result.json), [환경](h001-evidence/44311402173-1/environment.json), [커널 메시지 원문](h001-evidence/44311402173-1/kernel-events.log).
+- [CPU별 비교 JSON](h001-evidence/44311402173-1/cpu-checks/result.json), [CPU별 Summary](h001-evidence/44311402173-1/cpu-checks/summary.md), [상세 결과와 해석](H001-CPU-REGRESSION.md).
+- [Artifact `14428934541`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44311402173/artifacts/14428934541), ZIP SHA-256 `df58d202e2935c1ec9de3c43269e76f4b62c37a63801b16bfba303f57b087252`.
+- 내부 파일 **174개**를 [SHA256SUMS.txt](h001-evidence/44311402173-1/SHA256SUMS.txt)와 대조하여 보존했음.
+
+최종 판정은 **검증한 Azure 환경에서의 raw 경로 기능·CPU 회귀 검사 PASS**임. 기존 AWS 실패 기록과 최초 실패 원인의 불확실성, 성능 PoC의 별도 판단 범위는 유지함.
