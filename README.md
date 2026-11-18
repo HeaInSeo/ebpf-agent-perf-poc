@@ -6,6 +6,7 @@
 
 커널에서 나온 **`Hello World!`**를 GitHub Actions 로그와 실행 요약 화면에서 확인할 수 있는 학습용 실험을 추가했어.
 
+- **[Hello World가 실제로 출력된 성공 실행 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471)** — 대상 메시지 1건 수신과 정상 종료·연결 해제를 확인했어.
 - [Hello World 실행 화면](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/workflows/hello-world.yml)에서 **Run workflow → main → Run workflow**를 눌러.
 - 완료된 실행의 **Summary**와 **커널에서 Hello World 확인 → Hello World 실행 및 커널 메시지 확인** 로그를 열면 돼.
 - [쉬운 설명과 코드 읽는 순서](experiments/hello-world/README.md) · [H001 실험 기록](docs/experiments/H001-HELLO-WORLD.md)

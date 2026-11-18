@@ -4,7 +4,9 @@
 
 이 예제는 `ebpf-study`의 Hello World를 GitHub Actions에서 자동으로 실행하고 확인하도록 옮긴 학습 실험이야.
 
-**현재 검증 상태:** [첫 실행](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610)은 컴파일과 커널 연결까지 성공했지만, 대상 커널 메시지를 받지 못해 **FAIL**이야. 추적 설정 확인과 수집 방식을 보완했고 두 번째 실행을 기다리고 있어. 실패 원인은 아직 확정하지 않았어. 자세한 원문과 보정 내용은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 남겼어.
+**검증 완료: PASS.** [성공한 실행·Summary 바로 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471) · [실제 커널 메시지가 나온 작업 로그](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134771451816)
+
+2026년 11월 18일 20:33(KST)의 두 번째 실행에서 대상 커널 메시지 **1건**을 받고 정상 종료했어. 첫 실행의 메시지 미수신 실패와 보정 과정도 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 그대로 남겼어. 첫 실패의 원인은 아직 확정하지 않았어.
 
 ## 직접 확인하는 방법
 
@@ -34,10 +36,10 @@
 
 eBPF의 `bpf_printk()`는 **커널의 추적 버퍼에 메시지를 기록해.** 그래서 이 예제에서는 `/sys/kernel/tracing/trace_pipe`를 읽어 표준 출력으로 전달해. 로그에 나타나는 커널 메시지는 그곳에서 실제로 읽은 원문이야.
 
-메시지 형식은 다음과 같아. 숫자는 실행마다 달라져.
+성공한 두 번째 실행에서 받은 메시지 부분은 다음과 같아. 숫자는 실행마다 달라져.
 
 ```text
-Hello World! pid=12345 cookie=67890
+Hello World! pid=2752 cookie=9099829962833102368
 ```
 
 - **pid:** 이번에 실행한 테스트 프로세스의 번호.
@@ -79,7 +81,7 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | `trace-settings.json` / `reader.json` | 추적 설정과 메시지 읽기 진단. 두 번째 실행용 보정부터 추가됐어. |
 | `SHA256SUMS.txt` | 보관한 결과 파일의 해시 |
 
-이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관돼. 첫 실행의 실제 링크와 증거는 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에서 확인할 수 있어.
+이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관돼. [성공한 실행의 Artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14423148780)와 [영구 보존한 원시 증거](../../docs/experiments/h001-evidence/44295526471-1/)를 확인할 수 있어. 실패를 포함한 시도별 기록은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 있어.
 
 ## 이 실험이 확인하는 범위
 
