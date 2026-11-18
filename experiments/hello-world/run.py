@@ -49,6 +49,19 @@ def validate_result(events, target_exit, loader_exit, detached):
         raise RuntimeError(f"eBPF 로더의 정상 정리를 확인하지 못함: exit={loader_exit}")
 
 
+def configure_target_cpu(pid, cpu):
+    """Pin the gated target before attach/execve and verify the applied affinity."""
+    allowed = os.sched_getaffinity(0)
+    if cpu is not None:
+        if cpu not in allowed:
+            raise Blocked(f"요청한 CPU {cpu}가 허용된 CPU 목록에 없음: {sorted(allowed)}")
+        os.sched_setaffinity(pid, {cpu})
+    affinity = sorted(os.sched_getaffinity(pid))
+    if cpu is not None and affinity != [cpu]:
+        raise RuntimeError(f"대상 CPU 고정 확인 실패: 요청={cpu}, 실제={affinity}")
+    return affinity
+
+
 def wait_ready(process, expected, destination, timeout=8):
     """Read a flushed readiness line without an unbounded readline()."""
     deadline = time.monotonic() + timeout
@@ -181,6 +194,7 @@ def environment(output):
         "architecture": platform.machine(),
         "uid": os.geteuid(),
         "cpu_count": os.cpu_count(),
+        "allowed_cpus": sorted(os.sched_getaffinity(0)),
         "runner_image": os.environ.get("ImageOS", "unknown"),
         "runner_image_version": os.environ.get("ImageVersion", "unknown"),
         "source_sha": source_sha,
@@ -220,6 +234,8 @@ def summary(result, env):
         f"| 로더 종료 코드 | {result['loader_exit']} |",
         f"| eBPF 연결 정리 확인 | {'✅' if result['detached'] else '❌'} |",
         f"| 대상 PID | `{result['target_pid']}` |",
+        f"| 지정한 대상 CPU | {result['target_cpu'] if result['target_cpu'] is not None else '미지정'} |",
+        f"| 대상 CPU affinity | `{result['target_affinity']}` |",
         f"| 실행 식별값 | `{result['cookie']}` |",
         f"| 커널 | `{env['kernel']}` |",
         f"| 실행한 코드 | `{env['source_sha']}` |",
@@ -244,6 +260,7 @@ def main():
     parser.add_argument("--object", type=Path, default=HERE / "build/hello.bpf.o")
     parser.add_argument("--loader", type=Path, default=HERE / "build/hello")
     parser.add_argument("--timeout", type=float, default=8)
+    parser.add_argument("--cpu", type=int, help="Pin the test target to one allowed CPU before execve")
     args = parser.parse_args()
     if not 0 < args.timeout <= 20:
         parser.error("--timeout must be greater than 0 and at most 20 seconds")
@@ -253,6 +270,7 @@ def main():
     result = {
         "status": "FAIL", "reason": "실행이 완료되지 않음", "attached": False,
         "target_pid": None, "cookie": secrets.randbits(63) or 1,
+        "target_cpu": args.cpu, "target_affinity": [],
         "expected_events": 1, "events": [], "target_exit": None,
         "loader_exit": None, "detached": False,
     }
@@ -275,8 +293,10 @@ def main():
                 raise RuntimeError("체크아웃한 소스 SHA와 Actions의 GITHUB_SHA가 다름")
             if os.geteuid() != 0:
                 raise Blocked("격리된 Linux 실험 환경에서 sudo 권한이 필요함")
-            if not (tracing / "events/syscalls/sys_enter_execve/id").is_file():
-                raise Blocked("tracefs 또는 sys_enter_execve tracepoint가 없음")
+            if not (tracing / "events/raw_syscalls/sys_enter/id").is_file():
+                raise Blocked("tracefs 또는 raw_syscalls/sys_enter tracepoint가 없음")
+            if args.cpu is not None and args.cpu not in env["allowed_cpus"]:
+                raise Blocked(f"요청한 CPU {args.cpu}가 허용된 CPU 목록에 없음: {env['allowed_cpus']}")
             if not args.object.is_file() or not args.loader.is_file():
                 raise Blocked("빌드 결과가 없음. 먼저 make -C experiments/hello-world를 실행해야 함")
             trace_fd = os.open(tracing / "trace_pipe", os.O_RDONLY | os.O_NONBLOCK)
@@ -288,7 +308,9 @@ def main():
             )
             result["target_pid"] = target.pid
             wait_ready(target, "TARGET_READY", target_out)
+            result["target_affinity"] = configure_target_cpu(target.pid, args.cpu)
             log(f"[준비] 테스트 프로세스 PID={target.pid}; 아직 execve 이벤트를 발생시키지 않음")
+            log(f"[CPU 확인] 요청={args.cpu}, 대상 affinity={result['target_affinity']}")
             loader = subprocess.Popen(
                 [str(args.loader.resolve()), str(args.object.resolve()), str(target.pid), str(result["cookie"])],
                 stdout=subprocess.PIPE, stderr=loader_err, bufsize=0,

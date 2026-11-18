@@ -47,8 +47,8 @@ jobs:
         run: |
           set -o pipefail
           {
-            make -C experiments/hello-world
-            python3 -m unittest discover -s experiments/hello-world -p test_run.py -v
+            make -C experiments/hello-world regression
+            python3 -m unittest discover -s experiments/hello-world -p 'test_*.py' -v
           } 2>&1 | tee results/hello-world/build.log
 
       - name: Hello World 실행 및 커널 메시지 확인
@@ -63,6 +63,14 @@ jobs:
               /usr/bin/python3 -u experiments/hello-world/run.py --output results/hello-world
           } 2>&1 | tee results/hello-world/probe.log
 
+      - name: CPU별 이벤트 수신 회귀 검사
+        shell: bash
+        run: |
+          set -o pipefail
+          sudo --preserve-env=GITHUB_REPOSITORY,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,ImageOS,ImageVersion \
+            /usr/bin/python3 -u experiments/hello-world/verify_cpus.py --output results/hello-world/cpu-checks \
+            2>&1 | tee results/hello-world/cpu-checks.log
+
       - name: 실행 요약 표시 및 원본 로그 봉인
         if: always()
         shell: bash
@@ -76,6 +84,10 @@ jobs:
               echo ''
               echo '커널 메시지 검증 단계가 완료되지 않음. 실패한 단계의 로그 확인이 필요함.'
             } | tee results/hello-world/summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f results/hello-world/cpu-checks/summary.md ]; then
+            printf '\n' >> "$GITHUB_STEP_SUMMARY"
+            cat results/hello-world/cpu-checks/summary.md >> "$GITHUB_STEP_SUMMARY"
           fi
           (
             cd results/hello-world

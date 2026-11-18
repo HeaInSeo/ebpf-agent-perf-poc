@@ -6,12 +6,15 @@
 
 커널에서 나온 **`Hello World!`**를 GitHub Actions 로그와 실행 요약 화면에서 확인할 수 있는 학습용 실험을 제공함.
 
-- **[Hello World가 실제로 출력된 성공 실행 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471)** — 대상 메시지 1건 수신과 정상 종료·연결 해제를 확인함.
+- **현재 상태: 재실행 시 커널 메시지 누락을 확인하여 CPU별 원인 검증과 보정을 진행 중임.** [CPU별 검증 계획과 기록](docs/experiments/H001-CPU-REGRESSION.md)에서 확인 가능함.
+- [최초 성공 기록 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) — 대상 메시지 1건 수신과 정상 종료·연결 해제를 확인했으나, 동일 코드의 후속 재실행 2회에서 메시지 0건으로 실패했음.
 - [Hello World 실행 화면](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/workflows/hello-world.yml)에서 **Run workflow → main → Run workflow**를 선택하여 실행함.
 - 완료된 실행의 **Summary**와 **커널에서 Hello World 확인 → Hello World 실행 및 커널 메시지 확인** 로그에서 결과를 확인함.
 - [쉬운 설명과 코드 읽는 순서](experiments/hello-world/README.md) · [H001 실험 기록](docs/experiments/H001-HELLO-WORLD.md)
 
 `ebpf-study`의 예제를 이 저장소에 가져와 자동 실행에 맞게 확장함. 성능 실험과 별도로 실행하며, 실제 커널 메시지 수신으로 성공을 판정함.
+
+수정된 최신 코드를 확인하려면 **Run workflow → main**으로 새 실행을 시작해야 함. 기존 실행의 **Re-run jobs**는 해당 실행 당시의 코드로 다시 실행됨.
 
 ## Experiment evidence
 

@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "reason": "대상 커널 메시지가 정확히 1건이어야 해: 실제 0건",
+  "attached": true,
+  "target_pid": 2794,
+  "cookie": 8654983601996443694,
+  "expected_events": 1,
+  "events": [],
+  "target_exit": 0,
+  "loader_exit": 0,
+  "detached": true,
+  "received_events": 0
+}

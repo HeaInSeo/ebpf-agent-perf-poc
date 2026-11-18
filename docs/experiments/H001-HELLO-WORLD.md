@@ -1,8 +1,8 @@
 # H001 — Actions 화면에서 eBPF Hello World 확인
 
-**현재 상태: 2차 실행 PASS. 대상 커널 메시지 1건 수신, 정상 종료·연결 해제, 로그·Summary·Artifact 게시를 확인했음. 1차 FAIL 기록은 보존함.**
+**현재 상태: 기존 성공 실행의 attempt 2·3에서 메시지 0건으로 FAIL이 재현됨. CPU별 누락 여부와 대체 연결 방식의 수정 효과를 검증 중임. 기존 PASS와 모든 FAIL 기록은 보존함.**
 
-[성공한 실행·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471) · [쉽게 따라 하는 안내](../../experiments/hello-world/README.md) · [수동 실행 workflow](../../.github/workflows/hello-world.yml)
+[기존 성공 시도·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) · [쉽게 따라 하는 안내](../../experiments/hello-world/README.md) · [CPU별 대조 사전 계획](H001-CPU-REGRESSION.md) · [수동 실행 workflow](../../.github/workflows/hello-world.yml)
 
 ## 연구 질문 / 범위
 
@@ -61,7 +61,9 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | 시도 | 코드 SHA | 실행 링크 | 측정·오류 근거 | 판정 |
 | --- | --- | --- | --- | --- |
 | 1 | [`005dd51233a46ac9a3cad28ede679b6731368d7d`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/005dd51233a46ac9a3cad28ede679b6731368d7d) | [44294538610](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44294538610) | 연결 성공, 대상·로더 정상 종료, 일치 메시지 0건 | **FAIL** |
-| 2 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471) | 대상 메시지 1건, 대상·로더 정상 종료, 연결 해제, 결과 게시 성공 | **PASS** |
+| 2 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 1](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) | 대상 메시지 1건, 대상·로더 정상 종료, 연결 해제, 결과 게시 성공 | **PASS** |
+| 2의 재실행 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 2](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/2) | 연결 성공, 대상·로더 정상 종료, 수신 0바이트·메시지 0건 | **FAIL** |
+| 2의 재실행 | [`71d492b88a38c9504aedd48f98e22edfc6ab54b6`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/commit/71d492b88a38c9504aedd48f98e22edfc6ab54b6) | [44295526471 / attempt 3](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/3) | 연결 성공, 대상·로더 정상 종료, 수신 0바이트·메시지 0건 | **FAIL** |
 
 ### 1차 실행 — 메시지 수신 0건으로 실패
 
@@ -146,7 +148,7 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 
 Artifact는 30일간 보관함. 보존 기간 이후에도 검토할 수 있도록 시도별 원시 증거를 `h001-evidence/`에 보존함. 두 실행의 실제 경로와 Artifact 해시는 위 기록에 연결했음.
 
-## 분석 및 독립 검토
+## 최초 두 실행의 분석 및 독립 검토
 
 관찰 사실은 **1차 수신 실패와 2차 메시지 1건 수신 성공**임. 2차 실행은 로더 준비, 대상 이벤트, 커널 원문 수집, 정상 종료·연결 해제, GitHub 결과 표시까지 확인했음. 첫 실패의 정확한 원인은 후속 성공만으로 확정할 수 없음.
 
@@ -157,3 +159,37 @@ Artifact는 30일간 보관함. 보존 기간 이후에도 검토할 수 있도�
 로더 정상 종료와 `DETACHED` 확인은 이 예제가 생성한 연결의 정리 절차를 검증함. 시스템 전체의 모든 eBPF 객체가 없어졌다고 주장하지 않음.
 
 이번 실험의 성공은 해당 실행 환경에서 관측·출력 경로가 작동함을 뜻함. 성능 개선이나 기존 PoC의 구현 선택 가설에 대한 결론을 바꾸지 않음.
+
+## 후속 재실행 — 같은 코드에서 메시지 누락 재현
+
+2026년 11월 18일 사용자가 기존 성공 실행을 재시도한 attempt 2·3에서 모두 메시지 0건으로 실패했음. 세 attempt의 소스 SHA는 모두 `71d492b88a38c9504aedd48f98e22edfc6ab54b6`임. 문체 변경 커밋 `efc00766543ead9051477f11e293e2cbeb10136f`는 이 재실행에 사용되지 않았음.
+
+| 항목 | attempt 2 | attempt 3 |
+| --- | --- | --- |
+| 실행 시각 | 2026-11-18 20:52:13 KST | 2026-11-18 21:59:00 KST |
+| Job | [134781174080](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134781174080) | [134817838922](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134817838922) |
+| 대상 PID | `2794` | `2761` |
+| cookie | `8654983601996443694` | `8326728151328774987` |
+| 빌드·단위 테스트 | 성공·5개 통과 | 성공·5개 통과 |
+| eBPF 연결 | 성공 | 성공 |
+| 수신 바이트·메시지 | `0`바이트·`0`건 | `0`바이트·`0`건 |
+| 대상·로더 종료 코드 | `0` / `0` | `0` / `0` |
+| `DETACHED` | `true` | `true` |
+| 판정 | **FAIL** | **FAIL** |
+
+두 재실행 모두 Ubuntu 이미지 `ubuntu24 / 20261111.127.1`, 커널 `7.0.0-1014-aws`, x86_64, 4 CPU를 사용했음. 대상 이벤트 전에 `tracing_on=1`과 `bpf_trace_printk/enable=1`을 확인했으며, 수집기는 완성된 줄과 부분 데이터 모두 0건을 기록했음. 따라서 읽은 메시지를 PID·cookie 필터가 거부한 상황으로 해석할 근거는 없음.
+
+보존 증거:
+
+- attempt 2: [원시 파일](h001-evidence/44295526471-2/), [result.json](h001-evidence/44295526471-2/result.json), [reader.json](h001-evidence/44295526471-2/reader.json), [trace-settings.json](h001-evidence/44295526471-2/trace-settings.json), [Artifact `14424123229`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14424123229).
+- attempt 2 ZIP SHA-256: `229a8809d663f385dd3a274f3a4e1d8d8af6777f9af2df461d8c43b68a5e8f6c`. 내부 파일 14개를 [SHA256SUMS.txt](h001-evidence/44295526471-2/SHA256SUMS.txt)와 대조했음.
+- attempt 3: [원시 파일](h001-evidence/44295526471-3/), [result.json](h001-evidence/44295526471-3/result.json), [reader.json](h001-evidence/44295526471-3/reader.json), [trace-settings.json](h001-evidence/44295526471-3/trace-settings.json), [Artifact `14429561558`](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14429561558).
+- attempt 3 ZIP SHA-256: `b8c97808a68ad175818d63d1b92d6767eb58c052f151b6d256a679f25447c533`. 내부 파일 14개를 [SHA256SUMS.txt](h001-evidence/44295526471-3/SHA256SUMS.txt)와 대조했음.
+
+### 원인 후보와 다음 검증
+
+[GitHub runner-images #15003](https://github.com/actions/runner-images/issues/15003)은 일부 Ubuntu 7.0 커널에서 syscall 진입 tracepoint의 BPF 호출이 CPU에 따라 누락되는 회귀를 보고함. `execve`도 영향 대상으로 명시됨. [tinytap #444](https://github.com/shinagawa-web/tinytap/issues/444)에는 이번과 같은 `7.0.0-1014-aws`에서 `write` 누락을 관찰한 기록이 있음. 이는 이번 현상과 일치하는 원인 후보이며, 해당 보고만으로 이번 `execve` 누락의 원인이 확정되는 것은 아님.
+
+기존 성공 메시지의 CPU 표시는 `[000]`이지만 실패한 대상의 실행 CPU는 기록되지 않았음. 다음 실행에서는 대상 프로세스를 CPU별로 고정하고 기존 `tracepoint/syscalls/sys_enter_execve`와 수정한 `raw_tracepoint/sys_enter` 경로를 같은 러너에서 비교함. 세부 입력, 반복 횟수, 성공 기준과 결과 보관 방법은 [H001 CPU별 대조 사전 계획](H001-CPU-REGRESSION.md)에 고정함. 수정 방식에서도 실제 커널 메시지가 정확히 1건이어야 한다는 기준을 유지함.
+
+`Re-run jobs`는 원래 실행의 SHA를 재사용하므로, 수정 코드는 **Run workflow → main → Run workflow**로 새 실행을 시작해야 함. 기존 성공 기록의 링크는 `/attempts/1`로 고정해 후속 실패 attempt와 구분함. [GitHub 공식 설명](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)

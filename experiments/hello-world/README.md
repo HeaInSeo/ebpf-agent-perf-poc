@@ -4,9 +4,9 @@
 
 이 예제는 `ebpf-study`의 Hello World를 GitHub Actions에서 자동으로 실행하고 확인하도록 옮긴 학습 실험임.
 
-**검증 완료: PASS.** [성공한 실행·Summary 바로 보기](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471) · [실제 커널 메시지가 나온 작업 로그](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134771451816)
+**현재 상태: 첫 성공 이후 같은 코드의 재실행에서 메시지 누락이 확인되어 보정 검증 중임.** [기존 성공 시도·Summary](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/attempts/1) · [실제 커널 메시지가 나온 작업 로그](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/job/134771451816)
 
-2026년 11월 18일 20:33(KST)의 두 번째 실행에서 대상 커널 메시지 **1건**을 받고 정상 종료했음. 첫 실행의 메시지 미수신 실패와 보정 과정도 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 그대로 남겼음. 첫 실패의 원인은 아직 확정되지 않았음.
+2026년 11월 18일 20:33(KST)에 대상 커널 메시지 **1건**을 받고 정상 종료했으나, 같은 실행의 attempt 2·3에서는 메시지가 **0건**으로 실패했음. 시도별 결과는 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 보존함. CPU에 따라 기존 추적 지점의 이벤트가 누락되는지 [CPU별 대조 실험](../../docs/experiments/H001-CPU-REGRESSION.md)으로 확인하며, 수정 코드의 성공 여부는 새 실행 결과로 판정함.
 
 ## 직접 확인하는 방법
 
@@ -18,17 +18,22 @@
 
 `Run workflow` 버튼을 사용하려면 저장소에 실행 권한이 있는 계정으로 로그인해야 함. 이 workflow는 수동 실행용임.
 
+**수정한 코드를 실행할 때는 `Run workflow → main → Run workflow`로 새 실행을 시작해야 함.** 기존 실행의 `Re-run jobs`는 처음 실행한 코드 SHA를 다시 사용함. 따라서 `main`에 새 수정이 있어도 기존 실행을 재시도하면 이전 코드가 실행됨. [GitHub 공식 설명](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/re-run-workflows-and-jobs)
+
 ## 실행 순서
 
 테스트는 다음 순서로 진행됨.
 
 1. **컴파일:** C 소스를 eBPF 오브젝트와 사용자 공간 로더로 각각 빌드함.
-2. **연결:** 로더가 eBPF 프로그램을 커널에 올리고 `execve()` 이벤트에 연결함.
+2. **연결:** 로더가 eBPF 프로그램을 커널에 올리고 전체 시스템 호출 진입 지점에 연결함. eBPF 코드는 그중 `execve()`만 선택함.
 3. **이벤트 발생:** 연결 완료와 커널 메시지 기록 설정을 확인한 뒤, 테스트 프로세스가 `/usr/bin/true`를 실행함. 이때 `execve()`가 호출됨.
 4. **커널 메시지 수신:** eBPF가 `Hello World!`를 기록하면, 수집기가 커널의 `trace_pipe`에서 읽어 Actions 로그에 표시함.
 5. **검증과 종료:** 8초 안에 이번 테스트의 메시지를 정확히 한 건 받았는지 확인하고 로더와 연결을 정리함.
+6. **CPU별 회귀 검사:** 허용된 각 CPU에서 수정한 방식으로 두 번씩 실행해 메시지 수신을 확인함. 기존 연결 방식도 CPU마다 한 번씩 실행해 차이를 기록함. 결과는 **CPU별 이벤트 수신 회귀 검사** 단계와 Summary에서 확인 가능함.
 
 여기서 `execve()`는 **프로세스가 새 프로그램을 실행할 때 사용하는 시스템 호출**임. `/usr/bin/true`는 정상 종료하는 작은 프로그램이므로 이벤트를 만들기 위한 대상으로 사용함.
+
+수정한 연결 방식은 `raw_tracepoint/sys_enter`이며, 시스템 호출 번호와 대상 PID를 검사해 이번 테스트의 `execve()`만 기록함. 기존 `tracepoint/syscalls/sys_enter_execve` 방식은 CPU별 누락 여부를 확인하는 대조용으로 보존함. 두 방식 모두 실제 커널 메시지를 수집하며, 수정한 방식은 모든 시험 CPU에서 메시지를 받아야 통과함.
 
 ## 출력 프로그램이 따로 필요한 이유
 
@@ -54,6 +59,7 @@ eBPF는 지정한 PID만 관찰하고, 수집기는 PID와 cookie가 모두 맞�
 | [hello.bpf.c](hello.bpf.c) | 커널에서 실행됨. 대상 프로세스의 `execve()`를 확인하고 메시지를 기록함. |
 | [hello.c](hello.c) | 사용자 공간에서 실행됨. eBPF 적재, PID·cookie 설정, 이벤트 연결과 해제를 담당함. |
 | [run.py](run.py) | 테스트 프로세스와 로더를 실행하고, 커널 메시지를 수집·검증함. |
+| [verify_cpus.py](verify_cpus.py) | 테스트 프로세스를 CPU별로 고정하여 수정한 방식과 기존 방식을 순차 대조함. |
 | [Makefile](Makefile) | eBPF 코드와 일반 C 로더를 각각 컴파일함. |
 | [hello-world.yml](../../.github/workflows/hello-world.yml) | GitHub Actions의 준비, 빌드, 실행, 요약과 결과 보관을 연결함. |
 
@@ -79,9 +85,10 @@ sudo python3 -u experiments/hello-world/run.py --output results/hello-world
 | `loader.stdout.log` / `loader.stderr.log` | 로더의 연결·정리 기록과 오류 |
 | `result.json` / `environment.json` | 판정과 재현 환경 |
 | `trace-settings.json` / `reader.json` | 추적 설정과 메시지 읽기 진단. 두 번째 실행용 보정부터 추가됨. |
+| `cpu-checks/` | CPU별 수정 방식·기존 방식의 원시 결과, 비교 판정과 요약 |
 | `SHA256SUMS.txt` | 보관한 결과 파일의 해시 |
 
-이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관됨. [성공한 실행의 Artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14423148780)와 [영구 보존한 원시 증거](../../docs/experiments/h001-evidence/44295526471-1/)를 확인할 수 있음. 실패를 포함한 시도별 기록은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 있음.
+이 파일들은 `results/hello-world/`에 모여 Artifact로 30일간 보관됨. [기존 성공 시도의 Artifact](https://github.com/HeaInSeo/ebpf-agent-perf-poc/actions/runs/44295526471/artifacts/14423148780)와 [영구 보존한 원시 증거](../../docs/experiments/h001-evidence/44295526471-1/)를 확인할 수 있음. 실패를 포함한 시도별 기록은 [H001 실험 기록](../../docs/experiments/H001-HELLO-WORLD.md)에 있음.
 
 ## 이 실험이 확인하는 범위
 
