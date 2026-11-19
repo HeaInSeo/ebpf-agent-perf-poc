@@ -1,0 +1,118 @@
+name: Chapter 3 eBPF Exercises (isolated)
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/chapter3-exercises.yml
+      - experiments/chapter3-exercises/**
+      - docs/experiments/H002-CHAPTER3-EXERCISES.md
+
+permissions:
+  contents: read
+
+concurrency:
+  group: chapter3-exercises-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chapter3:
+    name: Four kernel-backed exercises
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Set up kernel tooling
+        id: deps
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p results/chapter3-exercises
+          {
+            uname -a
+            test "$(uname -m)" = x86_64
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends \
+              make clang llvm gcc libbpf-dev libelf-dev \
+              iproute2 iputils-ping python3-bpfcc \
+              linux-tools-common linux-tools-generic
+            if apt-cache show "linux-headers-$(uname -r)" >/dev/null 2>&1; then
+              sudo apt-get install -y --no-install-recommends "linux-headers-$(uname -r)"
+            fi
+            tool="$(find /usr/lib/linux-tools -type f -name bpftool | sort -V | tail -1)"
+            if [ -n "$tool" ]; then
+              sudo ln -sf "$tool" /usr/local/bin/bpftool
+            fi
+            bpftool version
+            /usr/bin/python3 -c 'from bcc import BPF; print("BCC Python import: OK")'
+            clang --version
+            dpkg-query -W python3-bpfcc linux-tools-generic libbpf-dev clang iproute2
+            test -r /sys/kernel/btf/vmlinux && sha256sum /sys/kernel/btf/vmlinux
+          } 2>&1 | tee results/chapter3-exercises/setup.log
+
+      - name: Static source tests and compile XDP objects
+        id: build
+        if: steps.deps.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            bash -n experiments/chapter3-exercises/xdp_isolated.sh
+            python3 -m py_compile experiments/chapter3-exercises/bcc_worker.py \
+              experiments/chapter3-exercises/inspect.py \
+              experiments/chapter3-exercises/report.py
+            make -C experiments/chapter3-exercises
+            sha256sum experiments/chapter3-exercises/*.bpf.o
+          } 2>&1 | tee results/chapter3-exercises/build.log
+
+      - name: EX01 and EX04 - isolated XDP attach, abort, detach
+        if: steps.build.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo --preserve-env=GITHUB_ACTIONS,RUNNER_ENVIRONMENT \
+            bash experiments/chapter3-exercises/xdp_isolated.sh \
+              results/chapter3-exercises \
+            2>&1 | tee results/chapter3-exercises/xdp.log
+
+      - name: EX02 and EX03 - live bpftool inspection and tail call
+        if: always() && steps.deps.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo --preserve-env=GITHUB_ACTIONS \
+            /usr/bin/python3 -u experiments/chapter3-exercises/inspect.py \
+              --output results/chapter3-exercises \
+            2>&1 | tee results/chapter3-exercises/bpftool.log
+
+      - name: Publish observed results to Actions Summary
+        if: always()
+        shell: bash
+        run: |
+          python3 experiments/chapter3-exercises/report.py results/chapter3-exercises
+
+      - name: Seal source identity and raw evidence
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD > results/chapter3-exercises/source-sha.txt
+          (
+            cd results/chapter3-exercises
+            find . -type f ! -name SHA256SUMS.txt -print0 \
+              | sort -z | xargs -0 -r sha256sum > SHA256SUMS.txt
+          )
+
+      - name: Upload logs, dumps and counter snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chapter3-exercises-${{ github.run_id }}-${{ github.run_attempt }}
+          path: results/chapter3-exercises/
+          retention-days: 30
+          if-no-files-found: error
