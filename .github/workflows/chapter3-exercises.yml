@@ -55,6 +55,30 @@ jobs:
             test -r /sys/kernel/btf/vmlinux && sha256sum /sys/kernel/btf/vmlinux
           } 2>&1 | tee results/chapter3-exercises/setup.log
 
+      - name: Build bpftool with JIT disassembly support
+        id: jitbpftool
+        if: steps.deps.outcome == 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            sudo apt-get install -y --no-install-recommends \
+              binutils-dev libcap-dev libssl-dev libzstd-dev zlib1g-dev pkg-config
+            git clone --depth 1 --branch v7.7.0 --recurse-submodules \
+              --shallow-submodules https://github.com/libbpf/bpftool.git \
+              "$RUNNER_TEMP/bpftool-ch3"
+            git -C "$RUNNER_TEMP/bpftool-ch3" rev-parse HEAD \
+              > results/chapter3-exercises/bpftool-source-sha.txt
+            make -C "$RUNNER_TEMP/bpftool-ch3/src" -j2 SKIP_CRYPTO=1
+            sudo install -m 0755 "$RUNNER_TEMP/bpftool-ch3/src/bpftool" \
+              /usr/local/bin/bpftool
+            bpftool version
+            if strings /usr/local/bin/bpftool | grep -q 'No JIT disassembly support'; then
+              echo 'FAIL: bpftool built without JIT disassembler' >&2
+              exit 1
+            fi
+          } 2>&1 | tee results/chapter3-exercises/bpftool-build.log
+
       - name: Static source tests and compile XDP objects
         id: build
         if: steps.deps.outcome == 'success'
@@ -81,7 +105,7 @@ jobs:
             2>&1 | tee results/chapter3-exercises/xdp.log
 
       - name: EX02 and EX03 - live bpftool inspection and tail call
-        if: always() && steps.deps.outcome == 'success'
+        if: always() && steps.jitbpftool.outcome == 'success'
         shell: bash
         run: |
           set -euo pipefail
